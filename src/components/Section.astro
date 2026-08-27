@@ -1,0 +1,42 @@
+---
+// Numbered section: huge accent numeral + mono label + display heading,
+// one strong image, minimal copy in the slot.
+interface Props {
+  num: string;        // "02"
+  id: string;         // anchor target for the rail
+  label: string;      // mono kicker, e.g. "Handcrafted.//"
+  heading: string;    // display heading
+  image?: string;     // one strong image per section
+  imageAlt?: string;
+  flip?: boolean;     // image on the left instead of right
+  class?: string;
+}
+const { num, id, label, heading, image, imageAlt = '', flip = false, class: className = '' } = Astro.props;
+---
+<section id={id} class={`relative mx-auto max-w-7xl scroll-mt-20 px-4 py-24 sm:px-6 md:py-32 ${className}`}>
+  <div class={`grid items-center gap-10 md:grid-cols-2 ${flip ? 'md:[&>div:first-child]:order-2' : ''}`}>
+    <div class="reveal">
+      <div class="flex items-baseline gap-4">
+        <span class="display text-6xl text-accent md:text-8xl" aria-hidden="true">{num}</span>
+        <span class="label text-xs text-muted">{label}</span>
+      </div>
+      <h2 class="display mt-4 text-4xl md:text-6xl">{heading}</h2>
+      <div class="mt-6 max-w-prose text-base leading-relaxed text-paper/80">
+        <slot />
+      </div>
+      <div class="mt-8">
+        <slot name="cta" />
+      </div>
+    </div>
+    {image && (
+      <div class="reveal">
+        <img src={image} alt={imageAlt} loading="lazy" class="w-full rounded-sm border border-white/10 object-cover" />
+      </div>
+    )}
+    {!image && (
+      <div class="reveal flex aspect-[4/3] items-center justify-center rounded-sm border border-dashed border-white/20">
+        <span class="label text-xs text-muted">Photo-Slot.// {heading}</span>
+      </div>
+    )}
+  </div>
+</section>

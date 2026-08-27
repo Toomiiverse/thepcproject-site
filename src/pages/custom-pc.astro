@@ -1,0 +1,36 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+
+const steps = [
+  { num: '01', label: 'Consult.//', heading: 'Talk It Through', body: 'Come in-store or email us. We work out what the machine is for, what it should look like, and what it should cost — exact numbers, upfront.' },
+  { num: '02', label: 'Design.//', heading: 'Plan The Build', body: 'We research the best parts and deals inside your budget, then handle all procurement. You approve the final spec before anything is ordered.' },
+  { num: '03', label: 'Build.//', heading: 'Handcrafted', body: 'Assembled around your vision, style, and performance needs — cable management and thermals included, not extra.' },
+  { num: '04', label: 'Deliver.//', heading: 'Tested & Warrantied', body: 'Every build is benchmarked before handover and covered by our Zero-Initiative Warranty Program. Local delivery as far as Bunbury.' },
+];
+---
+<Base title="Custom PC | The PC Project">
+  <PageHero label="Handcrafted.//" heading="Fully Custom">
+    <p>A PC designed around you, not a spec sheet. Here's how it works.</p>
+  </PageHero>
+
+  <section class="mx-auto max-w-7xl px-4 pb-24 sm:px-6">
+    <ol class="grid gap-12 md:grid-cols-2">
+      {steps.map((s) => (
+        <li class="reveal">
+          <div class="flex items-baseline gap-4">
+            <span class="display text-5xl text-accent" aria-hidden="true">{s.num}</span>
+            <span class="label text-xs text-muted">{s.label}</span>
+          </div>
+          <h2 class="display mt-3 text-3xl">{s.heading}</h2>
+          <p class="mt-3 max-w-prose text-sm leading-relaxed text-paper/70">{s.body}</p>
+        </li>
+      ))}
+    </ol>
+    <div class="mt-16">
+      <a href="/contact" class="label rounded-sm bg-accent px-6 py-3 text-sm font-medium text-ink transition-colors hover:bg-paper focus-visible:outline-2 focus-visible:outline-paper active:translate-y-px">
+        Start-A-Build
+      </a>
+    </div>
+  </section>
+</Base>

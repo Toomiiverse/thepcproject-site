@@ -1,0 +1,129 @@
+---
+import Base from '../layouts/Base.astro';
+import Section from '../components/Section.astro';
+
+const rail = [
+  { num: '01', id: 'top' },
+  { num: '02', id: 'custom-pc' },
+  { num: '03', id: 'in-store' },
+  { num: '04', id: 'why-us' },
+  { num: '05', id: 'visit' },
+];
+
+const testimonials = [
+  { name: 'Wali', quote: 'The PCs they make and sell are fantastic in both aesthetics and performance.' },
+  { name: 'Kelvin S.', quote: 'Amazing experience from start to finish. The PC itself is beautiful, well-built, and runs perfectly.' },
+  { name: 'Alexander M.', quote: 'Great service and went above and beyond for a powerful build on a budget.' },
+];
+---
+<Base title="The PC Project | Custom PCs & Gaming Lounge in Northbridge, Perth">
+  <!-- fixed numbered rail (desktop) -->
+  <nav aria-label="Page sections" class="fixed left-4 top-1/2 z-40 hidden -translate-y-1/2 flex-col gap-3 lg:flex">
+    {rail.map((r) => (
+      <a href={'#' + r.id} data-rail-link class="label text-xs text-muted transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-accent">
+        {r.num}
+      </a>
+    ))}
+  </nav>
+
+  <!-- 01 · hero -->
+  <section id="top" class="relative flex min-h-svh scroll-mt-20 items-center px-4 pt-16 sm:px-6">
+    <div class="mx-auto w-full max-w-7xl">
+      <p class="label text-xs text-accent">01 &nbsp;Northbridge-Perth.//</p>
+      <h1 class="display mt-4 text-5xl sm:text-7xl md:text-8xl">
+        Designed-With<br />Purpose<span class="text-accent">;</span>
+      </h1>
+      <p class="mt-6 max-w-md text-lg text-paper/80">
+        Custom PCs built and tested in Perth. Walk in for a quote, walk out knowing exactly what you're paying for.
+      </p>
+      <div class="mt-10 flex flex-wrap gap-4">
+        <a href="/custom-pc" class="label rounded-sm bg-accent px-6 py-3 text-sm font-medium text-ink transition-colors hover:bg-paper focus-visible:outline-2 focus-visible:outline-paper active:translate-y-px">
+          Build-Yours
+        </a>
+        <a href="#visit" class="label rounded-sm border border-white/20 px-6 py-3 text-sm text-paper transition-colors hover:border-accent hover:text-accent focus-visible:outline-2 focus-visible:outline-accent active:translate-y-px">
+          Visit-The-Store
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 · custom pc -->
+  <Section num="02" id="custom-pc" label="Handcrafted.//" heading="Fully Custom" flip>
+    <p>Designed around your vision, style, and performance needs. Come in-store, talk through the parts, and get a quote on the spot.</p>
+    <a slot="cta" href="/custom-pc" class="label text-sm text-accent hover:underline focus-visible:outline-2 focus-visible:outline-accent">Start-A-Build &rarr;</a>
+  </Section>
+
+  <!-- 03 · in-store -->
+  <Section num="03" id="in-store" label="Now-Open.//" heading="The Store">
+    <p>Upgrades, repairs, and the only PC gaming lounge of its kind in Northbridge — close to public transport, running the latest games.</p>
+    <a slot="cta" href="/gaming-lounge" class="label text-sm text-accent hover:underline focus-visible:outline-2 focus-visible:outline-accent">Gaming-Lounge &rarr;</a>
+  </Section>
+
+  <!-- 05 · why us + testimonials -->
+  <section id="why-us" class="mx-auto max-w-7xl scroll-mt-20 px-4 py-24 sm:px-6 md:py-32">
+    <div class="reveal flex items-baseline gap-4">
+      <span class="display text-6xl text-accent md:text-8xl" aria-hidden="true">04</span>
+      <span class="label text-xs text-muted">Different?-Good.//</span>
+    </div>
+    <h2 class="display reveal mt-4 text-4xl md:text-6xl">Why Choose Us</h2>
+    <div class="mt-10 grid gap-6 md:grid-cols-3">
+      <div class="reveal border-l-2 border-accent pl-4">
+        <h3 class="label text-sm text-paper">Honest-&-Upfront</h3>
+        <p class="mt-2 text-sm leading-relaxed text-paper/70">Exact numbers, exactly what you're getting. No tricks, no sneaky tactics.</p>
+      </div>
+      <div class="reveal border-l-2 border-accent pl-4">
+        <h3 class="label text-sm text-paper">Tested-&-Warrantied</h3>
+        <p class="mt-2 text-sm leading-relaxed text-paper/70">Every part benchmarked before delivery, backed by our Zero-Initiative Warranty Program.</p>
+      </div>
+      <div class="reveal border-l-2 border-accent pl-4">
+        <h3 class="label text-sm text-paper">Local-&-Reliable</h3>
+        <p class="mt-2 text-sm leading-relaxed text-paper/70">Based in Northbridge. We source from local retailers and deliver as far as Bunbury.</p>
+      </div>
+    </div>
+    <div class="mt-16 grid gap-6 md:grid-cols-3">
+      {testimonials.map((t) => (
+        <figure class="reveal rounded-sm border border-white/10 p-6">
+          <blockquote class="text-sm leading-relaxed text-paper/80">&ldquo;{t.quote}&rdquo;</blockquote>
+          <figcaption class="label mt-4 text-xs text-accent">{t.name} &mdash; 5.0</figcaption>
+        </figure>
+      ))}
+    </div>
+  </section>
+
+  <!-- 06 · visit -->
+  <section id="visit" class="mx-auto max-w-7xl scroll-mt-20 px-4 py-24 sm:px-6 md:py-32">
+    <div class="reveal flex items-baseline gap-4">
+      <span class="display text-6xl text-accent md:text-8xl" aria-hidden="true">05</span>
+      <span class="label text-xs text-muted">See-Us-In-Store.//</span>
+    </div>
+    <h2 class="display reveal mt-4 text-4xl md:text-6xl">Visit</h2>
+    <div class="reveal mt-10 grid gap-10 md:grid-cols-2">
+      <div class="space-y-6">
+        <div>
+          <h3 class="label text-xs text-muted">Address.</h3>
+          <p class="mt-1 text-lg">2/62 Fitzgerald Street, Northbridge 6003</p>
+        </div>
+        <div>
+          <h3 class="label text-xs text-muted">Email.</h3>
+          <p class="mt-1 text-lg">
+            <a href="mailto:contact@thepcproject.com.au" class="hover:text-accent">contact@thepcproject.com.au</a>
+          </p>
+        </div>
+        <div>
+          <h3 class="label text-xs text-muted">Hours.</h3>
+          <dl class="mt-1 max-w-xs text-lg">
+            <div class="flex justify-between"><dt>Mon &ndash; Fri</dt><dd>9am &ndash; 6pm</dd></div>
+            <div class="flex justify-between"><dt>Sat</dt><dd>10am &ndash; 5pm</dd></div>
+            <div class="flex justify-between"><dt>Sun</dt><dd class="text-muted">Closed</dd></div>
+          </dl>
+        </div>
+      </div>
+      <iframe
+        title="Map: The PC Project, 2/62 Fitzgerald Street, Northbridge"
+        src="https://www.google.com/maps?q=2%2F62+Fitzgerald+Street,+Northbridge+WA+6003&output=embed"
+        class="min-h-72 w-full rounded-sm border border-white/10"
+        loading="lazy"
+      ></iframe>
+    </div>
+  </section>
+</Base>

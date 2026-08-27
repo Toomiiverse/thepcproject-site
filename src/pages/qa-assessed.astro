@@ -1,0 +1,165 @@
+---
+import Base from '../layouts/Base.astro';
+
+// Scroll journey: follow one part through the 4-stage QA process.
+const stages = [
+  {
+    num: '01', id: 'stage-01', label: 'Procurement.//', heading: 'It Arrives',
+    body: 'Every part starts as a question mark. A trade-in, a bulk lot, a card someone swears "ran fine". It gets logged into inventory with its source and identifying information — traceable from day one.',
+    tags: ['Source-Logged', 'Serial-Recorded', 'Inventory-ID'],
+  },
+  {
+    num: '02', id: 'stage-02', label: 'Assessment.//', heading: 'It Gets Documented',
+    body: 'Condition is inspected and photographed before anything is powered on. Visible damage, missing components, corrosion, wear — all of it goes on record, not under the rug.',
+    tags: ['Photographed', 'Damage-Check', 'Corrosion', 'Wear'],
+  },
+  {
+    num: '03', id: 'stage-03', label: 'Testing.//', heading: 'It Gets Pushed',
+    body: 'Now it powers on and earns its keep. Appropriate workloads verify functionality, stability, and performance — benchmarks, stress tests, thermal behaviour. Numbers, not vibes.',
+    tags: ['Benchmarked', 'Stress-Tested', 'Thermals', 'Stability'],
+  },
+  {
+    num: '04', id: 'stage-04', label: 'Sign-Off.//', heading: 'The Verdict',
+    body: 'Results are recorded and the item is formally marked QA Approved, rejected, or flagged for further investigation. Only approved parts reach the shelf or go into a build.',
+    tags: ['Approved', 'Rejected', 'Investigate'],
+  },
+];
+
+const items = [
+  { name: 'CPU', checks: ['Physical condition', 'Pins / contacts', 'Boot & functionality', 'Temperature behaviour', 'Benchmark performance', 'Stability'] },
+  { name: 'Motherboard', checks: ['Socket and pins', 'RAM slots', 'PCIe slots', 'Storage interfaces', 'USB / I/O', 'BIOS functionality', 'General stability'] },
+  { name: 'RAM', checks: ['Physical condition', 'Capacity detection', 'Frequency / timings', 'Memory testing', 'Stability'] },
+  { name: 'GPU', checks: ['Physical condition', 'Display output', 'VRAM detection', 'Benchmark performance', 'Stress testing', 'Temperature / fan behaviour', 'Stability'] },
+];
+---
+<Base title="QA-Assessed Items | The PC Project" description="Follow a pre-owned part through our documented 4-stage QA process: procurement, assessment, benchmark testing, and sign-off.">
+  <!-- journey progress rail (desktop) -->
+  <nav aria-label="QA stages" class="fixed left-4 top-1/2 z-40 hidden -translate-y-1/2 items-stretch gap-3 lg:flex">
+    <div class="relative w-px bg-white/15">
+      <div id="journey-fill" class="absolute inset-x-0 top-0 h-full origin-top scale-y-0 bg-accent"></div>
+    </div>
+    <div class="flex flex-col justify-between gap-8 py-1">
+      {stages.map((s) => (
+        <a href={'#' + s.id} data-rail-link class="label text-xs text-muted transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-accent">
+          {s.num}
+        </a>
+      ))}
+    </div>
+  </nav>
+
+  <!-- opening -->
+  <section class="relative flex min-h-svh items-center px-4 pt-16 sm:px-6">
+    <div class="mx-auto w-full max-w-7xl">
+      <p class="label text-xs text-accent">Tested-&amp;-Traceable.//</p>
+      <h1 class="display mt-4 text-5xl sm:text-7xl md:text-8xl">
+        From Trade-In<br />To Trusted<span class="text-accent">;</span>
+      </h1>
+      <p class="mt-6 max-w-xl text-lg text-paper/80">
+        Every pre-owned part we sell passes a structured 4-stage QA process before it's approved for resale or a build. This is what happens between a part walking in and a part earning the sticker. Scroll.
+      </p>
+      <a href="#stage-01" aria-label="Start the journey" class="label mt-12 inline-block animate-bounce text-2xl text-accent focus-visible:outline-2 focus-visible:outline-accent">&darr;</a>
+    </div>
+  </section>
+
+  <!-- the journey: one stage per viewport, ghost numeral behind -->
+  <div id="journey">
+    {stages.map((s, i) => (
+      <section id={s.id} class="relative flex min-h-svh scroll-mt-20 items-center overflow-hidden px-4 sm:px-6">
+        <span aria-hidden="true" class={`display pointer-events-none absolute top-1/2 -translate-y-1/2 text-[45vw] leading-none text-white/[0.04] select-none lg:text-[28vw] ${i % 2 ? 'left-0' : 'right-0'}`}>
+          {s.num}
+        </span>
+        <div class={`mx-auto w-full max-w-7xl ${i % 2 ? 'flex justify-end' : ''}`}>
+          <div class="reveal max-w-xl">
+            <div class="flex items-baseline gap-4">
+              <span class="display text-6xl text-accent md:text-7xl" aria-hidden="true">{s.num}</span>
+              <span class="label text-xs text-muted">{s.label}</span>
+            </div>
+            <h2 class="display mt-4 text-4xl md:text-6xl">{s.heading}</h2>
+            <p class="mt-6 text-base leading-relaxed text-paper/80">{s.body}</p>
+            <ul class="mt-6 flex flex-wrap gap-2">
+              {s.tags.map((t) => (
+                <li class="label rounded-sm border border-white/15 px-3 py-1 text-xs text-paper/70">{t}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+    ))}
+  </div>
+
+  <!-- the stamp -->
+  <section class="flex min-h-svh items-center px-4 sm:px-6">
+    <div class="mx-auto w-full max-w-7xl text-center">
+      <p class="label reveal text-xs text-muted">The-Whole-Point.//</p>
+      <p class="stamp display mx-auto mt-8 inline-block rotate-[-3deg] border-4 border-accent px-8 py-4 text-4xl text-accent sm:text-6xl md:text-7xl">
+        QA-Approved<span class="text-paper">;</span>
+      </p>
+      <p class="reveal mx-auto mt-10 max-w-xl text-lg text-paper/80">
+        Used hardware becomes documented, traceable inventory &mdash; not a dusty GPU with a &ldquo;tested&rdquo; sticker.
+      </p>
+    </div>
+  </section>
+
+  <!-- what gets checked, per component -->
+  <section class="mx-auto max-w-7xl px-4 pb-24 sm:px-6">
+    <p class="label reveal text-xs text-accent">What-We-Check.//</p>
+    <h2 class="display reveal mt-4 text-4xl md:text-5xl">Items Covered</h2>
+    <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {items.map((item) => (
+        <article class="reveal rounded-sm border border-white/10 p-6 transition-colors hover:border-accent">
+          <h3 class="display text-2xl">{item.name}</h3>
+          <ul class="mt-4 space-y-2">
+            {item.checks.map((c) => (
+              <li class="flex gap-2 text-sm leading-relaxed text-paper/70">
+                <span class="text-accent" aria-hidden="true">&#47;&#47;</span>{c}
+              </li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+    <div class="mt-12">
+      <a href="/contact" class="label rounded-sm bg-accent px-6 py-3 text-sm font-medium text-ink transition-colors hover:bg-paper focus-visible:outline-2 focus-visible:outline-paper active:translate-y-px">
+        Ask-About-QA-Stock
+      </a>
+    </div>
+  </section>
+
+  <style>
+    /* stamp slams in when revealed */
+    .stamp {
+      opacity: 0;
+      transform: rotate(-3deg) scale(1.6);
+      transition: opacity 0.35s ease-out, transform 0.35s cubic-bezier(0.2, 0.8, 0.3, 1.2);
+    }
+    .stamp.in {
+      opacity: 1;
+      transform: rotate(-3deg) scale(1);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .stamp { opacity: 1; transform: rotate(-3deg); transition: none; }
+    }
+  </style>
+
+  <script>
+    // Progress rail fill: fraction of the journey block scrolled past mid-viewport.
+    const fill = document.getElementById('journey-fill');
+    const journey = document.getElementById('journey');
+    if (fill && journey) {
+      const update = () => {
+        const r = journey.getBoundingClientRect();
+        const p = Math.min(1, Math.max(0, (innerHeight / 2 - r.top) / r.height));
+        fill.style.transform = `scaleY(${p})`;
+      };
+      addEventListener('scroll', () => requestAnimationFrame(update), { passive: true });
+      update();
+    }
+    // The stamp reuses the reveal observer in Base via the same 'in' class.
+    const stamp = document.querySelector('.stamp');
+    if (stamp) {
+      new IntersectionObserver((entries, io) => {
+        entries.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.disconnect(); } });
+      }, { threshold: 0.5 }).observe(stamp);
+    }
+  </script>
+</Base>

@@ -1,0 +1,34 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+---
+<Base title="PC Workshops | The PC Project">
+  <PageHero label="Learn-The-Craft.//" heading="Workshops">
+    <p>Bridging the gap between prebuilt PCs and the custom build experience — build your own machine with our guidance and tools.</p>
+  </PageHero>
+
+  <section class="mx-auto max-w-7xl px-4 pb-24 sm:px-6">
+    <div class="grid items-center gap-10 md:grid-cols-2">
+      <div class="reveal space-y-6">
+        <div class="border-l-2 border-accent pl-4">
+          <h2 class="label text-sm text-paper">Guided-Builds</h2>
+          <p class="mt-2 text-sm leading-relaxed text-paper/70">Assemble your own PC at our bench with an experienced builder beside you. You leave with a machine you built and understand.</p>
+        </div>
+        <div class="border-l-2 border-accent pl-4">
+          <h2 class="label text-sm text-paper">Tech-Support</h2>
+          <p class="mt-2 text-sm leading-relaxed text-paper/70">Expert help to diagnose, fix, and optimise your system — bring it in for assessment at honest prices.</p>
+        </div>
+        <div class="border-l-2 border-accent pl-4">
+          <h2 class="label text-sm text-paper">Events</h2>
+          <p class="mt-2 text-sm leading-relaxed text-paper/70">Upcoming esports events hosted by The PC Project. Announced in-store and on socials.</p>
+        </div>
+        <a href="/contact" class="label inline-block rounded-sm bg-accent px-6 py-3 text-sm font-medium text-ink transition-colors hover:bg-paper focus-visible:outline-2 focus-visible:outline-paper active:translate-y-px">
+          Register-Interest
+        </a>
+      </div>
+      <div class="reveal flex aspect-[4/3] items-center justify-center rounded-sm border border-dashed border-white/20">
+        <span class="label text-xs text-muted">Photo-Slot.// Workshop Bench</span>
+      </div>
+    </div>
+  </section>
+</Base>

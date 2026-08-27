@@ -1,0 +1,84 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+const { title, description = 'Custom PCs, repairs and gaming lounge in Northbridge, Perth.' } = Astro.props;
+
+const nav = [
+  { href: '/custom-pc', label: 'Custom PC' },
+  { href: '/qa-assessed', label: 'QA Assessed' },
+  { href: '/gaming-lounge', label: 'Gaming Lounge' },
+  { href: '/workshops', label: 'Workshops' },
+  { href: '/contact', label: 'Contact' },
+];
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body class="bg-ink text-paper">
+  <header class="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-ink/80 backdrop-blur-md">
+    <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
+      <a href="/" class="label text-sm font-medium text-paper hover:text-accent focus-visible:outline-2 focus-visible:outline-accent">
+        The-PC-Project<span class="text-accent">.//</span>
+      </a>
+      <nav class="hidden gap-6 md:flex">
+        {nav.map((item) => (
+          <a href={item.href} class="label text-xs text-muted transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-accent">
+            {item.label}
+          </a>
+        ))}
+      </nav>
+      <a href="/contact" class="label rounded-sm bg-accent px-4 py-2 text-xs font-medium text-ink transition-colors hover:bg-paper focus-visible:outline-2 focus-visible:outline-paper active:translate-y-px">
+        Get-A-Quote
+      </a>
+    </div>
+  </header>
+
+  <slot />
+
+  <footer class="border-t border-white/10 px-4 py-10 sm:px-6">
+    <div class="mx-auto flex max-w-7xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+      <p class="label text-xs text-muted">The-PC-Project.// Northbridge, Perth</p>
+      <p class="label text-xs text-muted">
+        <a href="mailto:contact@thepcproject.com.au" class="hover:text-accent">contact@thepcproject.com.au</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // Scroll reveal + active rail marker, one observer each.
+    const io = new IntersectionObserver(
+      (entries) => entries.forEach((e) => e.isIntersecting && e.target.classList.add('in')),
+      { threshold: 0.15 }
+    );
+    document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+
+    const links = document.querySelectorAll('[data-rail-link]');
+    if (links.length) {
+      const sections = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (!e.isIntersecting) return;
+            links.forEach((l) =>
+              l.classList.toggle('text-accent', l.getAttribute('href') === '#' + e.target.id)
+            );
+          });
+        },
+        { rootMargin: '-40% 0px -40% 0px' }
+      );
+      document.querySelectorAll('section[id]').forEach((s) => sections.observe(s));
+    }
+  </script>
+</body>
+</html>
