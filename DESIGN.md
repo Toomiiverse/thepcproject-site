@@ -32,6 +32,14 @@ halfway down the page.
   shot. Photography is the highest-value remaining task, not code.
 - 2026-08-27 — signature-builds page removed at owner's request; home sections
   renumbered 01–05, hero CTA points to /custom-pc.
+- 2026-08-28 — added /configurator tab. Long-term it iframes the standalone
+  PC-config app (`?embed=1`) per its locked deploy topology
+  (../PC-config/deploy/README.md) rather than merging the React/Vite codebase
+  in — that app's CSP already allowlists this domain as a frame-ancestor.
+  build.thepcproject.com.au isn't live yet (gated on DNS owner D2, SMTP D4,
+  real legal copy D5), so for now the tab links out to the GitHub repo
+  instead (GitHub can't be iframed anyway — sends X-Frame-Options: deny).
+  Swap the page body for the iframe once the domain is live.
 
 ## Components
 - Base.astro — layout: header, footer, fonts, reveal + rail scripts
@@ -41,6 +49,7 @@ halfway down the page.
 ## Pages
 - / — numbered sections 01–05 with fixed rail
 - /custom-pc — 4-step process (consult → design → build → deliver)
+- /configurator — iframe embed of the standalone PC builder (build.thepcproject.com.au)
 - /qa-assessed — 4-stage QA process for pre-owned parts + per-component checklists (CPU/mobo/RAM/GPU)
 - /gaming-lounge — lounge photo slot + 3 facts
 - /workshops — guided builds / tech support / events
