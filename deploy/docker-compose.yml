@@ -1,0 +1,15 @@
+# Marketing site on the shop box. LanCache keeps 80/443/53. This binds 8090 only.
+# After merge: copy nginx.conf next to docker-compose and recreate the container.
+# host.docker.internal reaches the builder on :8091 (PC-config).
+services:
+  web:
+    image: nginx:alpine
+    container_name: thepcproject-web
+    restart: unless-stopped
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "8090:80"
+    volumes:
+      - ./dist:/usr/share/nginx/html:ro
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro

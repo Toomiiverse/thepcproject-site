@@ -1,36 +1,30 @@
 ---
 import Base from '../layouts/Base.astro';
-import PageHero from '../components/PageHero.astro';
-
-// Locked topology (PC-config/deploy/README.md, gates D2/D4/D5): the builder
-// is its own deploy at build.thepcproject.com.au, meant to be iframed here
-// once live. Until then this links to the source repo instead — GitHub
-// itself can't be iframed (it sends X-Frame-Options: deny).
-const demoUrl = 'https://github.com/Toomiiverse/PC-config';
 ---
-<Base title="Configurator | The PC Project">
-  <PageHero label="Build-It-Yourself.//" heading="Configurator">
-    <p>Pick your parts, watch the machine update live, and send us the spec — no account, no obligation.</p>
-  </PageHero>
-
-  <section class="mx-auto max-w-7xl px-4 pb-24 sm:px-6">
-    <div class="reveal rounded-sm border border-white/10 bg-ink-2 px-6 py-14 text-center sm:px-10">
-      <p class="label text-xs text-accent">Demo.//</p>
-      <p class="mt-4 max-w-xl mx-auto text-paper/80">
-        The live configurator isn't public yet — it's still waiting on DNS,
-        SMTP and final legal copy. In the meantime, here's the source.
-      </p>
-      <a
-        href={demoUrl}
-        target="_blank"
-        rel="noopener"
-        class="label mt-8 inline-block rounded-sm bg-accent px-6 py-3 text-sm font-medium text-ink transition-colors hover:bg-paper focus-visible:outline-2 focus-visible:outline-paper active:translate-y-px"
-      >
-        View-On-GitHub
-      </a>
-    </div>
-    <p class="label mt-6 text-center text-xs text-muted">
-      Or <a href="/contact" class="text-accent hover:text-paper">talk to us</a> and we'll build it out with you.
-    </p>
-  </section>
+<Base
+  title="Configurator | The PC Project"
+  description="Configure a custom PC and request a quote from The PC Project, Northbridge."
+  embed
+>
+  <iframe
+    id="builder"
+    title="Custom PC builder"
+    class="fixed inset-x-0 bottom-0 top-14 w-full border-0 bg-ink"
+    src="about:blank"
+  ></iframe>
+  <p class="sr-only">
+    If the builder does not load, email contact@thepcproject.com.au or visit us at 2/62 Fitzgerald Street, Northbridge.
+  </p>
+  <script>
+    const el = document.getElementById('builder');
+    if (el instanceof HTMLIFrameElement) {
+      const { protocol, hostname, port } = window.location;
+      // Shop preview serves the site on :8090 and the builder on :8091.
+      // Public (no port) uses /builder/ reverse-proxied on the same host.
+      el.src =
+        port === '8090'
+          ? `${protocol}//${hostname}:8091/?embed=1`
+          : `${protocol}//${hostname}/builder/?embed=1`;
+    }
+  </script>
 </Base>

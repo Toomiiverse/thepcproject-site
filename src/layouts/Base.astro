@@ -4,8 +4,13 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description?: string;
+  embed?: boolean;
 }
-const { title, description = 'Custom PCs, repairs and gaming lounge in Northbridge, Perth.' } = Astro.props;
+const {
+  title,
+  description = 'Custom PCs, repairs and gaming lounge in Northbridge, Perth.',
+  embed = false,
+} = Astro.props;
 
 const nav = [
   { href: '/custom-pc', label: 'Custom PC' },
@@ -23,42 +28,67 @@ const nav = [
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{title}</title>
   <meta name="description" content={description} />
+  <link rel="icon" href="/favicon.png" type="image/png" />
+  <link rel="apple-touch-icon" href="/favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 </head>
 <body class="bg-ink text-paper">
   <header class="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-ink/80 backdrop-blur-md">
-    <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6">
+    <div class="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6">
       <a href="/" class="label text-sm font-medium text-paper hover:text-accent focus-visible:outline-2 focus-visible:outline-accent">
         The-PC-Project<span class="text-accent">.//</span>
       </a>
-      <nav class="hidden gap-6 md:flex">
+      <nav class="hidden gap-6 md:flex" aria-label="Primary">
         {nav.map((item) => (
           <a href={item.href} class="label text-xs text-muted transition-colors hover:text-accent focus-visible:outline-2 focus-visible:outline-accent">
             {item.label}
           </a>
         ))}
       </nav>
-      <a href="/contact" class="label rounded-sm bg-accent px-4 py-2 text-xs font-medium text-ink transition-colors hover:bg-paper focus-visible:outline-2 focus-visible:outline-paper active:translate-y-px">
-        Get-A-Quote
-      </a>
+      <div class="flex items-center gap-2">
+        <a href="/configurator" class="label rounded-sm bg-accent px-4 py-2 text-xs font-medium text-ink transition-colors hover:bg-paper focus-visible:outline-2 focus-visible:outline-paper active:translate-y-px">
+          Get-A-Quote
+        </a>
+        <details class="relative md:hidden">
+          <summary class="label cursor-pointer list-none rounded-sm border border-white/20 px-3 py-2 text-xs text-paper hover:border-accent hover:text-accent focus-visible:outline-2 focus-visible:outline-accent [&::-webkit-details-marker]:hidden">
+            Menu
+          </summary>
+          <nav class="absolute right-0 z-50 mt-2 min-w-48 rounded-sm border border-white/10 bg-ink-2 py-2 shadow-lg" aria-label="Mobile">
+            {nav.map((item) => (
+              <a href={item.href} class="label block px-4 py-2 text-xs text-muted hover:bg-white/5 hover:text-accent">
+                {item.label}
+              </a>
+            ))}
+          </nav>
+        </details>
+      </div>
     </div>
   </header>
 
   <slot />
 
-  <footer class="border-t border-white/10 px-4 py-10 sm:px-6">
-    <div class="mx-auto flex max-w-7xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-      <p class="label text-xs text-muted">The-PC-Project.// Northbridge, Perth</p>
-      <p class="label text-xs text-muted">
-        <a href="mailto:contact@thepcproject.com.au" class="hover:text-accent">contact@thepcproject.com.au</a>
-      </p>
-    </div>
-  </footer>
+  {!embed && (
+    <footer class="border-t border-white/10 px-4 py-10 sm:px-6">
+      <div class="mx-auto flex max-w-7xl flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
+        <p class="label text-xs text-muted">The-PC-Project.// Northbridge, Perth</p>
+        <div class="flex flex-col gap-2 sm:items-end">
+          <p class="label text-xs text-muted">
+            <a href="mailto:contact@thepcproject.com.au" class="hover:text-accent">contact@thepcproject.com.au</a>
+          </p>
+          <p class="label flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted">
+            <a href="/warranty-and-returns" class="hover:text-accent">Warranty</a>
+            <a href="/terms-and-conditions" class="hover:text-accent">Terms</a>
+            <a href="https://www.instagram.com/thepcprojectau/" rel="noopener" class="hover:text-accent">Instagram</a>
+            <a href="https://www.facebook.com/profile.php?id=61583668420452" rel="noopener" class="hover:text-accent">Facebook</a>
+          </p>
+        </div>
+      </div>
+    </footer>
+  )}
 
   <script>
-    // Scroll reveal + active rail marker, one observer each.
     const io = new IntersectionObserver(
       (entries) => entries.forEach((e) => e.isIntersecting && e.target.classList.add('in')),
       { threshold: 0.15 }

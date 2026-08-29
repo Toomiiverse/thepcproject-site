@@ -47,6 +47,11 @@ halfway down the page.
   real legal copy D5), so for now the tab links out to the GitHub repo
   instead (GitHub can't be iframed anyway — sends X-Frame-Options: deny).
   Swap the page body for the iframe once the domain is live.
+- 2026-08-30 — pre-live one-site: /configurator iframes the shop builder
+  (`:8091` on shop preview, `/builder/` once nginx is applied). GitHub
+  placeholder gone. Mobile menu, favicon, Wix warranty/terms pages, $50
+  fee on /custom-pc, IG/FB footer, old Wix path redirects. Quote POST
+  still needs the builder API on the shop box after merge.
 
 ## Components
 - Base.astro — layout: header, footer, fonts, reveal + rail scripts

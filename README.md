@@ -1,33 +1,25 @@
 # thepcproject-site
 
-Static rebuild of thepcproject.com.au, moving off Wix.
-
-- **Astro 5** (static output) + **Tailwind 4** (CSS-first `@theme`, no config file)
-- Zero runtime JS except ~20 lines for scroll reveals and section rails
-- Design tokens and decisions live in [DESIGN.md](DESIGN.md)
-
-## Run it
+The PC Project website. Tommy (`Toomiiverse`) owns this repo. Mitchell opens PRs. Merge on GitHub updates the shop preview.
 
 ```
 npm install
 npm run dev      # http://localhost:4321
 ```
 
-`npm run build` outputs static HTML to `dist/`.
-
 ## Pages
 
-`/` · `/custom-pc` · `/qa-assessed` · `/gaming-lounge` · `/workshops` · `/contact`
+`/` · `/custom-pc` · `/configurator` · `/qa-assessed` · `/gaming-lounge` · `/workshops` · `/contact` · `/warranty-and-returns` · `/terms-and-conditions`
 
-## Before launch
+Configurator is the live builder (PC-config), not a GitHub link.
 
-- Real photos into the `PHOTO-SLOT.//` placeholders
-- Deploy to Cloudflare Pages, add `_redirects` for old Wix URLs, point DNS
+## How a change goes live in the shop
 
-## Collaboration
+1. Open a pull request into `main` (or press `.` on GitHub to edit).
+2. GitHub builds the site. You do not need Node on your PC.
+3. Merge the PR. GitHub publishes the files to the `live` branch.
+4. The shop box pulls `live` and serves **http://192.168.50.200:8090**
 
-Mitchell (`mitchelljhorrocks-lgtm`) and Tommy (`Toomiiverse`) both work in this repo.
+Public www is a separate switch. A git merge does not replace Wix.
 
-- Edit in the browser: press `.` on the GitHub page, or open [github.dev](https://github.dev/mitchelljhorrocks-lgtm/thepcproject-site)
-- Push to `main` (or open a PR). GitHub Actions runs `npm run build` — you do not need Node on your PC
-- Shop hosting and DNS are separate. Do not put secrets in this repo
+Do not put secrets in this repo. Do not commit `dist/` on `main`.
