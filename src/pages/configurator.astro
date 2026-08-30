@@ -21,10 +21,13 @@ import Base from '../layouts/Base.astro';
       const { protocol, hostname, port } = window.location;
       // Shop preview serves the site on :8090 and the builder on :8091.
       // Public (no port) uses /builder/ reverse-proxied on the same host.
+      // poster=1 selects the build-sheet configurator. The older step-by-step
+      // quote flow is still on the same deployment without it.
+      const q = '?embed=1&poster=1';
       el.src =
         port === '8090'
-          ? `${protocol}//${hostname}:8091/?embed=1`
-          : `${protocol}//${hostname}/builder/?embed=1`;
+          ? `${protocol}//${hostname}:8091/${q}`
+          : `${protocol}//${hostname}/builder/${q}`;
     }
   </script>
 </Base>
