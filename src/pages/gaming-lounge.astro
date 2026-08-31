@@ -11,14 +11,11 @@ const t = currentTournament;
   </PageHero>
 
   <section class="mx-auto max-w-7xl px-4 pb-24 sm:px-6">
-    <div class="reveal aspect-video overflow-hidden rounded-sm border border-white/10">
-      <img src="/images/gaming-lounge.jpg" alt="Gaming stations inside The PC Project's Northbridge lounge" loading="lazy" class="h-full w-full object-cover" />
-    </div>
     <!-- ── this month's tournament ──────────────────────────────────
          Always present. With nothing announced it says so, rather than
          disappearing and leaving the page looking like nothing happens
          here. Edit src/data/tournament.ts to change it.            -->
-    <section aria-labelledby="tournament-heading" class="reveal mt-12 rounded-sm border border-accent/40 bg-white/[0.02] p-6 sm:p-8">
+    <section aria-labelledby="tournament-heading" class="reveal rl-panel relative mt-4 overflow-hidden rounded-sm border border-accent/40 bg-white/[0.02] p-6 sm:p-8">
       <div class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
         <div>
           <p class="label text-xs text-accent">Tournament.//</p>
@@ -39,7 +36,7 @@ const t = currentTournament;
               ['Format', t.format],
               ['Entry', t.entry],
             ].map(([term, detail]) => (
-              <div class="border-l-2 border-accent pl-4">
+              <div class="rl-item border-l-2 border-accent pl-4">
                 <dt class="label text-xs text-muted">{term}</dt>
                 <dd class="mt-1 text-sm leading-relaxed text-paper">{detail}</dd>
               </div>
@@ -49,7 +46,7 @@ const t = currentTournament;
           <h3 class="label mt-8 text-xs text-muted">Prizes</h3>
           <ul class="mt-2 divide-y divide-white/10 border-y border-white/10">
             {t.prizes.map((p) => (
-              <li class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 py-3">
+              <li class="rl-item flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 py-3">
                 <span class="label text-sm text-accent">{p.place}</span>
                 <span class="flex-1 text-sm leading-relaxed text-paper/80">{p.reward}</span>
               </li>
@@ -84,6 +81,10 @@ const t = currentTournament;
       )}
     </section>
 
+
+    <div class="reveal mt-12 aspect-video overflow-hidden rounded-sm border border-white/10">
+      <img src="/images/gaming-lounge.jpg" alt="Gaming stations inside The PC Project's Northbridge lounge" loading="lazy" class="h-full w-full object-cover" />
+    </div>
     <div class="mt-12 grid gap-6 md:grid-cols-3">
       <div class="reveal border-l-2 border-accent pl-4">
         <h2 class="label text-sm text-paper">Latest-Games</h2>

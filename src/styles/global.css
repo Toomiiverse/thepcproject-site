@@ -52,9 +52,63 @@ body {
   transform: none;
 }
 
+/* ── tournament panel: a harder entrance than the rest of the page ──
+   Rides the same observer as .reveal — it just answers the `in` class
+   with more force. The panel arrives off-axis and straightens, a bar
+   runs the length of its top edge, and the rows land one after the
+   other rather than all at once.                                    */
+.reveal.rl-panel {
+  opacity: 0;
+  transform: translateX(-34px) skewX(-5deg);
+  transition:
+    opacity 0.45s ease-out,
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.rl-panel.in {
+  opacity: 1;
+  transform: none;
+}
+
+/* The bar. Sits on the top edge and runs across once, on arrival. */
+.rl-panel::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 0;
+  height: 2px;
+  width: 100%;
+  background: linear-gradient(90deg, transparent, var(--color-accent, #ff4000) 40%, #fff);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.12s;
+}
+.rl-panel.in::before {
+  transform: scaleX(1);
+}
+
+/* Rows and prizes, arriving in sequence behind the panel itself. */
+.rl-item {
+  opacity: 0;
+  transform: translateX(-18px);
+  transition:
+    opacity 0.4s ease-out,
+    transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.in .rl-item {
+  opacity: 1;
+  transform: none;
+}
+.in .rl-item:nth-child(1) { transition-delay: 0.16s; }
+.in .rl-item:nth-child(2) { transition-delay: 0.24s; }
+.in .rl-item:nth-child(3) { transition-delay: 0.32s; }
+.in .rl-item:nth-child(4) { transition-delay: 0.40s; }
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; transition: none; }
+  .reveal.rl-panel { opacity: 1; transform: none; transition: none; }
+  .rl-panel::before { transform: scaleX(1); transition: none; }
+  .rl-item { opacity: 1; transform: none; transition: none; }
 }
 
 .sr-only {
