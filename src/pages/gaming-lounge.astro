@@ -1,6 +1,9 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
+import { currentTournament } from '../data/tournament';
+
+const t = currentTournament;
 ---
 <Base title="Gaming Lounge | The PC Project">
   <PageHero label="Now-Open.//" heading="Gaming Lounge">
@@ -11,6 +14,76 @@ import PageHero from '../components/PageHero.astro';
     <div class="reveal aspect-video overflow-hidden rounded-sm border border-white/10">
       <img src="/images/gaming-lounge.jpg" alt="Gaming stations inside The PC Project's Northbridge lounge" loading="lazy" class="h-full w-full object-cover" />
     </div>
+    <!-- ── this month's tournament ──────────────────────────────────
+         Always present. With nothing announced it says so, rather than
+         disappearing and leaving the page looking like nothing happens
+         here. Edit src/data/tournament.ts to change it.            -->
+    <section aria-labelledby="tournament-heading" class="reveal mt-12 rounded-sm border border-accent/40 bg-white/[0.02] p-6 sm:p-8">
+      <div class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
+        <div>
+          <p class="label text-xs text-accent">Tournament.//</p>
+          <h2 id="tournament-heading" class="display mt-2 text-3xl md:text-4xl">
+            {t ? t.title : 'To be announced'}
+          </h2>
+        </div>
+        <p class="label text-xs text-muted">{t ? t.month : 'Next event'}</p>
+      </div>
+
+      {t ? (
+        <>
+          {t.blurb && <p class="mt-4 max-w-prose text-sm leading-relaxed text-paper/70">{t.blurb}</p>}
+
+          <dl class="mt-6 grid gap-4 sm:grid-cols-3">
+            {[
+              ['When', t.when],
+              ['Format', t.format],
+              ['Entry', t.entry],
+            ].map(([term, detail]) => (
+              <div class="border-l-2 border-accent pl-4">
+                <dt class="label text-xs text-muted">{term}</dt>
+                <dd class="mt-1 text-sm leading-relaxed text-paper">{detail}</dd>
+              </div>
+            ))}
+          </dl>
+
+          <h3 class="label mt-8 text-xs text-muted">Prizes</h3>
+          <ul class="mt-2 divide-y divide-white/10 border-y border-white/10">
+            {t.prizes.map((p) => (
+              <li class="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1 py-3">
+                <span class="label text-sm text-accent">{p.place}</span>
+                <span class="flex-1 text-sm leading-relaxed text-paper/80">{p.reward}</span>
+              </li>
+            ))}
+          </ul>
+
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href={t.signUpUrl ?? '/contact'}
+              class="label rounded-sm bg-accent px-6 py-3 text-sm font-medium text-ink transition-colors hover:bg-paper focus-visible:outline-2 focus-visible:outline-paper active:translate-y-px"
+            >
+              {t.signUpUrl ? 'Sign-Up' : 'Ask-Us-To-Save-You-A-Seat'}
+            </a>
+          </div>
+        </>
+      ) : (
+        <>
+          <p class="mt-4 max-w-prose text-sm leading-relaxed text-paper/70">
+            We run competitions in-store through the year — the next one is
+            still being put together. Ask us in the shop or get in touch and
+            we will tell you the moment a date is set.
+          </p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a
+              href="/contact"
+              class="label rounded-sm border border-white/20 px-6 py-3 text-sm text-paper transition-colors hover:border-accent hover:text-accent focus-visible:outline-2 focus-visible:outline-accent active:translate-y-px"
+            >
+              Tell-Me-When
+            </a>
+          </div>
+        </>
+      )}
+    </section>
+
     <div class="mt-12 grid gap-6 md:grid-cols-3">
       <div class="reveal border-l-2 border-accent pl-4">
         <h2 class="label text-sm text-paper">Latest-Games</h2>
