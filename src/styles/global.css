@@ -127,9 +127,17 @@ body {
    The section is tall and the stage inside it is sticky, so the page
    scrolls while the drawing stays put. The component's script sets --p
    to how far through the section the viewport is (0→1). Each part and
-   step carries its own start, --s, and reads --p to work out --k (how
-   far it has landed) and --on (whether it is the current step).    */
+   tile carries its own start, --s, and reads --p to work out --k (how
+   far it has landed) and --on (whether it is the current step).
+
+   The sheet beside the drawing is the configurator's tile — corner
+   number, the part, its class — and its art is the same <symbol> the
+   drawing uses.                                                     */
 .journey { --p: 0; min-height: 460svh; }
+/* Only inherited paint reaches the <use> clones, so this is all of it; the
+   fills live inline on the symbols' shapes. Tiles set their own stroke-width. */
+.journey svg { fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; }
+
 .journey .part,
 .journey .step,
 .journey .step-line {
@@ -146,15 +154,7 @@ body {
   transform-box: fill-box;
   transform-origin: center;
   color: color-mix(in srgb, var(--color-accent) calc(var(--hot) * 100%), var(--color-paper));
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.5;
-  stroke-linecap: round;
 }
-.journey .solid { fill: var(--color-ink-2); }
-.journey .part-board .solid { fill: var(--color-ink); }
-.journey .dim { stroke-opacity: 0.4; }
-.journey .glass { fill: var(--color-paper); fill-opacity: 0.04; }
 .journey .part-panel { --hot: 1; }
 .journey .part-case   { transform: scale(calc(0.96 + 0.04 * var(--k))); }
 .journey .part-board  { transform: scale(calc(1.06 - 0.06 * var(--k))); }
@@ -164,8 +164,11 @@ body {
 .journey .part-gpu    { transform: translateY(calc(-50px * (1 - var(--k)))); }
 .journey .part-psu    { transform: translateX(calc(90px * (1 - var(--k)))); }
 .journey .part-panel  { transform: translateX(calc(-70px * (1 - var(--k)))); }
+/* The drawing is a link; the chassis answers the hover. */
+.journey a:hover .part-case { color: var(--color-accent); }
 
-/* The sheet: rows light as their part lands; the current one reads out. */
+/* The sheet: tiles light as their part lands; the current one wears the
+   accent, the way a selected tile does in the configurator.          */
 .journey .step,
 .journey .step-line {
   --on: clamp(0, calc(min(var(--p) - var(--s), var(--s) + 0.11 - var(--p)) / 0.03), 1);
@@ -175,12 +178,19 @@ body {
   --on: clamp(0, calc((var(--p) - var(--s)) / 0.03), 1);
 }
 .journey .step { opacity: calc(0.35 + 0.65 * var(--k)); }
-.journey .step .name { color: color-mix(in srgb, var(--color-accent) calc(var(--on) * 100%), var(--color-paper)); }
 .journey .step-line { opacity: var(--on); }
+.journey .tile {
+  border-color: color-mix(in srgb, var(--color-accent) calc(var(--on) * 100%), rgb(255 255 255 / 0.15));
+  transition: border-color 0.15s ease-out, transform 0.15s ease-out;
+}
+.journey .tile svg { color: color-mix(in srgb, var(--color-accent) calc(var(--on) * 100%), var(--color-muted)); }
+.journey .tile .name { color: color-mix(in srgb, var(--color-accent) calc(var(--on) * 100%), var(--color-paper)); }
+.journey .tile:hover { border-color: var(--color-accent); }
+.journey .tile:hover svg { color: var(--color-paper); }
 
 @media (prefers-reduced-motion: reduce) {
   .journey { --p: 1; min-height: 0; }
   .journey .stage { position: static; height: auto; padding-block: 6rem; }
   .journey .hint { display: none; }
-  .journey .part, .journey .step, .journey .step-line { transition: none; }
+  .journey .part, .journey .step, .journey .step-line, .journey .tile { transition: none; }
 }

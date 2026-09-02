@@ -62,7 +62,10 @@ halfway down the page.
 - Base.astro — layout: header, footer, fonts, reveal + rail scripts
 - Section.astro — numbered section (num, id, label, heading, image, flip)
 - BuildJourney.astro — home 02: pinned stage, scroll assembles a PC part by
-  part (one --p custom property from a 10-line script; choreography in CSS)
+  part (one --p custom property from a 10-line script; choreography in CSS).
+  The sheet beside it is the configurator's own layout — masthead + tiles,
+  art shared with the drawing via <symbol> — and every tile, the drawing
+  and the button link to /configurator.
 - PageHero.astro — subpage hero (label, heading, intro slot)
 
 ## Pages
