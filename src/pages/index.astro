@@ -1,13 +1,15 @@
 ---
 import Base from '../layouts/Base.astro';
 import Section from '../components/Section.astro';
+import BuildJourney from '../components/BuildJourney.astro';
 
 const rail = [
   { num: '01', id: 'top' },
-  { num: '02', id: 'custom-pc' },
-  { num: '03', id: 'in-store' },
-  { num: '04', id: 'why-us' },
-  { num: '05', id: 'visit' },
+  { num: '02', id: 'build' },
+  { num: '03', id: 'custom-pc' },
+  { num: '04', id: 'in-store' },
+  { num: '05', id: 'why-us' },
+  { num: '06', id: 'visit' },
 ];
 
 const testimonials = [
@@ -47,14 +49,17 @@ const testimonials = [
     </div>
   </section>
 
-  <!-- 02 · custom pc -->
-  <Section num="02" id="custom-pc" label="Handcrafted.//" heading="Fully Custom" flip image="/images/custom-build.jpg" imageAlt="A custom PC build in progress on the bench">
+  <!-- 02 · the build -->
+  <BuildJourney />
+
+  <!-- 03 · custom pc -->
+  <Section num="03" id="custom-pc" label="Handcrafted.//" heading="Fully Custom" flip image="/images/custom-build.jpg" imageAlt="A custom PC build in progress on the bench">
     <p>Designed around your vision, style, and performance needs. Come in-store, talk through the parts, and get a quote on the spot.</p>
     <a slot="cta" href="/custom-pc" class="label text-sm text-accent hover:underline focus-visible:outline-2 focus-visible:outline-accent">Start-A-Build &rarr;</a>
   </Section>
 
-  <!-- 03 · in-store -->
-  <Section num="03" id="in-store" label="Now-Open.//" heading="The Store" image="/images/storefront.jpg" imageAlt="The PC Project storefront in Northbridge">
+  <!-- 04 · in-store -->
+  <Section num="04" id="in-store" label="Now-Open.//" heading="The Store" image="/images/storefront.jpg" imageAlt="The PC Project storefront in Northbridge">
     <p>Upgrades, repairs, and the only PC gaming lounge of its kind in Northbridge — close to public transport, running the latest games.</p>
     <a slot="cta" href="/gaming-lounge" class="label text-sm text-accent hover:underline focus-visible:outline-2 focus-visible:outline-accent">Gaming-Lounge &rarr;</a>
   </Section>
@@ -62,7 +67,7 @@ const testimonials = [
   <!-- 05 · why us + testimonials -->
   <section id="why-us" class="mx-auto max-w-7xl scroll-mt-20 px-4 py-24 sm:px-6 md:py-32">
     <div class="reveal flex items-baseline gap-4">
-      <span class="display text-6xl text-accent md:text-8xl" aria-hidden="true">04</span>
+      <span class="display text-6xl text-accent md:text-8xl" aria-hidden="true">06</span>
       <span class="label text-xs text-muted">Different?-Good.//</span>
     </div>
     <h2 class="display reveal mt-4 text-4xl md:text-6xl">Why Choose Us</h2>

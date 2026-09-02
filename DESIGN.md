@@ -53,13 +53,20 @@ halfway down the page.
   fee on /custom-pc, IG/FB footer, old Wix path redirects. Quote POST
   still needs the builder API on the shop box after merge.
 
+- 2026-09-02 — home 02 is a scroll journey: the page pins, a side-on line
+  drawing of a PC assembles part by part and the build sheet beside it ticks
+  off. Still no GSAP — one scroll listener writes --p, everything else is
+  CSS calc()/clamp() off that number. Sections renumbered 01–06.
+
 ## Components
 - Base.astro — layout: header, footer, fonts, reveal + rail scripts
 - Section.astro — numbered section (num, id, label, heading, image, flip)
+- BuildJourney.astro — home 02: pinned stage, scroll assembles a PC part by
+  part (one --p custom property from a 10-line script; choreography in CSS)
 - PageHero.astro — subpage hero (label, heading, intro slot)
 
 ## Pages
-- / — numbered sections 01–05 with fixed rail
+- / — numbered sections 01–06 with fixed rail
 - /custom-pc — 4-step process (consult → design → build → deliver)
 - /configurator — iframe embed of the standalone PC builder (build.thepcproject.com.au)
 - /qa-assessed — 4-stage QA process for pre-owned parts + per-component checklists (CPU/mobo/RAM/GPU)
