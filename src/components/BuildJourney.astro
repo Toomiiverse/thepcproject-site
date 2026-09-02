@@ -1,88 +1,67 @@
 ---
 // 02 · the build. A pinned stage: the page scrolls, the drawing stays, and
-// the PC goes together part by part while the sheet beside it fills in.
+// the PC goes together part by part while the sheet beside it ticks off.
 //
-// The sheet is the configurator's own layout — its masthead, its tiles
-// (corner number, the part, its class) — and every tile, the drawing and the
-// button all open the configurator. Each tile's art is the same symbol the
-// big drawing uses, cropped to the part's box, so there is one drawing of
-// each part. Paint inside the symbols is inline, not classed: class rules never
-// reach a <use> clone in Chromium, inherited properties and inline styles do.
+// Each part is drawn once, as a <symbol>, and placed with <use>. Paint inside
+// the symbols is inline, not classed: class rules never reach a <use> clone in
+// Chromium, inherited properties and inline styles do.
 //
 // Progress is one number, --p (0→1), set on the section by the script at the
-// bottom. Every part and tile carries its own start, --s, and works out the
+// bottom. Every part and step carries its own start, --s, and works out the
 // rest in CSS — see "build journey" in global.css. With reduced motion the
 // script never runs, --p is pinned to 1, and the finished machine is shown.
 const steps = [
-  // key · configurator label · class summary · the line read while it lands · art box (x y w h)
-  { key: 'case',   label: 'Case',         sum: 'Mid-tower · Airflow front',     line: 'It starts with the box. Airflow decides everything that follows.', box: [56, 36, 488, 448] },
-  { key: 'board',  label: 'Motherboard',  sum: 'ATX · 4 DIMM · x16',            line: 'The board goes in first. Everything else plugs into it.',        box: [136, 66, 333, 328] },
-  { key: 'cpu',    label: 'Processor',    sum: '8-core · Boxed',                line: 'The brain. Seated once, never forced.',                           box: [282, 120, 70, 70] },
-  { key: 'cooler', label: 'CPU Cooler',   sum: 'Air tower · Mid',               line: 'Sized to the chip, not to the price tag.',                       box: [270, 72, 110, 126] },
-  { key: 'ram',    label: 'Memory',       sum: '32 GB · 4 × 8 · Dual-channel', line: 'Matched sticks, in the slots that actually run dual-channel.',   box: [379, 84, 64, 156] },
-  { key: 'gpu',    label: 'Graphics',     sum: '12 GB · 1440p / 4K',            line: 'The part that draws every frame you see.',                       box: [58, 242, 396, 68] },
-  { key: 'psu',    label: 'Power Supply', sum: '850 W · Gold · Modular',        line: 'Sized with headroom. Cabled so you never see them.',             box: [66, 408, 198, 64] },
-  { key: 'panel',  label: 'Tested',       sum: 'Benchmarked · Warrantied',      line: 'Panel on. Stress-tested before it leaves the bench. Yours.',     box: [56, 36, 488, 448] },
+  // key · name on the sheet · the line read while it lands · the part's box in the drawing (x y w h)
+  { key: 'case',   name: 'Case',        line: 'It starts with the box. Airflow decides everything that follows.', box: [56, 36, 488, 448] },
+  { key: 'board',  name: 'Motherboard', line: 'The board goes in first. Everything else plugs into it.',        box: [136, 66, 333, 328] },
+  { key: 'cpu',    name: 'CPU',         line: 'The brain. Seated once, never forced.',                           box: [282, 120, 70, 70] },
+  { key: 'cooler', name: 'Cooler',      line: 'Sized to the chip, not to the price tag.',                       box: [270, 72, 110, 126] },
+  { key: 'ram',    name: 'Memory',      line: 'Matched sticks, in the slots that actually run dual-channel.',   box: [379, 84, 64, 156] },
+  { key: 'gpu',    name: 'Graphics',    line: 'The part that draws every frame you see.',                       box: [58, 242, 396, 68] },
+  { key: 'psu',    name: 'Power',       line: 'Sized with headroom. Cabled so you never see them.',             box: [66, 408, 198, 64] },
+  { key: 'panel',  name: 'Tested',      line: 'Panel on. Stress-tested before it leaves the bench. Yours.',     box: [56, 36, 488, 448] },
 ].map((p, i) => ({
   ...p,
   n: String(i + 1).padStart(2, '0'),
   // Each step owns a slice of the scroll, starting here.
   s: (0.02 + i * 0.12).toFixed(2),
   vb: p.box.join(' '),
-  // The tile art is 36px tall, so a ~1.3px stroke is this many of its units.
-  sw: (1.3 * p.box[3] / 36).toFixed(1),
 }));
 const GO = '/configurator';
 ---
 <section id="build" data-journey class="journey relative scroll-mt-20" aria-label="How a build goes together">
   <div class="stage sticky top-0 flex h-svh flex-col justify-center px-4 pb-6 pt-16 sm:px-6">
-    <div class="mx-auto grid w-full max-w-7xl gap-5 md:grid-cols-2 md:items-center md:gap-12">
-      <!-- lg:pl-10 clears the fixed rail on the left, which otherwise lands on the tile numbers -->
+    <div class="mx-auto grid w-full max-w-7xl gap-6 md:grid-cols-2 md:items-center md:gap-12">
+      <!-- lg:pl-10 clears the fixed rail on the left, which otherwise lands on the step numbers -->
       <div class="order-2 md:order-1 lg:pl-10">
-        <!-- the configurator's masthead -->
-        <div class="flex items-end justify-between gap-4 border-b-2 border-white/15 pb-3">
-          <div>
-            <p class="label text-xs text-accent">02 &nbsp;Assembled-Here.//</p>
-            <h2 class="display mt-2 text-4xl md:text-5xl">Built By Hand</h2>
-          </div>
-          <p class="label hidden text-right text-[10px] leading-relaxed text-muted sm:block">
-            The PC Project<br /><span class="text-accent">Official PC Configurator</span>
-          </p>
-        </div>
-        <p class="hint mt-3 hidden text-sm text-paper/60 md:block">Keep scrolling — or click any part to start your own.</p>
+        <p class="label text-xs text-accent">02 &nbsp;Assembled-Here.//</p>
+        <h2 class="display mt-3 text-4xl md:text-6xl">Built By Hand</h2>
+        <p class="hint mt-3 hidden text-sm text-paper/60 md:block">Keep scrolling. Every build in the shop goes together the same way.</p>
 
-        <div class="relative mt-4 h-12 md:h-14">
+        <div class="relative mt-5 h-12 md:mt-6 md:h-14">
           {steps.map((p) => (
             <p class="step-line absolute inset-x-0 top-0 max-w-prose text-base leading-relaxed text-paper/80 md:text-lg" style={`--s:${p.s}`}>{p.line}</p>
           ))}
         </div>
 
-        <!-- the sheet: the configurator's tiles, each one a way in -->
-        <ol class="mt-3 grid grid-cols-4 gap-2 md:mt-5 md:grid-cols-2">
+        <ol class="mt-3 grid grid-cols-2 gap-x-6 gap-y-1 md:mt-8 md:grid-cols-1 md:gap-y-2">
           {steps.map((p) => (
-            <li class="step" style={`--s:${p.s}`}>
-              <a href={GO} aria-label={`Open the PC configurator — ${p.label}`}
-                 class="tile relative flex h-full min-h-[3.5rem] flex-col justify-end border bg-white/[0.02] p-2 pt-5 transition hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-accent sm:min-h-[5.25rem] sm:p-2.5">
-                <span class="label absolute left-2 top-1.5 text-[10px] text-muted">{p.n}</span>
-                <svg class="mb-1.5 hidden h-9 w-full sm:block" viewBox={p.vb} style={`stroke-width:${p.sw}`} aria-hidden="true">
-                  <use href={`#sym-${p.key}`} x={p.box[0]} y={p.box[1]} width={p.box[2]} height={p.box[3]} />
-                </svg>
-                <span class="label block text-[9px] leading-tight text-muted">{p.label}</span>
-                <span class="name label hidden text-[11px] leading-tight sm:block">{p.sum}</span>
-              </a>
+            <li class="step label flex items-baseline gap-3 text-xs md:text-sm" style={`--s:${p.s}`}>
+              <span class="w-6 text-accent">{p.n}</span>
+              <span class="name">{p.name}</span>
             </li>
           ))}
         </ol>
 
-        <a href={GO} class="label mt-4 inline-block rounded-sm bg-accent px-5 py-2.5 text-xs font-medium text-ink transition-colors hover:bg-paper focus-visible:outline-2 focus-visible:outline-paper active:translate-y-px md:mt-6">
+        <a href={GO} class="label mt-6 inline-block text-sm text-accent hover:underline focus-visible:outline-2 focus-visible:outline-accent md:mt-8">
           Open-The-Configurator &rarr;
         </a>
       </div>
 
       <!-- Side-on, panel off, laid out like the bench build in the shop: rear exhaust and I/O on the left,
-           three intakes on the right, a raked shroud with the floor fan in its opening. The whole drawing is a way in too. -->
+           three intakes on the right, a raked shroud with the floor fan in its opening. The drawing is a way in too. -->
       <a href={GO} aria-label="Open the PC configurator" class="order-1 block md:order-2">
-        <svg class="w-full max-h-[38svh] overflow-visible md:max-h-[72svh]" viewBox="0 0 600 520" aria-hidden="true">
+        <svg class="w-full max-h-[40svh] overflow-visible md:max-h-[72svh]" viewBox="0 0 600 520" aria-hidden="true">
           <defs>
             <symbol id="sym-case" viewBox={steps[0].vb}>
               <rect style="fill:var(--color-ink-2)" x="60" y="40" width="480" height="440" rx="4" />
