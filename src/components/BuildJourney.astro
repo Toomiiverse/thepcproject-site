@@ -2,9 +2,12 @@
 // 02 · the build. A pinned stage: the page scrolls, the drawing stays, and
 // the PC goes together part by part while the sheet beside it ticks off.
 //
-// The case is drawn in cabinet projection: the glass side is true to scale,
-// and the top and front recede up-right at half depth. Paint is inline on
-// the shapes; only stroke is inherited (see .journey svg in global.css).
+// The case is a dual-chamber tower seen through its glass side: board in the
+// main chamber, a 360 AIO across the top, three intakes on the chamber wall
+// to the right and three more on the floor, the supply in the back chamber
+// behind the tray — drawn dashed, because from here you never see it.
+// Paint is inline on the shapes; only stroke is inherited (see .journey svg
+// in global.css).
 //
 // Progress is one number, --p (0→1), set on the section by the script at the
 // bottom. Every part and step carries its own start, --s, and works out the
@@ -57,68 +60,63 @@ const GO = '/configurator';
         </a>
       </div>
 
-      <!-- Glass side true, top and front receding up-right. Rear and I/O on the left, intakes on the front,
-           a raked shroud with the floor fan in its opening — the bench build in the shop. The drawing is a way in too. -->
+      <!-- Through the glass side: rear on the left, the chamber wall and its intakes on the right. The drawing is a way in too. -->
       <a href={GO} aria-label="Open the PC configurator" class="order-1 block md:order-2">
-        <svg class="w-full max-h-[40svh] overflow-visible md:max-h-[72svh]" viewBox="40 -44 620 544" aria-hidden="true">
+        <svg class="w-full max-h-[40svh] overflow-visible md:max-h-[72svh]" viewBox="0 0 600 520" aria-hidden="true">
           <g class="part part-case" style={S.case}>
-            <!-- top and front faces first; the side's edge lines land on top of them -->
-            <path style="fill:var(--color-paper);fill-opacity:.05" d="M60 40H540L640 -24H160Z" />
-            <path style="fill:var(--color-ink)" d="M540 40L640 -24V416L540 480Z" />
-            <!-- the three intakes, drawn face-on in the front's own plane and leaned into the projection -->
-            <g transform="matrix(.4255 -.2723 0 1 540 40)">
-              <circle vector-effect="non-scaling-stroke" cx="117" cy="96" r="54" /><circle vector-effect="non-scaling-stroke" style="stroke-opacity:.4" cx="117" cy="96" r="38" /><circle vector-effect="non-scaling-stroke" cx="117" cy="96" r="6" />
-              <circle vector-effect="non-scaling-stroke" cx="117" cy="212" r="54" /><circle vector-effect="non-scaling-stroke" style="stroke-opacity:.4" cx="117" cy="212" r="38" /><circle vector-effect="non-scaling-stroke" cx="117" cy="212" r="6" />
-              <circle vector-effect="non-scaling-stroke" cx="117" cy="328" r="54" /><circle vector-effect="non-scaling-stroke" style="stroke-opacity:.4" cx="117" cy="328" r="38" /><circle vector-effect="non-scaling-stroke" cx="117" cy="328" r="6" />
-            </g>
-            <!-- the glass side -->
-            <rect style="fill:var(--color-ink-2)" x="60" y="40" width="480" height="440" />
-            <!-- rear exhaust, top-left, and the bracket slots below it -->
-            <circle cx="104" cy="132" r="32" /><circle style="stroke-opacity:.4" cx="104" cy="132" r="22" /><circle cx="104" cy="132" r="5" />
-            <path style="stroke-opacity:.4" d="M64 250h12M64 270h12M64 290h12M64 310h12M64 330h12" />
-            <!-- the same intakes, edge-on through the glass -->
-            <rect style="stroke-opacity:.4" x="478" y="42" width="24" height="108" rx="2" />
-            <rect style="stroke-opacity:.4" x="478" y="158" width="24" height="108" rx="2" />
-            <rect style="stroke-opacity:.4" x="478" y="274" width="24" height="108" rx="2" />
-            <!-- the shroud: a raked top edge, then its front wall; the floor fan sits in the opening -->
-            <path d="M60 404L470 378V480" />
-            <circle cx="504" cy="432" r="28" /><circle style="stroke-opacity:.4" cx="504" cy="432" r="19" /><circle cx="504" cy="432" r="5" />
+            <rect style="fill:var(--color-ink-2)" x="30" y="40" width="540" height="440" rx="4" />
+            <rect x="60" y="480" width="30" height="6" /><rect x="480" y="480" width="30" height="6" />
+            <!-- the chamber wall, and the three intakes mounted on it -->
+            <path d="M430 40V480" />
+            <circle cx="500" cy="130" r="34" /><circle style="stroke-opacity:.4" cx="500" cy="130" r="24" /><circle cx="500" cy="130" r="5" />
+            <circle cx="500" cy="210" r="34" /><circle style="stroke-opacity:.4" cx="500" cy="210" r="24" /><circle cx="500" cy="210" r="5" />
+            <circle cx="500" cy="290" r="34" /><circle style="stroke-opacity:.4" cx="500" cy="290" r="24" /><circle cx="500" cy="290" r="5" />
+            <!-- rear bracket slots, and three intakes on the floor seen edge-on -->
+            <path style="stroke-opacity:.4" d="M34 300h12M34 320h12M34 340h12M34 360h12" />
+            <rect style="stroke-opacity:.4" x="42" y="446" width="112" height="22" rx="2" />
+            <rect style="stroke-opacity:.4" x="168" y="446" width="112" height="22" rx="2" />
+            <rect style="stroke-opacity:.4" x="294" y="446" width="112" height="22" rx="2" />
           </g>
           <g class="part part-board" style={S.board}>
-            <rect style="fill:var(--color-ink)" x="140" y="70" width="325" height="320" rx="2" />
-            <rect style="stroke-opacity:.4" x="146" y="76" width="70" height="58" />
-            <rect style="stroke-opacity:.4" x="280" y="118" width="74" height="74" />
-            <path style="stroke-opacity:.4" d="M384 92h9v140h-9zM399 92h9v140h-9zM414 92h9v140h-9zM429 92h9v140h-9z" />
-            <rect style="stroke-opacity:.4" x="155" y="296" width="270" height="8" />
-            <rect style="stroke-opacity:.4" x="405" y="330" width="40" height="40" />
-            <rect style="stroke-opacity:.4" x="449" y="150" width="10" height="36" />
+            <rect style="fill:var(--color-ink)" x="90" y="106" width="320" height="300" rx="2" />
+            <rect style="stroke-opacity:.4" x="96" y="112" width="70" height="58" />
+            <rect style="stroke-opacity:.4" x="250" y="146" width="74" height="74" />
+            <path style="stroke-opacity:.4" d="M350 134h9v140h-9zM365 134h9v140h-9zM380 134h9v140h-9zM395 134h9v140h-9z" />
+            <rect style="stroke-opacity:.4" x="100" y="344" width="270" height="8" />
+            <rect style="stroke-opacity:.4" x="360" y="366" width="36" height="30" />
+            <rect style="stroke-opacity:.4" x="396" y="286" width="10" height="36" />
           </g>
           <g class="part part-cpu" style={S.cpu}>
-            <rect style="fill:var(--color-ink-2)" x="288" y="126" width="58" height="58" rx="2" />
-            <rect style="stroke-opacity:.4" x="298" y="136" width="38" height="38" />
+            <rect style="fill:var(--color-ink-2)" x="258" y="154" width="58" height="58" rx="2" />
+            <rect style="stroke-opacity:.4" x="268" y="164" width="38" height="38" />
           </g>
           <g class="part part-cooler" style={S.cooler}>
-            <rect style="fill:var(--color-ink-2)" x="274" y="76" width="86" height="118" rx="2" />
-            <path style="stroke-opacity:.4" d="M278 88h78M278 98h78M278 108h78M278 118h78M278 128h78M278 138h78M278 148h78M278 158h78M278 168h78M278 178h78" />
-            <!-- its fan faces the intakes -->
-            <rect style="fill:var(--color-ink-2)" x="362" y="82" width="14" height="106" rx="2" />
+            <!-- radiator along the top, its fans beneath, the end tank at the right -->
+            <rect style="fill:var(--color-ink-2)" x="40" y="48" width="358" height="26" rx="2" />
+            <path style="stroke-opacity:.4" d="M60 52v18M80 52v18M100 52v18M120 52v18M140 52v18M160 52v18M180 52v18M200 52v18M220 52v18M240 52v18M260 52v18M280 52v18M300 52v18M320 52v18M340 52v18M360 52v18M380 52v18" />
+            <rect style="fill:var(--color-ink-2)" x="398" y="46" width="16" height="70" rx="2" />
+            <rect style="stroke-opacity:.4" x="42" y="76" width="110" height="22" rx="2" />
+            <rect style="stroke-opacity:.4" x="164" y="76" width="110" height="22" rx="2" />
+            <rect style="stroke-opacity:.4" x="286" y="76" width="110" height="22" rx="2" />
+            <!-- the block on the chip, and two tubes up to the tank -->
+            <path d="M279 152C279 118 336 104 398 104M295 152C295 126 350 112 398 112" />
+            <circle style="fill:var(--color-ink-2)" cx="287" cy="183" r="32" /><circle style="stroke-opacity:.4" cx="287" cy="183" r="20" />
           </g>
           <g class="part part-ram" style={S.ram}>
-            <rect style="fill:var(--color-ink-2)" x="383" y="88" width="11" height="148" rx="1" />
-            <rect style="fill:var(--color-ink-2)" x="398" y="88" width="11" height="148" rx="1" />
-            <rect style="fill:var(--color-ink-2)" x="413" y="88" width="11" height="148" rx="1" />
-            <rect style="fill:var(--color-ink-2)" x="428" y="88" width="11" height="148" rx="1" />
+            <rect style="fill:var(--color-ink-2)" x="364" y="130" width="11" height="148" rx="1" />
+            <rect style="fill:var(--color-ink-2)" x="394" y="130" width="11" height="148" rx="1" />
           </g>
           <g class="part part-gpu" style={S.gpu}>
-            <rect style="fill:var(--color-ink-2)" x="72" y="252" width="378" height="48" rx="3" />
-            <circle cx="198" cy="276" r="17" /><circle style="stroke-opacity:.4" cx="198" cy="276" r="11" /><circle cx="198" cy="276" r="4" />
-            <circle cx="324" cy="276" r="17" /><circle style="stroke-opacity:.4" cx="324" cy="276" r="11" /><circle cx="324" cy="276" r="4" />
-            <rect style="fill:var(--color-ink-2)" x="62" y="246" width="10" height="64" rx="1" />
+            <rect style="fill:var(--color-ink-2)" x="42" y="300" width="338" height="48" rx="3" />
+            <circle cx="150" cy="324" r="17" /><circle style="stroke-opacity:.4" cx="150" cy="324" r="11" /><circle cx="150" cy="324" r="4" />
+            <circle cx="270" cy="324" r="17" /><circle style="stroke-opacity:.4" cx="270" cy="324" r="11" /><circle cx="270" cy="324" r="4" />
+            <rect style="fill:var(--color-ink-2)" x="32" y="294" width="10" height="64" rx="1" />
           </g>
-          <g class="part part-psu" style={S.psu}>
-            <rect style="fill:var(--color-ink-2)" x="70" y="412" width="190" height="56" rx="2" />
-            <circle cx="120" cy="440" r="20" /><circle style="stroke-opacity:.4" cx="120" cy="440" r="13" /><circle cx="120" cy="440" r="4" />
-            <path style="stroke-opacity:.4" d="M160 426h84M160 436h84M160 446h84M160 456h84" />
+          <!-- the supply sits in the back chamber, behind the tray: dashed, because it is out of sight -->
+          <g class="part part-psu" style={`${S.psu};stroke-dasharray:5 4;stroke-opacity:.7`}>
+            <rect x="446" y="392" width="100" height="60" rx="2" />
+            <circle cx="476" cy="422" r="18" /><circle cx="476" cy="422" r="4" />
+            <path d="M504 406h32M504 416h32M504 426h32M504 436h32" />
           </g>
         </svg>
       </a>

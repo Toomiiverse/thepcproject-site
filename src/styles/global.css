@@ -156,7 +156,7 @@ body {
 .journey .part-cooler,
 .journey .part-ram    { transform: translateY(calc(-70px * (1 - var(--k)))); }
 .journey .part-gpu    { transform: translateY(calc(-50px * (1 - var(--k)))); }
-.journey .part-psu    { transform: translateX(calc(-90px * (1 - var(--k)))); }
+.journey .part-psu    { transform: translateX(calc(90px * (1 - var(--k)))); }
 /* The drawing is a link; the chassis answers the hover. */
 .journey a:hover .part-case { color: var(--color-accent); }
 
