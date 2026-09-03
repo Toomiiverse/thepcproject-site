@@ -4,18 +4,18 @@ import Base from '../layouts/Base.astro';
 // Scroll journey: follow one part through the 4-stage QA process.
 const stages = [
   {
-    num: '01', id: 'stage-01', label: 'Procurement.//', heading: 'It Arrives',
-    body: 'Every part starts as a question mark. A trade-in, a bulk lot, a card someone swears "ran fine". It gets logged into inventory with its source and identifying information — traceable from day one.',
+    num: '01', id: 'stage-01', label: 'Pick-Up.//', heading: 'Procurement',
+    body: 'Every part starts as a question mark. A trade-in, a bulk lot, a card someone swears "ran fine". It gets logged into inventory with its source and identifying information - traceable from day one.',
     tags: ['Source-Logged', 'Serial-Recorded', 'Inventory-ID'],
   },
   {
     num: '02', id: 'stage-02', label: 'Assessment.//', heading: 'It Gets Documented',
-    body: 'Condition is inspected and photographed before anything is powered on. Visible damage, missing components, corrosion, wear — all of it goes on record, not under the rug.',
+    body: 'Condition is inspected and photographed before anything is powered on. Visible damage, missing components, corrosion, wear - all of it goes on record, not under the rug.',
     tags: ['Photographed', 'Damage-Check', 'Corrosion', 'Wear'],
   },
   {
     num: '03', id: 'stage-03', label: 'Testing.//', heading: 'It Gets Pushed',
-    body: 'Now it powers on and earns its keep. Appropriate workloads verify functionality, stability, and performance — benchmarks, stress tests, thermal behaviour. Numbers, not vibes.',
+    body: 'Now it powers on and earns its keep. Appropriate workloads verify functionality, stability, and performance - benchmarks, stress tests, thermal behaviour. Numbers, not vibes.',
     tags: ['Benchmarked', 'Stress-Tested', 'Thermals', 'Stability'],
   },
   {
@@ -68,6 +68,29 @@ const items = [
         <span aria-hidden="true" class={`display pointer-events-none absolute top-1/2 -translate-y-1/2 text-[45vw] leading-none text-white/[0.04] select-none lg:text-[28vw] ${i % 2 ? 'left-0' : 'right-0'}`}>
           {s.num}
         </span>
+        {i === 0 && (
+          <!-- the pick-up: as this stage scrolls through, the van drives out and collects the part -->
+          <div aria-hidden="true" class="pickup pointer-events-none absolute inset-x-0 bottom-4 px-4 sm:bottom-8 sm:px-6">
+            <svg class="mx-auto block w-full max-w-7xl" viewBox="0 0 1000 120">
+              <line x1="0" y1="100" x2="1000" y2="100" />
+              <line class="dashes" x1="0" y1="110" x2="1000" y2="110" />
+              <!-- where the part is waiting -->
+              <path d="M860 100V50H930V100" />
+              <path d="M852 52L895 30L938 52" />
+              <rect x="905" y="76" width="16" height="24" />
+              <g class="box-there"><rect x="836" y="84" width="18" height="16" /><path class="dim" d="M836 90h18" /></g>
+              <!-- the van, cab forward -->
+              <g class="van">
+                <path class="body" d="M10 88V52H84L108 66L120 68V88Z" />
+                <path class="dim" d="M84 52V66H108" />
+                <rect class="dim" x="18" y="58" width="58" height="22" />
+                <g class="wheel"><circle class="tyre" cx="32" cy="90" r="10" /><path class="dim" d="M32 82v16M24 90h16" /></g>
+                <g class="wheel"><circle class="tyre" cx="100" cy="90" r="10" /><path class="dim" d="M100 82v16M92 90h16" /></g>
+                <g class="box-aboard"><rect x="38" y="61" width="18" height="16" /></g>
+              </g>
+            </svg>
+          </div>
+        )}
         <div class={`mx-auto w-full max-w-7xl ${i % 2 ? 'flex justify-end' : ''}`}>
           <div class="reveal max-w-xl">
             <div class="flex items-baseline gap-4">
@@ -95,7 +118,7 @@ const items = [
         QA-Approved<span class="text-paper">;</span>
       </p>
       <p class="reveal mx-auto mt-10 max-w-xl text-lg text-paper/80">
-        Used hardware becomes documented, traceable inventory &mdash; not a dusty GPU with a &ldquo;tested&rdquo; sticker.
+        Used hardware becomes documented, traceable inventory - not a dusty GPU with a &ldquo;tested&rdquo; sticker.
       </p>
     </div>
   </section>
@@ -139,6 +162,35 @@ const items = [
     @media (prefers-reduced-motion: reduce) {
       .stamp { opacity: 1; transform: rotate(-3deg); transition: none; }
     }
+
+    /* the pick-up: --p is how far stage 01 has scrolled through the viewport (0 as its
+       top enters at the bottom, 1 as its bottom leaves at the top). The road, at the
+       stage's foot, is on screen from 0.5 until it slides under the header near 0.9,
+       so the van drives through that and the part comes aboard before then. */
+    #stage-01 { --p: 0; }
+    .pickup {
+      --drive: clamp(0, calc((var(--p) - 0.5) / 0.28), 1);
+      --pick: clamp(0, calc((var(--p) - 0.79) / 0.07), 1);
+      color: var(--color-paper);
+    }
+    .pickup svg { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .pickup .dim { stroke-opacity: 0.4; }
+    .pickup .dashes { stroke-opacity: 0.4; stroke-dasharray: 14 12; }
+    .pickup .body, .pickup .tyre { fill: var(--color-ink-2); }
+    .pickup .box-there, .pickup .box-aboard { color: var(--color-accent); }
+    .pickup .van, .pickup .wheel, .pickup .box-there, .pickup .box-aboard {
+      transform-box: fill-box;
+      transform-origin: center;
+      transition: transform 0.15s linear, opacity 0.15s linear;
+    }
+    .pickup .van { transform: translateX(calc(var(--drive) * 700px)); }
+    .pickup .wheel { transform: rotate(calc(var(--drive) * 1080deg)); }
+    .pickup .box-there { opacity: calc(1 - var(--pick)); }
+    .pickup .box-aboard { opacity: var(--pick); transform: translateY(calc(-16px * (1 - var(--pick)))); }
+    @media (prefers-reduced-motion: reduce) {
+      #stage-01 { --p: 1 !important; }
+      .pickup .van, .pickup .wheel, .pickup .box-there, .pickup .box-aboard { transition: none; }
+    }
   </style>
 
   <script>
@@ -146,10 +198,15 @@ const items = [
     const fill = document.getElementById('journey-fill');
     const journey = document.getElementById('journey');
     if (fill && journey) {
+      const stage = document.getElementById('stage-01');
       const update = () => {
         const r = journey.getBoundingClientRect();
         const p = Math.min(1, Math.max(0, (innerHeight / 2 - r.top) / r.height));
         fill.style.transform = `scaleY(${p})`;
+        if (stage) {
+          const t = stage.getBoundingClientRect();
+          stage.style.setProperty('--p', Math.min(1, Math.max(0, (innerHeight - t.top) / (t.height + innerHeight))).toFixed(3));
+        }
       };
       addEventListener('scroll', () => requestAnimationFrame(update), { passive: true });
       update();

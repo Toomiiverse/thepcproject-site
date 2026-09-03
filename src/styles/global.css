@@ -26,7 +26,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Display headings: type as image — huge, tight, uppercase */
+/* Display headings: type as image - huge, tight, uppercase */
 .display {
   font-family: var(--font-display);
   text-transform: uppercase;
@@ -41,7 +41,7 @@ body {
   letter-spacing: 0.08em;
 }
 
-/* Scroll reveal — content visible by default, JS opts elements in */
+/* Scroll reveal - content visible by default, JS opts elements in */
 .reveal {
   opacity: 0;
   transform: translateY(24px);
@@ -53,7 +53,7 @@ body {
 }
 
 /* ── tournament panel: a harder entrance than the rest of the page ──
-   Rides the same observer as .reveal — it just answers the `in` class
+   Rides the same observer as .reveal - it just answers the `in` class
    with more force. The panel arrives off-axis and straightens, a bar
    runs the length of its top edge, and the rows land one after the
    other rather than all at once.                                    */
@@ -141,7 +141,7 @@ body {
   transition: opacity 0.15s ease-out, transform 0.15s ease-out, color 0.15s ease-out;
 }
 
-/* Parts fade and settle as they land, and stay accent for a beat after —
+/* Parts fade and settle as they land, and stay accent for a beat after -
    the newest thing in the case is the one you look at.              */
 .journey .part {
   --hot: clamp(0, calc((var(--s) + var(--d) + 0.05 - var(--p)) / 0.04), 1);
@@ -161,7 +161,7 @@ body {
 /* The drawing is a link; the chassis answers the hover. */
 .journey a:hover .part-case { color: var(--color-accent); }
 
-/* A part's later beats: things that go on after the part itself is down —
+/* A part's later beats: things that go on after the part itself is down -
    the drive's screw, the fans on the chamber wall. Each reads its part's
    --s and --d, so it starts the moment the part lands, and --i puts them
    one after another, 0.025 of the scroll apart.                       */

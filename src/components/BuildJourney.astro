@@ -5,13 +5,13 @@
 // The case is a dual-chamber tower seen through its glass side: board in the
 // main chamber, a 360 AIO across the top, three intakes on the chamber wall
 // to the right and three more on the floor, the supply in the back chamber
-// behind the tray — drawn dashed, because from here you never see it.
+// behind the tray - drawn dashed, because from here you never see it.
 // Paint is inline on the shapes; only stroke is inherited (see .journey svg
 // in global.css).
 //
 // Progress is one number, --p (0→1), set on the section by the script at the
 // bottom. Every part and step carries its own start, --s, and works out the
-// rest in CSS — see "build journey" in global.css. With reduced motion the
+// rest in CSS - see "build journey" in global.css. With reduced motion the
 // script never runs, --p is pinned to 1, and the finished machine is shown.
 const steps = [
   { key: 'case',   name: 'Case',        line: 'It starts with the box. Airflow decides everything that follows.' },
@@ -80,7 +80,7 @@ const GO = '/configurator';
           </g>
           <!-- the board, after an X870 Aorus: the VRM heatsink wraps the rear corner, across the top and
                down the rear edge; the M.2 bay runs under the socket; two short reinforced x16 slots sit off
-               the rear edge; no headers on the edges — they are on the back -->
+               the rear edge; no headers on the edges - they are on the back -->
           <g class="part part-board" style={S.board}>
             <rect style="fill:var(--color-ink)" x="90" y="106" width="320" height="300" rx="2" />
             <path style="stroke-opacity:.4" d="M96 112H236V148H160V292H96Z" />
