@@ -8,9 +8,19 @@ const steps = [
   { num: '03', label: 'Build.//', heading: 'Handcrafted', body: 'Assembled around your vision, style, and performance needs - cable management and thermals included, not extra.' },
   { num: '04', label: 'Deliver.//', heading: 'Tested & Warrantied', body: 'Every build is benchmarked before handover and covered by our Zero-Failure Initiative warranty. Local delivery as far as Bunbury.' },
 ];
+
+// Real builds off the bench, for the gallery.
+const builds = [
+  { src: '/images/themed-cyan.jpg',   alt: 'A dual-chamber build lit cyan, standing in front of a screen showing the character it is themed on' },
+  { src: '/images/themed-purple.jpg', alt: 'A purple-lit tower with a numbered The PC Project plaque propped in front of it' },
+  { src: '/images/themed-white.jpg',  alt: 'A white case with rainbow-lit fans and a themed plaque on the glass' },
+  { src: '/images/themed-frame.jpg',  alt: 'A white open-frame build lit blue, with themed art on the panel and the screen behind' },
+  { src: '/images/themed-blue.jpg',   alt: 'A black tower with five blue-lit fans, themed artwork on the display behind it' },
+  { src: '/images/themed-gojo.jpg',   alt: 'A close look inside a purple-lit build, its small panel screen showing the character art' },
+];
 ---
-<Base title="Custom PC | The PC Project">
-  <PageHero label="Handcrafted.//" heading="Fully Custom">
+<Base title="Custom Themed PCs | The PC Project">
+  <PageHero label="Handcrafted.//" heading="Custom Themed PCs">
     <p>A PC designed around you, not a spec sheet. Flat $50 build fee - no markup on parts, no extras for cable management or thermals. Here's how it works.</p>
   </PageHero>
 
@@ -27,6 +37,23 @@ const steps = [
         </li>
       ))}
     </ol>
+    <!-- what one actually looks like -->
+    <section aria-labelledby="themed-builds" class="mt-20">
+      <p class="label reveal text-xs text-accent">Off-The-Bench.//</p>
+      <h2 id="themed-builds" class="display reveal mt-4 text-3xl md:text-5xl">Builds We Have Made</h2>
+      <p class="reveal mt-4 max-w-prose text-sm leading-relaxed text-paper/70">
+        Themed around what the owner actually likes - colour, lighting, the art on the panel, the plaque on the front.
+        Every one of these came off our bench.
+      </p>
+      <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {builds.map((b) => (
+          <div class="reveal photo aspect-[4/5] overflow-hidden rounded-sm border border-white/10">
+            <img src={b.src} alt={b.alt} loading="lazy" class="h-full w-full object-cover" />
+          </div>
+        ))}
+      </div>
+    </section>
+
     <div class="mt-16 flex flex-wrap gap-4">
       <a href="/configurator" class="label rounded-sm bg-accent px-6 py-3 text-sm font-medium text-ink transition-colors hover:bg-paper focus-visible:outline-2 focus-visible:outline-paper active:translate-y-px">
         Start-A-Build
