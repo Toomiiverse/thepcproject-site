@@ -30,27 +30,34 @@ const rowB = [
   { src: '/images/custom-desk.jpg',  alt: 'A finished build lit teal, its monitor showing The PC Project' },
 ];
 
-// 02 · the themed builds, as cards that stack up as you scroll past them.
-// Grouped by palette; the names describe the build, they are not client names.
+// 02 · the themed builds. Real projects, each with its own photos; the card
+// lays them out according to how many there are.
 const cards = [
-  {
-    n: '01', kind: 'Themed-Build', name: 'Monochrome',
-    stack: ['/images/themed-lace.jpg', '/images/themed-android.jpg'],
-    tall: '/images/themed-cloud-out.jpg',
-    alts: ['A white build framed in black filigree, a figurine beside the graphics card', 'A white build with white fans and a figurine seated on the shroud', 'A cloud-cut white case seen from the front on a The PC Project backdrop'],
-  },
-  {
-    n: '02', kind: 'Themed-Build', name: 'Crimson',
-    stack: ['/images/themed-crimson.jpg', '/images/themed-figure.jpg'],
-    tall: '/images/themed-rings.jpg',
-    alts: ['A black and red build with crimson-lit fans, figurines posed inside', 'A close look at figurines inside a red-lit build, framed by a lit ring', 'A black case with red-lit rings and themed panel art'],
-  },
-  {
-    n: '03', kind: 'Themed-Build', name: 'Violet',
-    stack: ['/images/themed-frieren.jpg', '/images/themed-violet.jpg'],
-    tall: '/images/themed-cloud.jpg',
-    alts: ['A pale build with pink and violet lighting, moss along the floor', 'A dark build lit violet, its radiator ring glowing above the card', 'A white cloud-cut case lit blue inside around a Gigabyte card'],
-  },
+  { n: '01', name: 'Project Asuka', shots: [
+      { src: '/images/p-asuka-1.jpg', alt: 'A red and black build with EVA-02 panel art and a figurine beside the graphics card' },
+      { src: '/images/p-asuka-3.jpg', alt: 'The same build from the front, red-lit through the glass' },
+      { src: '/images/p-asuka-2.jpg', alt: 'The build angled on the bench, its red frame and panel art catching the light' },
+  ] },
+  { n: '02', name: 'Project Frieren', shots: [
+      { src: '/images/p-frieren-2.jpg', alt: 'A white build with violet lighting, moss along the floor and a figurine beside the card' },
+      { src: '/images/p-frieren-3.jpg', alt: 'The same build closer in, flowered fans and the figurine' },
+      { src: '/images/p-frieren-1.jpg', alt: 'The build with its panel art lit, white flowered fans across the front' },
+  ] },
+  { n: '03', name: 'Project NieR Automata', shots: [
+      { src: '/images/p-nier-1.jpg', alt: 'A white build framed in black filigree, a figurine seated beside a Radeon card' },
+      { src: '/images/p-nier-2.jpg', alt: 'The filigree case in full, white fans and the figurine on the shroud' },
+  ] },
+  { n: '04', name: 'Project Sharingan', shots: [
+      { src: '/images/p-sharingan-1.jpg', alt: 'A black build with red-lit rings and themed panel art, figurines along the shroud' },
+      { src: '/images/p-sharingan-2.jpg', alt: 'Closer in on the red rings and the figurines inside the case' },
+  ] },
+  { n: '05', name: 'Project Dark Matter', shots: [
+      { src: '/images/p-darkmatter-2.jpg', alt: 'A black build lit violet, its radiator ring glowing above the card' },
+      { src: '/images/p-darkmatter-1.jpg', alt: 'The same build wider, violet light across the glass and an EVGA card' },
+  ] },
+  { n: '06', name: 'Project Cinnamoroll', shots: [
+      { src: '/images/p-cinnamoroll-1.jpg', alt: 'A white and blue build, sleeved cabling and a figurine on the shroud' },
+  ] },
 ];
 
 // The themed intro, revealed a character at a time as the block scrolls through.
@@ -142,13 +149,27 @@ const themedIntro = 'The build as the centrepiece. Designed around something you
                 Ask-About-This
               </a>
             </div>
-            <div class="mt-5 flex gap-3 md:gap-4">
-              <div class="flex w-[40%] flex-col gap-3 md:gap-4">
-                <img src={c.stack[0]} alt={c.alts[0]} loading="lazy" class="shot-a w-full rounded-[28px] object-cover sm:rounded-[40px]" />
-                <img src={c.stack[1]} alt={c.alts[1]} loading="lazy" class="shot-b w-full rounded-[28px] object-cover sm:rounded-[40px]" />
+            {c.shots.length === 3 && (
+              <div class="mt-5 flex gap-3 md:gap-4">
+                <div class="flex w-[40%] flex-col gap-3 md:gap-4">
+                  <img src={c.shots[0].src} alt={c.shots[0].alt} loading="lazy" class="shot-a w-full rounded-[28px] object-cover sm:rounded-[40px]" />
+                  <img src={c.shots[1].src} alt={c.shots[1].alt} loading="lazy" class="shot-b w-full rounded-[28px] object-cover sm:rounded-[40px]" />
+                </div>
+                <img src={c.shots[2].src} alt={c.shots[2].alt} loading="lazy" class="shot-tall w-[60%] rounded-[28px] object-cover sm:rounded-[40px]" />
               </div>
-              <img src={c.tall} alt={c.alts[2]} loading="lazy" class="shot-tall w-[60%] rounded-[28px] object-cover sm:rounded-[40px]" />
-            </div>
+            )}
+            {c.shots.length === 2 && (
+              <div class="mt-5 grid grid-cols-2 gap-3 md:gap-4">
+                {c.shots.map((sh) => (
+                  <img src={sh.src} alt={sh.alt} loading="lazy" class="shot-pair w-full rounded-[28px] object-cover sm:rounded-[40px]" />
+                ))}
+              </div>
+            )}
+            {c.shots.length === 1 && (
+              <div class="mt-5">
+                <img src={c.shots[0].src} alt={c.shots[0].alt} loading="lazy" class="shot-solo w-full rounded-[28px] object-cover sm:rounded-[40px]" />
+              </div>
+            )}
           </article>
         </div>
       ))}
@@ -202,7 +223,7 @@ const themedIntro = 'The build as the centrepiece. Designed around something you
        read as a pile. A card shrinks once the next is climbing over it. */
     .card-wrap {
       --p: 0;
-      min-height: 86vh;
+      min-height: 74vh;
     }
     .card {
       position: sticky;
@@ -218,6 +239,8 @@ const themedIntro = 'The build as the centrepiece. Designed around something you
     .shot-a { height: clamp(110px, 14vw, 210px); }
     .shot-b { height: clamp(140px, 20vw, 310px); }
     .shot-tall { height: clamp(262px, 34.9vw, 536px); }
+    .shot-pair { height: clamp(200px, 26vw, 420px); }
+    .shot-solo { height: clamp(220px, 30vw, 480px); }
 
     @media (prefers-reduced-motion: reduce) {
       .belt-a, .belt-b { transform: none; }
