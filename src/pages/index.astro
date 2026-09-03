@@ -12,10 +12,11 @@ const rail = [
   { num: '06', id: 'visit' },
 ];
 
+// Google reviews, verbatim. Add more here: { name, stars, quote }.
 const testimonials = [
-  { name: 'Wali', quote: 'The PCs they make and sell are fantastic in both aesthetics and performance.' },
-  { name: 'Kelvin S.', quote: 'Amazing experience from start to finish. The PC itself is beautiful, well-built, and runs perfectly.' },
-  { name: 'Alexander M.', quote: 'Great service and went above and beyond for a powerful build on a budget.' },
+  { name: 'Wali', stars: 5, quote: 'The PCs they make and sell are fantastic in both aesthetics and performance.' },
+  { name: 'Kelvin S.', stars: 5, quote: 'Amazing experience from start to finish. The PC itself is beautiful, well-built, and runs perfectly.' },
+  { name: 'Alexander M.', stars: 5, quote: 'Great service and went above and beyond for a powerful build on a budget.' },
 ];
 ---
 <Base title="The PC Project | Custom PCs & Gaming Lounge in Northbridge, Perth">
@@ -97,13 +98,32 @@ const testimonials = [
         <p class="mt-2 text-sm leading-relaxed text-paper/70">Based in Northbridge. We source from local retailers and deliver as far as Bunbury.</p>
       </div>
     </div>
-    <div class="mt-16 grid gap-6 md:grid-cols-3">
-      {testimonials.map((t) => (
-        <figure class="reveal rounded-sm border border-white/10 p-6">
-          <blockquote class="text-sm leading-relaxed text-paper/80">&ldquo;{t.quote}&rdquo;</blockquote>
-          <figcaption class="label mt-4 text-xs text-accent">{t.name} - 5.0</figcaption>
-        </figure>
-      ))}
+    <!-- the reviews, one at a time -->
+    <div class="reveal reviews mt-16" data-reviews>
+      <div class="viewport overflow-hidden">
+        <div class="track flex" style={`--n:0`}>
+          {testimonials.map((t) => (
+            <figure class="slide shrink-0 grow-0 basis-full px-1">
+              <div class="rounded-sm border border-white/10 p-6 sm:p-8">
+                <div class="stars flex gap-1 text-accent" role="img" aria-label={`${t.stars} out of 5 stars`}>
+                  {Array.from({ length: t.stars }).map(() => (
+                    <svg viewBox="0 0 24 24" aria-hidden="true" class="h-4 w-4 fill-current">
+                      <path d="M12 2.6l2.9 5.9 6.5.95-4.7 4.6 1.1 6.45L12 17.45 6.2 20.5l1.1-6.45-4.7-4.6 6.5-.95z" />
+                    </svg>
+                  ))}
+                </div>
+                <blockquote class="mt-4 text-base leading-relaxed text-paper/85 sm:text-lg">&ldquo;{t.quote}&rdquo;</blockquote>
+                <figcaption class="label mt-5 text-xs text-accent">{t.name}</figcaption>
+              </div>
+            </figure>
+          ))}
+        </div>
+      </div>
+      <div class="mt-6 flex items-center gap-3">
+        {testimonials.map((_, i) => (
+          <button type="button" class="dot" data-go={i} aria-label={`Review ${i + 1}`}></button>
+        ))}
+      </div>
     </div>
   </section>
 
@@ -143,4 +163,53 @@ const testimonials = [
       ></iframe>
     </div>
   </section>
+
+  <style>
+    /* Reviews, one at a time. The track slides by whole viewport widths; --n
+       is which one is showing, set by the script below. */
+    .reviews .track {
+      transform: translateX(calc(var(--n) * -100%));
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .reviews .dot {
+      width: 30px;
+      height: 3px;
+      border-radius: 2px;
+      background: rgb(255 255 255 / 0.2);
+      transition: background 0.25s ease-out, width 0.25s ease-out;
+    }
+    .reviews .dot[aria-current='true'] {
+      width: 46px;
+      background: var(--color-accent);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reviews .track { transition: none; }
+    }
+  </style>
+
+  <script>
+    const box = document.querySelector<HTMLElement>('[data-reviews]');
+    if (box) {
+      const track = box.querySelector<HTMLElement>('.track')!;
+      const dots = [...box.querySelectorAll<HTMLButtonElement>('.dot')];
+      let i = 0;
+      const show = (n: number) => {
+        i = (n + dots.length) % dots.length;
+        track.style.setProperty('--n', String(i));
+        dots.forEach((d, k) => d.setAttribute('aria-current', String(k === i)));
+      };
+      dots.forEach((d) => d.addEventListener('click', () => { show(Number(d.dataset.go)); rest(); }));
+
+      // Auto-advance, but not while someone is reading one they chose or hovering.
+      let timer = 0;
+      const rest = () => { clearInterval(timer); timer = window.setInterval(() => show(i + 1), 6000); };
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches && dots.length > 1) {
+        rest();
+        box.addEventListener('mouseenter', () => clearInterval(timer));
+        box.addEventListener('mouseleave', rest);
+        box.addEventListener('focusin', () => clearInterval(timer));
+      }
+      show(0);
+    }
+  </script>
 </Base>
