@@ -115,7 +115,7 @@ const themedIntro = 'The build as the centrepiece. Designed around something you
 
       <p data-sp class="chars mt-6 max-w-prose text-base leading-relaxed text-paper/80 md:text-lg">
         {themedIntro.split('').map((ch, i) => (
-          <span class="ch" style={`--i:${i}`}>{ch === ' ' ? ' ' : ch}</span>
+          <span class="ch" style={`--i:${i}`}>{ch}</span>
         ))}
       </p>
 
@@ -205,6 +205,7 @@ const themedIntro = 'The build as the centrepiece. Designed around something you
     /* ── the intro, a character at a time ── */
     .chars { --p: 0; }
     .ch {
+      white-space: pre-wrap;
       opacity: calc(0.18 + 0.82 * clamp(0, (var(--p) - var(--i) * 0.0055) * 9, 1));
       transition: opacity 0.1s linear;
     }
