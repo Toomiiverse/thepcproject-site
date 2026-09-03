@@ -1,15 +1,30 @@
 ---
 // Subpage hero: mono kicker + display heading + short intro.
+// Pass `video` (and its `poster`) to run a muted loop behind it; without one the
+// hero renders exactly as before. Under reduced motion the poster stands in.
 interface Props {
   label: string;
   heading: string;
+  video?: string;
+  poster?: string;
 }
-const { label, heading } = Astro.props;
+const { label, heading, video, poster } = Astro.props;
 ---
-<section class="mx-auto max-w-7xl px-4 pt-36 pb-12 sm:px-6 md:pt-44">
-  <p class="label text-xs text-accent">{label}</p>
-  <h1 class="display mt-4 text-5xl sm:text-7xl">{heading}</h1>
-  <div class="mt-6 max-w-xl text-lg text-paper/80">
-    <slot />
+<section class={`relative px-4 pt-36 pb-12 sm:px-6 md:pt-44 ${video ? 'overflow-hidden' : ''}`}>
+  {video && (
+    <div class="hero-bg absolute inset-0 z-0" style={poster ? `background-image:url('${poster}')` : undefined} aria-hidden="true">
+      <video class="hero-video h-full w-full object-cover" autoplay muted loop playsinline preload="metadata" poster={poster}>
+        <source src={video} type="video/mp4" />
+      </video>
+      <div class="absolute inset-0 bg-ink/75"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-ink/80"></div>
+    </div>
+  )}
+  <div class="relative z-10 mx-auto max-w-7xl">
+    <p class="label text-xs text-accent">{label}</p>
+    <h1 class="display mt-4 text-5xl sm:text-7xl">{heading}</h1>
+    <div class="mt-6 max-w-xl text-lg text-paper/80">
+      <slot />
+    </div>
   </div>
 </section>

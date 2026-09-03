@@ -178,7 +178,9 @@ body {
 /* The hero's video backdrop. Under reduced motion the video is dropped and its
    own poster frame stands in, so the section still has an image behind it. */
 .hero-bg {
-  background: center / cover no-repeat url('/video/home-poster.jpg');
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 @media (prefers-reduced-motion: reduce) {
