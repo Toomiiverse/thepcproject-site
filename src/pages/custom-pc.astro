@@ -17,38 +17,54 @@ const themedNotes = [
   { heading: 'Signed-And-Numbered', body: 'Every themed build leaves with its own numbered plaque. Yours is the only one wearing that number.' },
 ];
 
-// 01 · custom builds off the bench.
-const customBuilds = [
-  { src: '/images/custom-cyan.jpg',  alt: 'A dual-chamber build lit cyan, standing in front of an illuminated display' },
-  { src: '/images/custom-white.jpg', alt: 'A white case with rainbow-lit fans and a numbered The PC Project plaque on the glass' },
-  { src: '/images/custom-blue.jpg',  alt: 'A black tower with five blue-lit fans, an illuminated display behind it' },
-  { src: '/images/custom-mono.jpg',  alt: 'A white compact build with white fans and a Radeon card, on the shop shelf' },
-  { src: '/images/custom-lian.jpg',  alt: 'A close look at a white build inside: an AIO block, white fans and routed cabling' },
+// The marquee's two rows. Each is tripled in the markup so the loop never
+// shows an edge; only six files are actually fetched.
+const rowA = [
+  { src: '/images/custom-cyan.jpg',  alt: 'A dual-chamber build lit cyan' },
+  { src: '/images/custom-white.jpg', alt: 'A white case with rainbow-lit fans and a numbered plaque' },
+  { src: '/images/custom-blue.jpg',  alt: 'A black tower with five blue-lit fans' },
+];
+const rowB = [
+  { src: '/images/custom-mono.jpg',  alt: 'A white compact build with white fans and a Radeon card' },
+  { src: '/images/custom-lian.jpg',  alt: 'A close look inside a white build: AIO block, white fans, routed cabling' },
   { src: '/images/custom-desk.jpg',  alt: 'A finished build lit teal, its monitor showing The PC Project' },
 ];
 
-// 02 · themed builds, the showcase.
-const builds = [
-  { src: '/images/themed-lace.jpg',      alt: 'A white build framed in black filigree, a figurine standing beside the graphics card' },
-  { src: '/images/themed-crimson.jpg',   alt: 'A black and red build with crimson-lit fans, figurines posed inside the chassis' },
-  { src: '/images/themed-android.jpg',   alt: 'A white build with white fans and a figurine seated on the shroud' },
-  { src: '/images/themed-cloud.jpg',     alt: 'A white case cut with a cloud pattern, lit blue inside around a Gigabyte card' },
-  { src: '/images/themed-rings.jpg',     alt: 'A black case with red-lit rings and themed panel art, figurines along the shroud' },
-  { src: '/images/themed-cloud-out.jpg', alt: 'The same cloud-cut white case seen from the front, on a The PC Project backdrop' },
-  { src: '/images/themed-frieren.jpg',   alt: 'A pale build with pink and violet lighting, moss along the floor and a figurine beside the card' },
-  { src: '/images/themed-violet.jpg',    alt: 'A dark build lit violet, its radiator ring glowing above an EVGA card' },
-  { src: '/images/themed-figure.jpg',    alt: 'A close look at figurines inside a red-lit build, framed by a lit ring' },
+// 02 · the themed builds, as cards that stack up as you scroll past them.
+// Grouped by palette; the names describe the build, they are not client names.
+const cards = [
+  {
+    n: '01', kind: 'Themed-Build', name: 'Monochrome',
+    stack: ['/images/themed-lace.jpg', '/images/themed-android.jpg'],
+    tall: '/images/themed-cloud-out.jpg',
+    alts: ['A white build framed in black filigree, a figurine beside the graphics card', 'A white build with white fans and a figurine seated on the shroud', 'A cloud-cut white case seen from the front on a The PC Project backdrop'],
+  },
+  {
+    n: '02', kind: 'Themed-Build', name: 'Crimson',
+    stack: ['/images/themed-crimson.jpg', '/images/themed-figure.jpg'],
+    tall: '/images/themed-rings.jpg',
+    alts: ['A black and red build with crimson-lit fans, figurines posed inside', 'A close look at figurines inside a red-lit build, framed by a lit ring', 'A black case with red-lit rings and themed panel art'],
+  },
+  {
+    n: '03', kind: 'Themed-Build', name: 'Violet',
+    stack: ['/images/themed-frieren.jpg', '/images/themed-violet.jpg'],
+    tall: '/images/themed-cloud.jpg',
+    alts: ['A pale build with pink and violet lighting, moss along the floor', 'A dark build lit violet, its radiator ring glowing above the card', 'A white cloud-cut case lit blue inside around a Gigabyte card'],
+  },
 ];
+
+// The themed intro, revealed a character at a time as the block scrolls through.
+const themedIntro = 'The build as the centrepiece. Designed around something you actually care about, matched end to end, and finished to be looked at as much as used.';
 ---
 <Base title="Custom PCs & Custom Themed PCs | The PC Project">
   <PageHero label="Handcrafted.//" heading="Custom PCs" video="/video/themed.mp4" poster="/video/themed-poster.jpg">
     <p>A PC designed around you, not a spec sheet. Building fee starting from $50 - no markup on parts, no extras for cable management or thermals. Here's how it works.</p>
   </PageHero>
 
-  <!-- ── 01 · custom PCs: the process, plainly ───────────────────── -->
-  <section aria-labelledby="custom-heading" class="mx-auto max-w-7xl px-4 pb-24 sm:px-6">
+  <!-- ── 01 · custom PCs: the process, then the bench on a moving belt ── -->
+  <section aria-labelledby="custom-heading" class="mx-auto max-w-7xl px-4 sm:px-6">
     <p class="label reveal text-xs text-accent">The-Process.//</p>
-    <h2 id="custom-heading" class="display reveal mt-4 text-3xl md:text-5xl">Custom PCs</h2>
+    <h2 id="custom-heading" class="display grad reveal mt-4 text-3xl md:text-5xl">Custom PCs</h2>
     <ol class="mt-12 grid gap-12 md:grid-cols-2">
       {steps.map((s) => (
         <li class="reveal">
@@ -61,35 +77,42 @@ const builds = [
         </li>
       ))}
     </ol>
-    <div class="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {customBuilds.map((b) => (
-        <figure class="reveal photo aspect-[4/5] overflow-hidden rounded-sm border border-white/10">
-          <img src={b.src} alt={b.alt} loading="lazy" class="h-full w-full object-cover" />
-        </figure>
-      ))}
-    </div>
-
     <div class="mt-16 flex flex-wrap gap-4">
-      <a href="/configurator" class="label rounded-sm bg-accent px-6 py-3 text-sm font-medium text-ink transition-colors hover:bg-paper focus-visible:outline-2 focus-visible:outline-paper active:translate-y-px">
+      <a href="/configurator" class="magnet label rounded-sm bg-accent px-6 py-3 text-sm font-medium text-ink transition-colors hover:bg-paper focus-visible:outline-2 focus-visible:outline-paper">
         Start-A-Build
       </a>
-      <a href="/contact" class="label rounded-sm border border-white/20 px-6 py-3 text-sm text-paper hover:border-accent hover:text-accent">
+      <a href="/contact" class="magnet label rounded-sm border border-white/20 px-6 py-3 text-sm text-paper hover:border-accent hover:text-accent">
         Email-Us
       </a>
     </div>
   </section>
 
-  <!-- ── 02 · custom themed PCs. Its own ground, its own entrance: the
-       pieces arrive out of focus and off-axis and settle into place, and
-       the heading takes a light across it. See "themed" in global.css. -->
-  <section aria-labelledby="themed-heading" class="themed relative overflow-hidden border-y border-white/10 py-24 md:py-32">
+  <!-- The belt: two rows, driven the opposite way by the page's own scroll. -->
+  <section aria-label="Builds off the bench" data-sp class="marquee mt-20 overflow-hidden pb-24 md:mt-28">
+    <div class="belt belt-a flex gap-3">
+      {[...rowA, ...rowA, ...rowA].map((b) => (
+        <img src={b.src} alt={b.alt} loading="lazy" class="tile" />
+      ))}
+    </div>
+    <div class="belt belt-b mt-3 flex gap-3">
+      {[...rowB, ...rowB, ...rowB].map((b) => (
+        <img src={b.src} alt={b.alt} loading="lazy" class="tile" />
+      ))}
+    </div>
+  </section>
+
+  <!-- ── 02 · custom themed PCs. Its own ground, its own entrance, and the
+       builds arrive as cards that stack up and settle back as you pass. -->
+  <section aria-labelledby="themed-heading" class="themed relative border-t border-white/10 py-24 md:py-32">
     <div class="themed-glow" aria-hidden="true"></div>
     <div class="relative mx-auto max-w-7xl px-4 sm:px-6">
       <p class="label reveal text-xs text-accent">The-Other-Kind.//</p>
-      <h2 id="themed-heading" class="display themed-title reveal mt-4 text-4xl md:text-6xl">Custom Themed PCs</h2>
-      <p class="reveal mt-6 max-w-prose text-base leading-relaxed text-paper/80">
-        The build as the centrepiece. Designed around something you actually care about, matched end to end,
-        and finished to be looked at as much as used.
+      <h2 id="themed-heading" class="display themed-title grad reveal mt-4 text-4xl md:text-6xl">Custom Themed PCs</h2>
+
+      <p data-sp class="chars mt-6 max-w-prose text-base leading-relaxed text-paper/80 md:text-lg">
+        {themedIntro.split('').map((ch, i) => (
+          <span class="ch" style={`--i:${i}`}>{ch === ' ' ? ' ' : ch}</span>
+        ))}
       </p>
 
       <dl class="reveal mt-12 grid gap-8 md:grid-cols-3">
@@ -100,20 +123,148 @@ const builds = [
           </div>
         ))}
       </dl>
+    </div>
 
-      <div class="reveal mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {builds.map((b) => (
-          <figure class="themed-item themed-shot aspect-[4/5] overflow-hidden rounded-sm border border-white/10">
-            <img src={b.src} alt={b.alt} loading="lazy" class="h-full w-full object-cover" />
-          </figure>
-        ))}
-      </div>
+    <!-- the stack -->
+    <div class="mt-16 px-4 sm:px-6 md:mt-24">
+      {cards.map((c, i) => (
+        <div data-sp class="card-wrap">
+          <article class="card mx-auto max-w-7xl rounded-[40px] border-2 border-[#D7E2EA]/25 bg-ink p-4 sm:rounded-[50px] sm:p-6 md:p-8" style={`--n:${i}`}>
+            <div class="flex flex-wrap items-center justify-between gap-4 px-2 md:px-4">
+              <div class="flex items-baseline gap-5">
+                <span class="display card-num text-accent" aria-hidden="true">{c.n}</span>
+                <div>
+                  <p class="label text-[11px] text-muted">{c.kind}</p>
+                  <h3 class="display mt-1 text-2xl md:text-4xl">{c.name}</h3>
+                </div>
+              </div>
+              <a href="/contact" class="magnet label rounded-full border-2 border-[#D7E2EA]/60 px-6 py-2.5 text-xs tracking-widest text-[#D7E2EA] transition-colors hover:bg-[#D7E2EA]/10 sm:px-8 sm:py-3 sm:text-sm">
+                Ask-About-This
+              </a>
+            </div>
+            <div class="mt-5 flex gap-3 md:gap-4">
+              <div class="flex w-[40%] flex-col gap-3 md:gap-4">
+                <img src={c.stack[0]} alt={c.alts[0]} loading="lazy" class="shot-a w-full rounded-[28px] object-cover sm:rounded-[40px]" />
+                <img src={c.stack[1]} alt={c.alts[1]} loading="lazy" class="shot-b w-full rounded-[28px] object-cover sm:rounded-[40px]" />
+              </div>
+              <img src={c.tall} alt={c.alts[2]} loading="lazy" class="shot-tall w-[60%] rounded-[28px] object-cover sm:rounded-[40px]" />
+            </div>
+          </article>
+        </div>
+      ))}
+    </div>
 
-      <div class="reveal mt-14 flex flex-wrap gap-4">
-        <a href="/contact" class="label rounded-sm bg-accent px-6 py-3 text-sm font-medium text-ink transition-colors hover:bg-paper focus-visible:outline-2 focus-visible:outline-paper active:translate-y-px">
-          Talk-Themes-With-Us
-        </a>
-      </div>
+    <div class="reveal mt-20 flex flex-wrap gap-4 px-4 sm:px-6">
+      <a href="/contact" class="magnet label mx-auto rounded-sm bg-accent px-6 py-3 text-sm font-medium text-ink transition-colors hover:bg-paper focus-visible:outline-2 focus-visible:outline-paper">
+        Talk-Themes-With-Us
+      </a>
     </div>
   </section>
+
+  <style>
+    /* Headings take a vertical gradient, muted into paper. */
+    .grad {
+      background: linear-gradient(180deg, var(--color-muted) 0%, var(--color-paper) 70%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+    }
+
+    /* ── the belt ──
+       --p is how far this section has travelled through the viewport, 0 to 1,
+       written by the script below. One row runs with it, the other against. */
+    .marquee { --p: 0; }
+    .tile {
+      width: 180px;
+      height: 234px;
+      flex: none;
+      border-radius: 1rem;
+      object-fit: cover;
+    }
+    @media (min-width: 768px) {
+      .tile { width: 260px; height: 338px; }
+    }
+    .belt { will-change: transform; }
+    .belt-a { transform: translateX(calc(var(--p) * 620px - 340px)); }
+    .belt-b { transform: translateX(calc(var(--p) * -620px + 40px)); }
+
+    /* ── the intro, a character at a time ── */
+    .chars { --p: 0; }
+    .ch {
+      opacity: calc(0.18 + 0.82 * clamp(0, (var(--p) - var(--i) * 0.0055) * 9, 1));
+      transition: opacity 0.1s linear;
+    }
+
+    /* ── the stack ──
+       The wrapper is what scrolls, so it carries --p; the card inside it is
+       the sticky one, and each sticks a little lower than the last so they
+       read as a pile. A card shrinks once the next is climbing over it. */
+    .card-wrap {
+      --p: 0;
+      min-height: 86vh;
+    }
+    .card {
+      position: sticky;
+      top: calc(5.5rem + var(--n) * 16px);
+      transform-origin: top center;
+      transform: scale(calc(1 - clamp(0, (var(--p) - 0.5) * 2, 1) * 0.055));
+      transition: transform 0.15s linear;
+    }
+    @media (min-width: 768px) {
+      .card { top: calc(7.5rem + var(--n) * 20px); }
+    }
+    .card-num { font-size: clamp(2.5rem, 7vw, 5.5rem); line-height: 0.9; }
+    .shot-a { height: clamp(110px, 14vw, 210px); }
+    .shot-b { height: clamp(140px, 20vw, 310px); }
+    .shot-tall { height: clamp(262px, 34.9vw, 536px); }
+
+    @media (prefers-reduced-motion: reduce) {
+      .belt-a, .belt-b { transform: none; }
+      .marquee { overflow-x: auto; }
+      .ch { opacity: 1; transition: none; }
+      .card { transform: none; transition: none; position: static; }
+      .card-wrap { min-height: 0; }
+    }
+  </style>
+
+  <script>
+    // One listener for every scroll-driven thing on the page: each element
+    // marked data-sp gets --p, 0 as its top enters the bottom of the
+    // viewport, 1 as its bottom leaves the top.
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!reduce) {
+      const tracked = [...document.querySelectorAll<HTMLElement>('[data-sp]')];
+      const tick = () => {
+        const vh = innerHeight;
+        for (const el of tracked) {
+          const r = el.getBoundingClientRect();
+          const p = (vh - r.top) / (r.height + vh);
+          el.style.setProperty('--p', Math.min(1, Math.max(0, p)).toFixed(4));
+        }
+      };
+      addEventListener('scroll', tick, { passive: true });
+      addEventListener('resize', tick);
+      tick();
+
+      // Magnetic buttons: they lean toward the cursor while it is near.
+      const PULL = 110;
+      for (const el of document.querySelectorAll<HTMLElement>('.magnet')) {
+        el.style.willChange = 'transform';
+        addEventListener('mousemove', (e) => {
+          const r = el.getBoundingClientRect();
+          const dx = e.clientX - (r.left + r.width / 2);
+          const dy = e.clientY - (r.top + r.height / 2);
+          const near = Math.abs(dx) < r.width / 2 + PULL && Math.abs(dy) < r.height / 2 + PULL;
+          if (near) {
+            el.style.transition = 'transform 0.3s ease-out';
+            el.style.transform = `translate3d(${dx / 3.2}px, ${dy / 3.2}px, 0)`;
+          } else if (el.style.transform) {
+            el.style.transition = 'transform 0.6s ease-in-out';
+            el.style.transform = '';
+          }
+        }, { passive: true });
+      }
+    }
+  </script>
 </Base>
