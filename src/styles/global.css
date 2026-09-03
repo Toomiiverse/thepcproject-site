@@ -15,8 +15,20 @@
   --font-sans: "Inter", system-ui, sans-serif;
 }
 
+/* The ground the whole site sits on. Ink, a technical grid drawn faintly over
+   it, and two soft blooms - one accent, one paper - so no page is ever a flat
+   grey field. Fixed, so it holds still while the page scrolls over it. */
 html {
-  background: var(--color-ink);
+  --grid-line: rgb(255 255 255 / 0.022);
+  background-color: var(--color-ink);
+  background-image:
+    radial-gradient(58rem 42rem at 10% -8%, color-mix(in srgb, var(--color-accent) 9%, transparent), transparent 68%),
+    radial-gradient(46rem 38rem at 96% 22%, color-mix(in srgb, var(--color-paper) 5%, transparent), transparent 70%),
+    radial-gradient(52rem 40rem at 45% 108%, color-mix(in srgb, var(--color-accent) 6%, transparent), transparent 70%),
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: auto, auto, auto, 68px 68px, 68px 68px;
+  background-attachment: fixed;
   color: var(--color-paper);
   scroll-behavior: smooth;
 }
