@@ -129,7 +129,7 @@ body {
    to how far through the section the viewport is (0→1). Each part and
    tile carries its own start, --s, and reads --p to work out --k (how
    far it has landed) and --on (whether it is the current step).    */
-.journey { --p: 0; min-height: 420svh; }
+.journey { --p: 0; min-height: 460svh; }
 /* Stroke is inherited; fills live inline on the shapes. */
 .journey svg { fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; }
 
@@ -155,6 +155,7 @@ body {
 .journey .part-cpu    { transform: scale(calc(1.6 - 0.6 * var(--k))); }
 .journey .part-cooler,
 .journey .part-ram    { transform: translateY(calc(-70px * (1 - var(--k)))); }
+.journey .part-storage { transform: translateY(calc(-40px * (1 - var(--k)))); }
 .journey .part-gpu    { transform: translateY(calc(-50px * (1 - var(--k)))); }
 .journey .part-psu    { transform: translateX(calc(90px * (1 - var(--k)))); }
 /* The drawing is a link; the chassis answers the hover. */
@@ -163,7 +164,7 @@ body {
 /* The sheet: rows light as their part lands; the current one reads out. */
 .journey .step,
 .journey .step-line {
-  --on: clamp(0, calc(min(var(--p) - var(--s), var(--s) + 0.13 - var(--p)) / 0.03), 1);
+  --on: clamp(0, calc(min(var(--p) - var(--s), var(--s) + 0.11 - var(--p)) / 0.03), 1);
 }
 .journey .step:last-child,
 .journey .step-line:last-child {

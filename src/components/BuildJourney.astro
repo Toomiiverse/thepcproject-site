@@ -19,13 +19,14 @@ const steps = [
   { key: 'cpu',    name: 'CPU',         line: 'The brain. Seated once, never forced.' },
   { key: 'cooler', name: 'Cooler',      line: 'Sized to the chip, not to the price tag.' },
   { key: 'ram',    name: 'Memory',      line: 'Matched sticks, in the slots that actually run dual-channel.' },
+  { key: 'storage', name: 'Storage',    line: 'An NVMe drive, flat on the board. Nothing to cable, nothing to wait for.' },
   { key: 'gpu',    name: 'Graphics',    line: 'The part that draws every frame you see.' },
   { key: 'psu',    name: 'Power',       line: 'Sized with headroom. Cabled so you never see them.' },
 ].map((p, i) => ({
   ...p,
   n: String(i + 1).padStart(2, '0'),
   // Each step owns a slice of the scroll, starting here.
-  s: (0.02 + i * 0.14).toFixed(2),
+  s: (0.02 + i * 0.12).toFixed(2),
 }));
 // The drawing's groups pick up their start by key.
 const S = Object.fromEntries(steps.map((p) => [p.key, `--s:${p.s}`]));
@@ -82,6 +83,7 @@ const GO = '/configurator';
             <rect style="stroke-opacity:.4" x="96" y="112" width="70" height="58" />
             <rect style="stroke-opacity:.4" x="213" y="146" width="74" height="74" />
             <path style="stroke-opacity:.4" d="M350 134h9v140h-9zM365 134h9v140h-9zM380 134h9v140h-9zM395 134h9v140h-9z" />
+            <rect style="stroke-opacity:.4" x="178" y="254" width="114" height="18" rx="1" /><circle style="stroke-opacity:.4" cx="286" cy="263" r="3" />
             <rect style="stroke-opacity:.4" x="100" y="298" width="270" height="8" />
             <rect style="stroke-opacity:.4" x="360" y="366" width="36" height="30" />
             <rect style="stroke-opacity:.4" x="396" y="286" width="10" height="36" />
@@ -105,6 +107,11 @@ const GO = '/configurator';
           <g class="part part-ram" style={S.ram}>
             <rect style="fill:var(--color-ink-2)" x="364" y="130" width="11" height="148" rx="1" />
             <rect style="fill:var(--color-ink-2)" x="394" y="130" width="11" height="148" rx="1" />
+          </g>
+          <g class="part part-storage" style={S.storage}>
+            <rect style="fill:var(--color-ink-2)" x="182" y="258" width="100" height="10" rx="1" />
+            <rect style="stroke-opacity:.4" x="190" y="260" width="18" height="6" /><rect style="stroke-opacity:.4" x="214" y="260" width="30" height="6" />
+            <circle style="fill:var(--color-ink-2)" cx="286" cy="263" r="3" />
           </g>
           <!-- the card in profile, a 4080 FE: chamfered slab, silver frame top and bottom, the fin stack
                showing through the dark middle, the power connector recessed in the top edge -->
