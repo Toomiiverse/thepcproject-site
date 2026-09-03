@@ -47,9 +47,17 @@ const items = [
     </div>
   </nav>
 
-  <!-- opening -->
-  <section class="relative flex min-h-svh items-center px-4 pt-16 sm:px-6">
-    <div class="mx-auto w-full max-w-7xl">
+  <!-- opening. The video is decoration: muted, looping, behind a scrim that keeps the
+       type readable, and replaced by its own poster frame under reduced motion. -->
+  <section class="relative flex min-h-svh items-center overflow-hidden px-4 pt-16 sm:px-6">
+    <div class="hero-bg absolute inset-0 z-0" style="background-image:url('/video/qa-poster.jpg')" aria-hidden="true">
+      <video class="hero-video h-full w-full object-cover" autoplay muted loop playsinline preload="metadata" poster="/video/qa-poster.jpg">
+        <source src="/video/qa.mp4" type="video/mp4" />
+      </video>
+      <div class="absolute inset-0 bg-ink/75"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-ink/80"></div>
+    </div>
+    <div class="relative z-10 mx-auto w-full max-w-7xl">
       <p class="label text-xs text-accent">Tested-&amp;-Traceable.//</p>
       <h1 class="display mt-4 text-5xl sm:text-7xl md:text-8xl">
         From Trade-In<br />To Trusted<span class="text-accent">;</span>
