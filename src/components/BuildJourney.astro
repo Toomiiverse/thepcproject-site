@@ -78,15 +78,19 @@ const GO = '/configurator';
             <rect style="stroke-opacity:.4" x="168" y="446" width="112" height="22" rx="2" />
             <rect style="stroke-opacity:.4" x="294" y="446" width="112" height="22" rx="2" />
           </g>
+          <!-- the board, after an X870 Aorus: the VRM heatsink wraps the rear corner, across the top and
+               down the rear edge; the M.2 bay runs under the socket; two short reinforced x16 slots sit off
+               the rear edge; no headers on the edges — they are on the back -->
           <g class="part part-board" style={S.board}>
             <rect style="fill:var(--color-ink)" x="90" y="106" width="320" height="300" rx="2" />
-            <rect style="stroke-opacity:.4" x="96" y="112" width="70" height="58" />
+            <path style="stroke-opacity:.4" d="M96 112H236V148H160V292H96Z" />
+            <path style="stroke-opacity:.3" d="M102 170h50M102 186h50M102 202h50M102 218h50M102 234h50M102 250h50M102 266h50" />
             <rect style="stroke-opacity:.4" x="213" y="146" width="74" height="74" />
             <path style="stroke-opacity:.4" d="M350 134h9v140h-9zM365 134h9v140h-9zM380 134h9v140h-9zM395 134h9v140h-9z" />
-            <rect style="stroke-opacity:.4" x="178" y="254" width="114" height="18" rx="1" /><circle style="stroke-opacity:.4" cx="286" cy="263" r="3" />
-            <rect style="stroke-opacity:.4" x="100" y="298" width="270" height="8" />
+            <rect style="stroke-opacity:.4" x="166" y="250" width="190" height="24" rx="1" /><circle style="stroke-opacity:.4" cx="286" cy="263" r="3" />
+            <rect style="stroke-opacity:.4" x="100" y="298" width="118" height="8" />
+            <rect style="stroke-opacity:.4" x="100" y="366" width="118" height="8" />
             <rect style="stroke-opacity:.4" x="360" y="366" width="36" height="30" />
-            <rect style="stroke-opacity:.4" x="396" y="286" width="10" height="36" />
           </g>
           <g class="part part-cpu" style={S.cpu}>
             <rect style="fill:var(--color-ink-2)" x="221" y="154" width="58" height="58" rx="2" />
