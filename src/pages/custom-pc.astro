@@ -33,29 +33,29 @@ const rowB = [
 // 02 · the themed builds. Real projects, each with its own photos; the card
 // lays them out according to how many there are.
 const cards = [
-  { n: '01', name: 'Project Asuka', shots: [
+  { name: 'Project Asuka', shots: [
       { src: '/images/p-asuka-1.jpg', alt: 'A red and black build with EVA-02 panel art and a figurine beside the graphics card' },
       { src: '/images/p-asuka-3.jpg', alt: 'The same build from the front, red-lit through the glass' },
       { src: '/images/p-asuka-2.jpg', alt: 'The build angled on the bench, its red frame and panel art catching the light' },
   ] },
-  { n: '02', name: 'Project Frieren', shots: [
+  { name: 'Project Frieren', shots: [
       { src: '/images/p-frieren-2.jpg', alt: 'A white build with violet lighting, moss along the floor and a figurine beside the card' },
       { src: '/images/p-frieren-3.jpg', alt: 'The same build closer in, flowered fans and the figurine' },
       { src: '/images/p-frieren-1.jpg', alt: 'The build with its panel art lit, white flowered fans across the front' },
   ] },
-  { n: '03', name: 'Project NieR Automata', shots: [
+  { name: 'Project NieR Automata', shots: [
       { src: '/images/p-nier-1.jpg', alt: 'A white build framed in black filigree, a figurine seated beside a Radeon card' },
       { src: '/images/p-nier-2.jpg', alt: 'The filigree case in full, white fans and the figurine on the shroud' },
   ] },
-  { n: '04', name: 'Project Sharingan', shots: [
+  { name: 'Project Sharingan', shots: [
       { src: '/images/p-sharingan-1.jpg', alt: 'A black build with red-lit rings and themed panel art, figurines along the shroud' },
       { src: '/images/p-sharingan-2.jpg', alt: 'Closer in on the red rings and the figurines inside the case' },
   ] },
-  { n: '05', name: 'Project Dark Matter', shots: [
+  { name: 'Project Dark Matter', shots: [
       { src: '/images/p-darkmatter-2.jpg', alt: 'A black build lit violet, its radiator ring glowing above the card' },
       { src: '/images/p-darkmatter-1.jpg', alt: 'The same build wider, violet light across the glass and an EVGA card' },
   ] },
-  { n: '06', name: 'Project Cinnamoroll', shots: [
+  { name: 'Project Cinnamoroll', shots: [
       { src: '/images/p-cinnamoroll-1.jpg', alt: 'A white and blue build, sleeved cabling and a figurine on the shroud' },
   ] },
 ];
@@ -69,7 +69,7 @@ const themedIntro = 'The build as the centrepiece. Designed around something you
   </PageHero>
 
   <!-- ── 01 · custom PCs: the process, then the bench on a moving belt ── -->
-  <section aria-labelledby="custom-heading" class="mx-auto max-w-7xl px-4 sm:px-6">
+  <section aria-labelledby="custom-heading" class="mx-auto max-w-7xl px-4 pt-16 sm:px-6 md:pt-28">
     <p class="label reveal text-xs text-accent">How-It-Works.//</p>
     <h2 id="custom-heading" class="display grad reveal mt-4 text-3xl md:text-5xl">The Process</h2>
     <ol class="mt-12 grid gap-12 md:grid-cols-2">
@@ -130,18 +130,16 @@ const themedIntro = 'The build as the centrepiece. Designed around something you
     </div>
 
     <!-- the stack -->
-    <div class="mt-16 px-4 sm:px-6 md:mt-24">
+    <div class="relative mx-auto mt-20 max-w-7xl px-4 sm:px-6 md:mt-28">
+      <p class="label reveal text-xs text-accent">Built-And-Delivered.//</p>
+      <h3 id="past-work" class="display grad reveal mt-4 text-3xl md:text-5xl">Our Past Work</h3>
+    </div>
+    <div class="mt-10 px-4 sm:px-6 md:mt-14">
       {cards.map((c, i) => (
         <div data-sp class="card-wrap">
           <article class="card mx-auto max-w-7xl rounded-[40px] border-2 border-[#D7E2EA]/25 bg-ink p-4 sm:rounded-[50px] sm:p-6 md:p-8" style={`--n:${i}`}>
-            <div class="flex flex-wrap items-center gap-4 px-2 md:px-4">
-              <div class="flex items-baseline gap-5">
-                <span class="display card-num text-accent" aria-hidden="true">{c.n}</span>
-                <div>
-                  <p class="label text-[11px] text-muted">{c.kind}</p>
-                  <h3 class="display mt-1 text-2xl md:text-4xl">{c.name}</h3>
-                </div>
-              </div>
+            <div class="px-2 pb-1 md:px-4">
+              <h4 class="display text-2xl md:text-4xl">{c.name}</h4>
             </div>
             {c.shots.length === 3 && (
               <div class="mt-5 flex gap-3 md:gap-4">
@@ -229,7 +227,6 @@ const themedIntro = 'The build as the centrepiece. Designed around something you
     @media (min-width: 768px) {
       .card { top: calc(7.5rem + var(--n) * 20px); }
     }
-    .card-num { font-size: clamp(2.5rem, 7vw, 5.5rem); line-height: 0.9; }
     .shot-a { height: clamp(110px, 14vw, 210px); }
     .shot-b { height: clamp(140px, 20vw, 310px); }
     .shot-tall { height: clamp(262px, 34.9vw, 536px); }
