@@ -171,8 +171,15 @@ body {
   }
 }
 
+/* The hero's video backdrop. Under reduced motion the video is dropped and its
+   own poster frame stands in, so the section still has an image behind it. */
+.hero-bg {
+  background: center / cover no-repeat url('/video/home-poster.jpg');
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .hero-video { display: none; }
   .tier, .tier .price { opacity: 1; transform: none; transition: none; }
   .tier::after { display: none; }
   .tier-featured { animation: none; }
