@@ -64,7 +64,7 @@ const items = [
   <!-- the journey: one stage per viewport, ghost numeral behind -->
   <div id="journey">
     {stages.map((s, i) => (
-      <section id={s.id} data-scene class="relative flex min-h-svh flex-col scroll-mt-20 overflow-hidden px-4 pt-16 sm:px-6">
+      <section id={s.id} data-scene class={`relative flex flex-col scroll-mt-20 overflow-hidden px-4 pt-16 sm:px-6 ${i === stages.length - 1 ? 'pb-8' : 'min-h-svh'}`}>
         <span aria-hidden="true" class={`display pointer-events-none absolute top-1/2 -translate-y-1/2 text-[45vw] leading-none text-white/[0.04] select-none lg:text-[28vw] ${i % 2 ? 'left-0' : 'right-0'}`}>
           {s.num}
         </span>
@@ -185,7 +185,7 @@ const items = [
   </div>
 
   <!-- the stamp -->
-  <section class="flex min-h-svh items-center px-4 sm:px-6">
+  <section class="px-4 py-16 sm:px-6 md:py-24">
     <div class="mx-auto w-full max-w-7xl text-center">
       <p class="label reveal text-xs text-muted">The-Whole-Point.//</p>
       <p class="stamp display mx-auto mt-8 inline-block rotate-[-3deg] border-4 border-accent px-8 py-4 text-4xl text-accent sm:text-6xl md:text-7xl">
