@@ -64,13 +64,28 @@ const items = [
   <!-- the journey: one stage per viewport, ghost numeral behind -->
   <div id="journey">
     {stages.map((s, i) => (
-      <section id={s.id} data-scene class="relative flex min-h-svh scroll-mt-20 items-center overflow-hidden px-4 sm:px-6">
+      <section id={s.id} data-scene class="relative flex min-h-svh flex-col scroll-mt-20 overflow-hidden px-4 pt-16 sm:px-6">
         <span aria-hidden="true" class={`display pointer-events-none absolute top-1/2 -translate-y-1/2 text-[45vw] leading-none text-white/[0.04] select-none lg:text-[28vw] ${i % 2 ? 'left-0' : 'right-0'}`}>
           {s.num}
         </span>
+        <div class={`mx-auto my-auto w-full max-w-7xl ${i % 2 ? 'flex justify-end' : ''}`}>
+          <div class="reveal max-w-xl">
+            <div class="flex items-baseline gap-4">
+              <span class="display text-6xl text-accent md:text-7xl" aria-hidden="true">{s.num}</span>
+              <span class="label text-xs text-muted">{s.label}</span>
+            </div>
+            <h2 class="display mt-4 text-4xl md:text-6xl">{s.heading}</h2>
+            <p class="mt-6 text-base leading-relaxed text-paper/80">{s.body}</p>
+            <ul class="mt-6 flex flex-wrap gap-2">
+              {s.tags.map((t) => (
+                <li class="label rounded-sm border border-white/15 px-3 py-1 text-xs text-paper/70">{t}</li>
+              ))}
+            </ul>
+          </div>
+        </div>
         {i === 0 && (
           <!-- the pick-up: as this stage scrolls through, the van drives out and collects the part -->
-          <div aria-hidden="true" class="scene pickup pointer-events-none absolute inset-x-0 bottom-4 px-4 sm:bottom-8 sm:px-6">
+          <div aria-hidden="true" class="scene pickup pointer-events-none mt-6 w-full pb-4 sm:pb-8">
             <svg class="mx-auto block w-full max-w-7xl" viewBox="0 0 1000 120">
               <line x1="0" y1="100" x2="1000" y2="100" />
               <line class="dashes" x1="0" y1="110" x2="1000" y2="110" />
@@ -95,7 +110,7 @@ const items = [
           <!-- the assessment: the part on the bench, a glass that actually magnifies it, and the QA sheet
                filling in beside it. The defects exist only in the magnified view, so they are found under
                the glass; each leaves a pin on the part as the glass passes. -->
-          <div aria-hidden="true" class="scene assess pointer-events-none absolute inset-x-0 bottom-4 px-4 sm:bottom-8 sm:px-6">
+          <div aria-hidden="true" class="scene assess pointer-events-none mt-6 w-full pb-4 sm:pb-8">
             <svg class="mx-auto block w-full max-w-7xl" viewBox="0 0 1000 160">
               <line x1="0" y1="136" x2="1000" y2="136" />
               <!-- the part: a card in profile -->
@@ -140,21 +155,6 @@ const items = [
             </svg>
           </div>
         )}
-        <div class={`mx-auto w-full max-w-7xl ${i % 2 ? 'flex justify-end' : ''}`}>
-          <div class="reveal max-w-xl">
-            <div class="flex items-baseline gap-4">
-              <span class="display text-6xl text-accent md:text-7xl" aria-hidden="true">{s.num}</span>
-              <span class="label text-xs text-muted">{s.label}</span>
-            </div>
-            <h2 class="display mt-4 text-4xl md:text-6xl">{s.heading}</h2>
-            <p class="mt-6 text-base leading-relaxed text-paper/80">{s.body}</p>
-            <ul class="mt-6 flex flex-wrap gap-2">
-              {s.tags.map((t) => (
-                <li class="label rounded-sm border border-white/15 px-3 py-1 text-xs text-paper/70">{t}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
       </section>
     ))}
   </div>
