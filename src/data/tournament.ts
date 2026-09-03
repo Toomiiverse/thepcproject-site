@@ -40,17 +40,19 @@ export interface Tournament {
   signUpUrl?: string;
 }
 
-export const currentTournament: Tournament | null = {
-  month: "October 2026",
-  title: "Rocket League 2v2",
-  when: "Saturday 18 October, 6pm",
-  format: "Double elimination, 16 teams",
-  entry: "$10 per player",
-  blurb:
-    "Turn up with a partner or find one on the night. Rigs, peripherals and seats are provided - bring nothing but yourself.",
-  prizes: [
-    { place: "1st", reward: "$200 store credit each, plus the trophy for the month" },
-    { place: "2nd", reward: "$75 store credit each" },
-    { place: "3rd", reward: "$25 store credit each" },
-  ],
-};
+// Nothing announced: the page shows its "To be announced" state. To announce an
+// event, replace null with a Tournament object - see the example below.
+export const currentTournament: Tournament | null = null;
+
+// const example: Tournament = {
+//   month: "October 2026",
+//   title: "Rocket League 2v2",
+//   when: "Saturday 18 October, 6pm",
+//   format: "Double elimination, 16 teams",
+//   entry: "$10 per player",
+//   blurb: "Turn up with a partner or find one on the night.",
+//   prizes: [
+//     { place: "1st", reward: "$200 store credit each" },
+//     { place: "2nd", reward: "$75 store credit each" },
+//   ],
+// };
