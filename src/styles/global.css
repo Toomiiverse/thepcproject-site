@@ -171,6 +171,10 @@ body {
   }
 }
 
+/* Photos: a slow push-in on hover, so a grid of them is not inert. */
+.photo img { transition: transform 0.5s ease-out; }
+.photo:hover img { transform: scale(1.04); }
+
 /* The hero's video backdrop. Under reduced motion the video is dropped and its
    own poster frame stands in, so the section still has an image behind it. */
 .hero-bg {
@@ -180,6 +184,7 @@ body {
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .hero-video { display: none; }
+  .photo img, .photo:hover img { transform: none; transition: none; }
   .tier, .tier .price { opacity: 1; transform: none; transition: none; }
   .tier::after { display: none; }
   .tier-featured { animation: none; }
