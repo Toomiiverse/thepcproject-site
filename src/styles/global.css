@@ -161,6 +161,17 @@ body {
 /* The drawing is a link; the chassis answers the hover. */
 .journey a:hover .part-case { color: var(--color-accent); }
 
+/* A part's own second beat: the screw goes in after the drive is down.
+   It reads the part's --s and --d, so it starts the moment the part lands. */
+.journey .screw {
+  --k2: clamp(0, calc((var(--p) - var(--s) - var(--d)) / 0.03), 1);
+  opacity: var(--k2);
+  transform: translateY(calc(-10px * (1 - var(--k2))));
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: opacity 0.15s ease-out, transform 0.15s ease-out;
+}
+
 /* The sheet: rows light as their part lands; the current one reads out. */
 .journey .step,
 .journey .step-line {
@@ -178,5 +189,5 @@ body {
   .journey { --p: 1; min-height: 0; }
   .journey .stage { position: static; height: auto; padding-block: 6rem; }
   .journey .hint { display: none; }
-  .journey .part, .journey .step, .journey .step-line { transition: none; }
+  .journey .part, .journey .step, .journey .step-line, .journey .screw { transition: none; }
 }
