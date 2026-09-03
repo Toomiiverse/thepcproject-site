@@ -229,6 +229,9 @@ body {
 .in .themed-item:nth-child(4) { transition-delay: 0.36s; }
 .in .themed-item:nth-child(5) { transition-delay: 0.48s; }
 .in .themed-item:nth-child(6) { transition-delay: 0.60s; }
+.in .themed-item:nth-child(7) { transition-delay: 0.72s; }
+.in .themed-item:nth-child(8) { transition-delay: 0.84s; }
+.in .themed-item:nth-child(9) { transition-delay: 0.96s; }
 
 /* The builds themselves: lit and lifted when you go near one. */
 .themed-shot img { transition: transform 0.7s ease-out; }

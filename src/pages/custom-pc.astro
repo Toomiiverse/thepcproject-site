@@ -17,14 +17,27 @@ const themedNotes = [
   { heading: 'Signed-And-Numbered', body: 'Every themed build leaves with its own numbered plaque. Yours is the only one wearing that number.' },
 ];
 
-// Real builds off the bench, for the gallery.
+// 01 · custom builds off the bench.
+const customBuilds = [
+  { src: '/images/custom-cyan.jpg',  alt: 'A dual-chamber build lit cyan, standing in front of an illuminated display' },
+  { src: '/images/custom-white.jpg', alt: 'A white case with rainbow-lit fans and a numbered The PC Project plaque on the glass' },
+  { src: '/images/custom-blue.jpg',  alt: 'A black tower with five blue-lit fans, an illuminated display behind it' },
+  { src: '/images/custom-mono.jpg',  alt: 'A white compact build with white fans and a Radeon card, on the shop shelf' },
+  { src: '/images/custom-lian.jpg',  alt: 'A close look at a white build inside: an AIO block, white fans and routed cabling' },
+  { src: '/images/custom-desk.jpg',  alt: 'A finished build lit teal, its monitor showing The PC Project' },
+];
+
+// 02 · themed builds, the showcase.
 const builds = [
-  { src: '/images/themed-cyan.jpg',   alt: 'A dual-chamber build lit cyan, standing in front of a screen showing the character it is themed on' },
-  { src: '/images/themed-purple.jpg', alt: 'A purple-lit tower with a numbered The PC Project plaque propped in front of it' },
-  { src: '/images/themed-white.jpg',  alt: 'A white case with rainbow-lit fans and a themed plaque on the glass' },
-  { src: '/images/themed-frame.jpg',  alt: 'A white open-frame build lit blue, with themed art on the panel and the screen behind' },
-  { src: '/images/themed-blue.jpg',   alt: 'A black tower with five blue-lit fans, themed artwork on the display behind it' },
-  { src: '/images/themed-gojo.jpg',   alt: 'A close look inside a purple-lit build, its small panel screen showing the character art' },
+  { src: '/images/themed-lace.jpg',      alt: 'A white build framed in black filigree, a figurine standing beside the graphics card' },
+  { src: '/images/themed-crimson.jpg',   alt: 'A black and red build with crimson-lit fans, figurines posed inside the chassis' },
+  { src: '/images/themed-android.jpg',   alt: 'A white build with white fans and a figurine seated on the shroud' },
+  { src: '/images/themed-cloud.jpg',     alt: 'A white case cut with a cloud pattern, lit blue inside around a Gigabyte card' },
+  { src: '/images/themed-rings.jpg',     alt: 'A black case with red-lit rings and themed panel art, figurines along the shroud' },
+  { src: '/images/themed-cloud-out.jpg', alt: 'The same cloud-cut white case seen from the front, on a The PC Project backdrop' },
+  { src: '/images/themed-frieren.jpg',   alt: 'A pale build with pink and violet lighting, moss along the floor and a figurine beside the card' },
+  { src: '/images/themed-violet.jpg',    alt: 'A dark build lit violet, its radiator ring glowing above an EVGA card' },
+  { src: '/images/themed-figure.jpg',    alt: 'A close look at figurines inside a red-lit build, framed by a lit ring' },
 ];
 ---
 <Base title="Custom PCs & Custom Themed PCs | The PC Project">
@@ -48,6 +61,14 @@ const builds = [
         </li>
       ))}
     </ol>
+    <div class="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {customBuilds.map((b) => (
+        <figure class="reveal photo aspect-[4/5] overflow-hidden rounded-sm border border-white/10">
+          <img src={b.src} alt={b.alt} loading="lazy" class="h-full w-full object-cover" />
+        </figure>
+      ))}
+    </div>
+
     <div class="mt-16 flex flex-wrap gap-4">
       <a href="/configurator" class="label rounded-sm bg-accent px-6 py-3 text-sm font-medium text-ink transition-colors hover:bg-paper focus-visible:outline-2 focus-visible:outline-paper active:translate-y-px">
         Start-A-Build
