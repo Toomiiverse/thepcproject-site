@@ -8,7 +8,7 @@
 - icons: none yet
 
 ## Tokens (single source: src/styles/global.css @theme block)
-- ink: #090909 (ground) / ink-2: #111111
+- ink: #050505 (ground) / ink-2: #0d0d0d
 - paper: #fafafa (text)
 - muted: #8a8a8a
 - accent: #ff4000 — THE one orange. The old Wix site had three; never add a second.

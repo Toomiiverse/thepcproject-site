@@ -3,8 +3,8 @@
 /* ---- Design tokens (single source of truth, see DESIGN.md) ---- */
 @theme {
   /* colour: one ground, one paper, ONE accent. No second orange. */
-  --color-ink: #090909;
-  --color-ink-2: #111111;
+  --color-ink: #050505;
+  --color-ink-2: #0d0d0d;
   --color-paper: #fafafa;
   --color-muted: #8a8a8a;
   --color-accent: #ff4000;
