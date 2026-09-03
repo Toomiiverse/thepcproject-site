@@ -74,7 +74,7 @@ halfway down the page.
 - /configurator — iframe embed of the standalone PC builder (build.thepcproject.com.au)
 - /qa-assessed — 4-stage QA process for pre-owned parts + per-component checklists (CPU/mobo/RAM/GPU)
 - /gaming-lounge — month's tournament (src/data/tournament.ts), photo, 3 facts, cafe memberships (four plans from the pricing poster)
-- /workshops — guided builds / tech support / events
+- /workshops — build-your-own workshop ($100, 2-3 h, with a Master PC Builder) + guided builds / tech support / events
 - /contact — address, email, hours, map; mailto CTA (no form backend — add
   Formspree/Web3Forms only if mailto proves insufficient)
 
