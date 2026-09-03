@@ -122,9 +122,9 @@ const seat = ['High-Performance-PCs', 'Wireless-Gear', 'Fast-Internet', 'Built-F
 
       <div class="reveal mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {plans.map((p) => (
-          <article class={`rl-item flex flex-col rounded-sm border p-6 ${p.featured ? 'border-accent' : 'border-white/10'}`}>
+          <article class={`tier flex flex-col rounded-sm border p-6 ${p.featured ? 'tier-featured border-accent' : 'border-white/10'}`}>
             <h3 class="label text-sm text-paper">{p.name}</h3>
-            <p class="mt-4 flex items-baseline gap-2">
+            <p class="price mt-4 flex items-baseline gap-2">
               <span class="display text-4xl">{p.price}</span>
               <span class="label text-xs text-muted">/ {p.per}</span>
             </p>
@@ -147,8 +147,8 @@ const seat = ['High-Performance-PCs', 'Wireless-Gear', 'Fast-Internet', 'Built-F
         ))}
       </ul>
 
-      <p class="reveal mt-8 max-w-prose text-xs leading-relaxed text-muted">
-        Two weeks' notice is required to cancel a membership. Perks are available while a membership is active,
+      <p class="reveal mt-8 max-w-prose text-[11px] italic leading-relaxed text-muted">
+        Memberships are a minimum of two weeks. Perks are available while a membership is active,
         complimentary drinks and snacks are subject to available stock, and membership benefits are non-transferable.
       </p>
       <div class="reveal mt-8 flex flex-wrap gap-3">

@@ -103,8 +103,79 @@ body {
 .in .rl-item:nth-child(3) { transition-delay: 0.32s; }
 .in .rl-item:nth-child(4) { transition-delay: 0.40s; }
 
+/* ── tier cards (lounge memberships): pop in, lift and glow ──
+   They ride the .reveal observer on their grid. Each card pops up in
+   turn, its price a beat behind. Hover lifts the card, lights its
+   border and throws an accent glow, and a sheen crosses it once.
+   Ultimate carries a slow-breathing glow of its own.               */
+.tier {
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(28px) scale(0.92);
+  transition:
+    opacity 0.5s ease-out,
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.25s ease-out,
+    box-shadow 0.35s ease-out;
+}
+.in .tier { opacity: 1; transform: none; }
+.in .tier:nth-child(2) { transition-delay: 0.1s; }
+.in .tier:nth-child(3) { transition-delay: 0.2s; }
+.in .tier:nth-child(4) { transition-delay: 0.3s; }
+
+.tier .price {
+  opacity: 0;
+  transform: scale(0.8);
+  transform-origin: left center;
+  transition: opacity 0.4s ease-out, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.in .tier .price { opacity: 1; transform: none; transition-delay: 0.18s; }
+.in .tier:nth-child(2) .price { transition-delay: 0.28s; }
+.in .tier:nth-child(3) .price { transition-delay: 0.38s; }
+.in .tier:nth-child(4) .price { transition-delay: 0.48s; }
+
+/* Hover: lift, light, glow. The delay is zeroed so the stagger never lags a hover. */
+.in .tier:hover,
+.in .tier:focus-within {
+  transform: translateY(-6px);
+  border-color: var(--color-accent);
+  box-shadow:
+    0 24px 48px -24px color-mix(in srgb, var(--color-accent) 60%, transparent),
+    0 0 40px -12px color-mix(in srgb, var(--color-accent) 45%, transparent);
+  transition-delay: 0s;
+}
+.tier::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 42%, rgb(255 255 255 / 0.07) 50%, transparent 58%);
+  transform: translateX(-120%);
+  transition: transform 0.9s ease-out;
+  pointer-events: none;
+}
+.tier:hover::after { transform: translateX(120%); }
+
+/* The one to want: a glow that breathes. */
+.tier-featured {
+  box-shadow:
+    0 0 0 1px var(--color-accent),
+    0 0 44px -10px color-mix(in srgb, var(--color-accent) 55%, transparent);
+  animation: tier-breathe 3.2s ease-in-out infinite;
+}
+@keyframes tier-breathe {
+  50% {
+    box-shadow:
+      0 0 0 1px var(--color-accent),
+      0 0 64px -6px color-mix(in srgb, var(--color-accent) 80%, transparent);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .tier, .tier .price { opacity: 1; transform: none; transition: none; }
+  .tier::after { display: none; }
+  .tier-featured { animation: none; }
   .reveal { opacity: 1; transform: none; transition: none; }
   .reveal.rl-panel { opacity: 1; transform: none; transition: none; }
   .rl-panel::before { transform: scaleX(1); transition: none; }
