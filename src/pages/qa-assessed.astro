@@ -103,10 +103,11 @@ const items = [
               <path class="body" d="M130 76H430L440 88V116L430 128H130L120 116V88Z" />
               <rect class="dim" x="250" y="86" width="80" height="32" />
               <path class="dim" d="M258 90v24M266 90v24M274 90v24M282 90v24M290 90v24M298 90v24M306 90v24M314 90v24M322 90v24" />
-              <!-- pins, left where the glass found something -->
-              <g class="pin accent f" style="--t:.19"><circle cx="200" cy="102" r="8" /><circle cx="200" cy="102" r="1.5" /></g>
-              <g class="pin accent f" style="--t:.58"><circle cx="300" cy="102" r="8" /><circle cx="300" cy="102" r="1.5" /></g>
-              <g class="pin accent f" style="--t:.9"><circle cx="390" cy="102" r="8" /><circle cx="390" cy="102" r="1.5" /></g>
+              <!-- each find shows as the mark of what was found: a scuff, the bent fin, corrosion -->
+              <path class="pin accent f" style="--t:.19" d="M194 96l6 12M202 96l6 12M210 96l6 12" />
+              <!-- the bent fin: the line itself turns accent once the glass has been over it -->
+              <path class="pin accent f" style="--t:.58" d="M298 90v24" />
+              <g class="pin accent f" style="--t:.9"><circle cx="386" cy="98" r="1.3" /><circle cx="391" cy="104" r="1.6" /><circle cx="395" cy="99" r="1.1" /><circle cx="389" cy="109" r="1.2" /><circle cx="396" cy="108" r="1.4" /></g>
               <!-- the glass: a 2x view of the card, clipped to the lens, tracking the sweep -->
               <g class="glass">
                 <clipPath id="qa-lens"><circle cx="150" cy="102" r="32" /></clipPath>
@@ -118,7 +119,7 @@ const items = [
                       <rect class="dim" x="250" y="86" width="80" height="32" />
                       <path class="dim" d="M258 90v24M266 90v24M274 90v24M282 90v24M290 90v24M306 90v24M314 90v24M322 90v24" />
                       <!-- what is wrong with it: a hairline crack, a bent fin, a patch of corrosion -->
-                      <path class="flaw accent" d="M197 92l3 5-2 4 3 5-1 5" />
+                      <path class="flaw accent" d="M194 96l6 12M202 96l6 12M210 96l6 12" />
                       <path class="flaw accent" d="M298 90l3 7-4 7 3 6-2 4" />
                       <g class="flaw accent"><circle cx="386" cy="98" r="1.3" /><circle cx="391" cy="104" r="1.6" /><circle cx="395" cy="99" r="1.1" /><circle cx="389" cy="109" r="1.2" /><circle cx="396" cy="108" r="1.4" /></g>
                     </g>
@@ -129,13 +130,13 @@ const items = [
                 <path d="M176 128L206 158" stroke-width="7" />
               </g>
               <!-- the QA sheet -->
-              <rect class="body" x="620" y="36" width="280" height="100" rx="2" />
-              <text class="t" x="636" y="56">Assessment.//</text>
-              <text class="t" x="636" y="80">Serial</text><path class="row f" style="--t:.04" d="M712 77h150" />
-              <text class="t" x="636" y="96">Condition</text><path class="row f" style="--t:.3" d="M712 93h120" />
-              <text class="t" x="636" y="112">Photos</text><path class="row f" style="--t:.5" d="M712 109h168" />
-              <text class="t" x="636" y="128">Notes</text><path class="row f" style="--t:.72" d="M712 125h100" />
-              <g class="tick accent f" style="--t:.92"><path d="M862 60l8 8 16-16" /></g>
+              <rect class="body" x="620" y="10" width="280" height="126" rx="2" />
+              <text class="t" x="636" y="36">Assessment.//</text>
+              <text class="t" x="636" y="62">Serial</text><path class="row f" style="--t:.04" d="M712 59h150" />
+              <text class="t" x="636" y="82">Condition</text><path class="row f" style="--t:.3" d="M712 79h120" />
+              <text class="t" x="636" y="102">Photos</text><path class="row f" style="--t:.5" d="M712 99h168" />
+              <text class="t" x="636" y="122">Notes</text><path class="row f" style="--t:.72" d="M712 119h100" />
+              <g class="tick accent f" style="--t:.92"><path d="M862 44l8 8 16-16" /></g>
             </svg>
           </div>
         )}
@@ -252,7 +253,8 @@ const items = [
     .assess .glass { transform: translateX(calc(var(--sweep) * 260px)); }
     .assess .world { transform: translateX(calc(var(--sweep) * -260px)); transition: transform 0.15s linear; }
     .assess .f { --t: 0; --f: clamp(0, calc((var(--sweep) - var(--t)) / 0.06), 1); }
-    .assess .pin { opacity: var(--f); transform: scale(calc(1.6 - 0.6 * var(--f))); }
+    .assess .pin { opacity: var(--f); }
+    .assess g.pin { transform: scale(calc(1.6 - 0.6 * var(--f))); }
     .assess .row { transform: scaleX(var(--f)); transform-origin: left center; }
     .assess .tick { opacity: var(--f); transform: scale(calc(1.4 - 0.4 * var(--f))); }
 
