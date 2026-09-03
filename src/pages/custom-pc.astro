@@ -137,7 +137,7 @@ const themedIntro = 'The build as the centrepiece. Designed around something you
       {cards.map((c, i) => (
         <div data-sp class="card-wrap">
           <article class="card mx-auto max-w-7xl rounded-[40px] border-2 border-[#D7E2EA]/25 bg-ink p-4 sm:rounded-[50px] sm:p-6 md:p-8" style={`--n:${i}`}>
-            <div class="flex flex-wrap items-center justify-between gap-4 px-2 md:px-4">
+            <div class="flex flex-wrap items-center gap-4 px-2 md:px-4">
               <div class="flex items-baseline gap-5">
                 <span class="display card-num text-accent" aria-hidden="true">{c.n}</span>
                 <div>
@@ -145,9 +145,6 @@ const themedIntro = 'The build as the centrepiece. Designed around something you
                   <h3 class="display mt-1 text-2xl md:text-4xl">{c.name}</h3>
                 </div>
               </div>
-              <a href="/contact" class="magnet label rounded-full border-2 border-[#D7E2EA]/60 px-6 py-2.5 text-xs tracking-widest text-[#D7E2EA] transition-colors hover:bg-[#D7E2EA]/10 sm:px-8 sm:py-3 sm:text-sm">
-                Ask-About-This
-              </a>
             </div>
             {c.shots.length === 3 && (
               <div class="mt-5 flex gap-3 md:gap-4">
