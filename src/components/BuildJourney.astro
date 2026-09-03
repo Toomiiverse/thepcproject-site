@@ -82,7 +82,7 @@ const GO = '/configurator';
             <rect style="stroke-opacity:.4" x="96" y="112" width="70" height="58" />
             <rect style="stroke-opacity:.4" x="250" y="146" width="74" height="74" />
             <path style="stroke-opacity:.4" d="M350 134h9v140h-9zM365 134h9v140h-9zM380 134h9v140h-9zM395 134h9v140h-9z" />
-            <rect style="stroke-opacity:.4" x="100" y="344" width="270" height="8" />
+            <rect style="stroke-opacity:.4" x="100" y="298" width="270" height="8" />
             <rect style="stroke-opacity:.4" x="360" y="366" width="36" height="30" />
             <rect style="stroke-opacity:.4" x="396" y="286" width="10" height="36" />
           </g>
@@ -106,11 +106,17 @@ const GO = '/configurator';
             <rect style="fill:var(--color-ink-2)" x="364" y="130" width="11" height="148" rx="1" />
             <rect style="fill:var(--color-ink-2)" x="394" y="130" width="11" height="148" rx="1" />
           </g>
+          <!-- the card in profile, a 4080 FE: chamfered slab, silver frame top and bottom, the fin stack
+               showing through the dark middle, the power connector recessed in the top edge -->
           <g class="part part-gpu" style={S.gpu}>
-            <rect style="fill:var(--color-ink-2)" x="42" y="300" width="338" height="48" rx="3" />
-            <circle cx="150" cy="324" r="17" /><circle style="stroke-opacity:.4" cx="150" cy="324" r="11" /><circle cx="150" cy="324" r="4" />
-            <circle cx="270" cy="324" r="17" /><circle style="stroke-opacity:.4" cx="270" cy="324" r="11" /><circle cx="270" cy="324" r="4" />
-            <rect style="fill:var(--color-ink-2)" x="32" y="294" width="10" height="64" rx="1" />
+            <rect style="fill:var(--color-ink-2)" x="32" y="292" width="10" height="70" rx="1" />
+            <path style="fill:var(--color-ink-2)" d="M52 296H370L380 306V352L370 362H52L42 352V306Z" />
+            <rect style="fill:var(--color-paper);fill-opacity:.12;stroke:none" x="48" y="298" width="326" height="7" />
+            <rect style="fill:var(--color-paper);fill-opacity:.12;stroke:none" x="48" y="353" width="326" height="7" />
+            <rect style="stroke-opacity:.5" x="150" y="308" width="118" height="42" />
+            <path style="stroke-opacity:.4" d="M156 350l10-42M164 350l10-42M172 350l10-42M180 350l10-42M188 350l10-42M196 350l10-42M204 350l10-42M212 350l10-42M220 350l10-42M228 350l10-42M236 350l10-42M244 350l10-42M252 350l10-42" />
+            <rect style="stroke-opacity:.5" x="296" y="296" width="20" height="7" />
+            <text style="font:500 9px var(--font-mono);letter-spacing:.12em;fill:currentColor;stroke:none" x="62" y="333">GEFORCE RTX</text>
           </g>
           <!-- the supply sits in the back chamber, behind the tray: dashed, because it is out of sight -->
           <g class="part part-psu" style={`${S.psu};stroke-dasharray:5 4;stroke-opacity:.7`}>
