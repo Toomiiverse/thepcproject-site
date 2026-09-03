@@ -17,7 +17,7 @@ import PageHero from '../components/PageHero.astro';
       <h2 class="display text-2xl text-paper">Orders, quotes &amp; payments</h2>
       <ul class="mt-4 list-disc space-y-2 pl-5">
         <li>A configurator submission is a quote request, not an order.</li>
-        <li>Quotes are valid for 7 days - hardware prices move.</li>
+        <li>Quotes are not valid until confirmed by you. Parts move constantly and hardware prices move with them, so a quote is a guide until we confirm it.</li>
         <li>A deposit may be required before we order parts or start a custom build.</li>
         <li>Full payment must clear before collection or delivery. We do not hand over a machine until then.</li>
         <li>Building fee starts from $50; the fee for your build is confirmed on your quote.</li>
@@ -27,6 +27,19 @@ import PageHero from '../components/PageHero.astro';
     <section>
       <h2 class="display text-2xl text-paper">Parts</h2>
       <p class="mt-4">Parts are new unless we mark them QA Approved. Manufacturer warranties apply to those parts. QA Approved parts are inspected and tested by us before sale or install.</p>
+    </section>
+
+    <section>
+      <h2 class="display text-2xl text-paper">Repairs, upgrades &amp; servicing</h2>
+      <p class="mt-4">This covers bench work such as CPU repastes, GPU and other part swaps, cleaning, upgrades and diagnostics. Full detail is on the <a class="text-accent hover:text-paper" href="/services">Services</a> page.</p>
+      <ul class="mt-4 list-disc space-y-2 pl-5">
+        <li>We assess first and quote before any work starts. Nothing is touched until you approve the price.</li>
+        <li>Back up your data before you leave a machine with us. We are not responsible for data loss during servicing.</li>
+        <li>Hardware already faulty, aged or damaged can fail during or after service. We will tell you when we see the risk, but we cannot guarantee the outcome on a part that was already failing.</li>
+        <li>Parts you supply are fitted at your risk and are covered by their own manufacturer warranty, not ours.</li>
+        <li>If we open a machine and find the job is larger than quoted, we stop and re-quote before continuing.</li>
+        <li>Please collect finished machines within 30 days. After that we may charge storage.</li>
+      </ul>
     </section>
 
     <section>
@@ -41,6 +54,7 @@ import PageHero from '../components/PageHero.astro';
 
     <section>
       <h2 class="display text-2xl text-paper">Delivery</h2>
+      <p class="mt-4">Free delivery is available around the Perth local area. Get in touch and we will confirm whether we can deliver to you before your build is finished.</p>
       <p class="mt-4">You are responsible for accurate delivery details and safe receipt. Times vary with part availability. Risk passes on collection or confirmed delivery.</p>
     </section>
 

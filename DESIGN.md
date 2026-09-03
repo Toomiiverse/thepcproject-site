@@ -75,6 +75,8 @@ halfway down the page.
 - /qa-assessed — 4-stage QA process for pre-owned parts + per-component checklists (CPU/mobo/RAM/GPU)
 - /gaming-lounge — month's tournament (src/data/tournament.ts), photo, 3 facts, cafe memberships (four plans from the pricing poster)
 - /workshops — build-your-own workshop ($100, 2-3 h, with a Master PC Builder) + guided builds / tech support / events
+- /services — bench work (repaste, GPU swap, clean, upgrades, diagnostics,
+  repairs) + the service terms that cover it
 - /level-up — Level-Up program: $100, three years, trade CPU/GPU/board/RAM
   back at market value, no service fee. Summarised on /warranty-and-returns.
 - /contact — address, email, hours, map; mailto CTA (no form backend — add
