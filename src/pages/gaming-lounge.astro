@@ -117,12 +117,12 @@ const seat = ['High-Performance-PCs', 'Wireless-Gear', 'Fast-Internet', 'Built-F
       <p class="label reveal text-xs text-accent">Memberships.//</p>
       <h2 id="pricing-heading" class="display reveal mt-4 text-3xl md:text-5xl">Gaming Cafe Pricing</h2>
       <p class="reveal mt-4 max-w-prose text-sm leading-relaxed text-paper/70">
-        Pay by the hour, or take a week and make the place yours. Weekly memberships, no lock-in contracts.
+        Pay by the hour, or take a week and make the place yours. Weekly memberships, no lock-in contracts. Sign up in store.
       </p>
 
-      <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <div class="reveal mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
         {plans.map((p) => (
-          <article class={`reveal flex flex-col rounded-sm border p-6 ${p.featured ? 'border-accent' : 'border-white/10'}`}>
+          <article class={`rl-item flex flex-col rounded-sm border p-6 ${p.featured ? 'border-accent' : 'border-white/10'}`}>
             <h3 class="label text-sm text-paper">{p.name}</h3>
             <p class="mt-4 flex items-baseline gap-2">
               <span class="display text-4xl">{p.price}</span>
@@ -141,9 +141,9 @@ const seat = ['High-Performance-PCs', 'Wireless-Gear', 'Fast-Internet', 'Built-F
       </div>
 
       <!-- what every seat gets -->
-      <ul class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <ul class="reveal mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {seat.map((f) => (
-          <li class="label reveal border-l-2 border-accent pl-4 text-xs text-paper/80">{f}</li>
+          <li class="label rl-item border-l-2 border-accent pl-4 text-xs text-paper/80">{f}</li>
         ))}
       </ul>
 
@@ -152,9 +152,6 @@ const seat = ['High-Performance-PCs', 'Wireless-Gear', 'Fast-Internet', 'Built-F
         complimentary drinks and snacks are subject to available stock, and membership benefits are non-transferable.
       </p>
       <div class="reveal mt-8 flex flex-wrap gap-3">
-        <a href="/contact" class="label rounded-sm bg-accent px-6 py-3 text-sm font-medium text-ink transition-colors hover:bg-paper focus-visible:outline-2 focus-visible:outline-paper active:translate-y-px">
-          Sign-Up
-        </a>
         <a href="/contact" class="label rounded-sm border border-white/20 px-6 py-3 text-sm text-paper transition-colors hover:border-accent hover:text-accent focus-visible:outline-2 focus-visible:outline-accent active:translate-y-px">
           Hours-&-Directions
         </a>
