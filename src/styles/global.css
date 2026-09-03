@@ -171,6 +171,77 @@ body {
   }
 }
 
+/* ── custom themed PCs: a heavier entrance than the rest of the site ──
+   The section has its own ground, a slow accent bloom behind it. Its
+   pieces arrive out of focus and off-axis and settle, one after another,
+   and the heading takes a light across it once. All of it rides the same
+   .reveal observer; under reduced motion everything is simply present. */
+.themed { background: linear-gradient(180deg, var(--color-ink), var(--color-ink-2) 55%, var(--color-ink)); }
+.themed-glow {
+  position: absolute;
+  left: 50%;
+  top: -20%;
+  width: min(1100px, 120%);
+  aspect-ratio: 2 / 1;
+  translate: -50% 0;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--color-accent) 22%, transparent), transparent 70%);
+  filter: blur(40px);
+  pointer-events: none;
+  animation: themed-bloom 9s ease-in-out infinite;
+}
+@keyframes themed-bloom {
+  50% { opacity: 0.55; scale: 1.12; }
+}
+
+/* A light crosses the heading once it arrives. */
+.themed-title {
+  background-image: linear-gradient(100deg, var(--color-paper) 40%, var(--color-accent) 50%, var(--color-paper) 60%);
+  background-size: 300% 100%;
+  background-position: 120% 0;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+.themed-title.in {
+  animation: themed-sheen 1.5s ease-out 0.35s forwards;
+}
+@keyframes themed-sheen {
+  0%   { background-position: 120% 0; -webkit-text-fill-color: currentColor; color: var(--color-paper); }
+  1%   { -webkit-text-fill-color: transparent; }
+  99%  { -webkit-text-fill-color: transparent; }
+  100% { background-position: -60% 0; -webkit-text-fill-color: currentColor; color: var(--color-paper); }
+}
+
+/* The pieces: out of focus, off-axis, and low, settling into place in turn. */
+.themed-item {
+  opacity: 0;
+  filter: blur(14px);
+  transform: translateY(56px) scale(0.9) rotate(-1.5deg);
+  transition:
+    opacity 0.7s ease-out,
+    filter 0.8s ease-out,
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.4s ease-out,
+    border-color 0.3s ease-out;
+}
+.in .themed-item { opacity: 1; filter: none; transform: none; }
+.in .themed-item:nth-child(2) { transition-delay: 0.12s; }
+.in .themed-item:nth-child(3) { transition-delay: 0.24s; }
+.in .themed-item:nth-child(4) { transition-delay: 0.36s; }
+.in .themed-item:nth-child(5) { transition-delay: 0.48s; }
+.in .themed-item:nth-child(6) { transition-delay: 0.60s; }
+
+/* The builds themselves: lit and lifted when you go near one. */
+.themed-shot img { transition: transform 0.7s ease-out; }
+.in .themed-shot:hover {
+  transform: translateY(-10px);
+  border-color: var(--color-accent);
+  box-shadow:
+    0 32px 60px -28px color-mix(in srgb, var(--color-accent) 70%, transparent),
+    0 0 56px -14px color-mix(in srgb, var(--color-accent) 50%, transparent);
+  transition-delay: 0s;
+}
+.themed-shot:hover img { transform: scale(1.07); }
+
 /* Photos: a slow push-in on hover, so a grid of them is not inert. */
 .photo img { transition: transform 0.5s ease-out; }
 .photo:hover img { transform: scale(1.04); }
@@ -187,6 +258,10 @@ body {
   html { scroll-behavior: auto; }
   .hero-video { display: none; }
   .photo img, .photo:hover img { transform: none; transition: none; }
+  .themed-glow { animation: none; }
+  .themed-title, .themed-title.in { animation: none; background-image: none; -webkit-text-fill-color: currentColor; }
+  .themed-item { opacity: 1; filter: none; transform: none; transition: none; }
+  .themed-shot img, .themed-shot:hover img { transform: none; transition: none; }
   .tier, .tier .price { opacity: 1; transform: none; transition: none; }
   .tier::after { display: none; }
   .tier-featured { animation: none; }

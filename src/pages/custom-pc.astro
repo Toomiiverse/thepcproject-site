@@ -2,11 +2,19 @@
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 
+// 01 · a custom PC: the four steps every build goes through.
 const steps = [
   { num: '01', label: 'Consult.//', heading: 'Talk It Through', body: 'Come in-store or email us. We work out what the machine is for, what it should look like, and what it should cost - exact numbers, upfront.' },
   { num: '02', label: 'Design.//', heading: 'Plan The Build', body: 'We research the best parts and deals inside your budget, then handle all procurement. You approve the final spec before anything is ordered.' },
   { num: '03', label: 'Build.//', heading: 'Handcrafted', body: 'Assembled around your vision, style, and performance needs - cable management and thermals included, not extra.' },
   { num: '04', label: 'Deliver.//', heading: 'Tested & Warrantied', body: 'Every build is benchmarked before handover and covered by our Zero-Failure Initiative warranty. Local delivery as far as Bunbury.' },
+];
+
+// 02 · a themed PC: what the extra work actually is.
+const themedNotes = [
+  { heading: 'Built-Around-Something', body: 'A character, a series, a colour, a game. The machine is designed around it from the case out, not finished with a sticker.' },
+  { heading: 'Matched-End-To-End', body: 'Case, lighting, cables, fans and panel art chosen together, so the finished PC reads as one thing rather than a parts list.' },
+  { heading: 'Signed-And-Numbered', body: 'Every themed build leaves with its own numbered plaque. Yours is the only one wearing that number.' },
 ];
 
 // Real builds off the bench, for the gallery.
@@ -19,41 +27,27 @@ const builds = [
   { src: '/images/themed-gojo.jpg',   alt: 'A close look inside a purple-lit build, its small panel screen showing the character art' },
 ];
 ---
-<Base title="Custom Themed PCs | The PC Project">
-  <PageHero label="Handcrafted.//" heading="Custom Themed PCs">
-    <p>A PC designed around you, not a spec sheet. Flat $50 build fee - no markup on parts, no extras for cable management or thermals. Here's how it works.</p>
+<Base title="Custom PCs & Custom Themed PCs | The PC Project">
+  <PageHero label="Handcrafted.//" heading="Custom PCs">
+    <p>A PC designed around you, not a spec sheet. Building fee starting from $50 - no markup on parts, no extras for cable management or thermals. Here's how it works.</p>
   </PageHero>
 
-  <section class="mx-auto max-w-7xl px-4 pb-24 sm:px-6">
-    <ol class="grid gap-12 md:grid-cols-2">
+  <!-- ── 01 · custom PCs: the process, plainly ───────────────────── -->
+  <section aria-labelledby="custom-heading" class="mx-auto max-w-7xl px-4 pb-24 sm:px-6">
+    <p class="label reveal text-xs text-accent">The-Process.//</p>
+    <h2 id="custom-heading" class="display reveal mt-4 text-3xl md:text-5xl">Custom PCs</h2>
+    <ol class="mt-12 grid gap-12 md:grid-cols-2">
       {steps.map((s) => (
         <li class="reveal">
           <div class="flex items-baseline gap-4">
             <span class="display text-5xl text-accent" aria-hidden="true">{s.num}</span>
             <span class="label text-xs text-muted">{s.label}</span>
           </div>
-          <h2 class="display mt-3 text-3xl">{s.heading}</h2>
+          <h3 class="display mt-3 text-3xl">{s.heading}</h3>
           <p class="mt-3 max-w-prose text-sm leading-relaxed text-paper/70">{s.body}</p>
         </li>
       ))}
     </ol>
-    <!-- what one actually looks like -->
-    <section aria-labelledby="themed-builds" class="mt-20">
-      <p class="label reveal text-xs text-accent">Off-The-Bench.//</p>
-      <h2 id="themed-builds" class="display reveal mt-4 text-3xl md:text-5xl">Builds We Have Made</h2>
-      <p class="reveal mt-4 max-w-prose text-sm leading-relaxed text-paper/70">
-        Themed around what the owner actually likes - colour, lighting, the art on the panel, the plaque on the front.
-        Every one of these came off our bench.
-      </p>
-      <div class="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {builds.map((b) => (
-          <div class="reveal photo aspect-[4/5] overflow-hidden rounded-sm border border-white/10">
-            <img src={b.src} alt={b.alt} loading="lazy" class="h-full w-full object-cover" />
-          </div>
-        ))}
-      </div>
-    </section>
-
     <div class="mt-16 flex flex-wrap gap-4">
       <a href="/configurator" class="label rounded-sm bg-accent px-6 py-3 text-sm font-medium text-ink transition-colors hover:bg-paper focus-visible:outline-2 focus-visible:outline-paper active:translate-y-px">
         Start-A-Build
@@ -61,6 +55,44 @@ const builds = [
       <a href="/contact" class="label rounded-sm border border-white/20 px-6 py-3 text-sm text-paper hover:border-accent hover:text-accent">
         Email-Us
       </a>
+    </div>
+  </section>
+
+  <!-- ── 02 · custom themed PCs. Its own ground, its own entrance: the
+       pieces arrive out of focus and off-axis and settle into place, and
+       the heading takes a light across it. See "themed" in global.css. -->
+  <section aria-labelledby="themed-heading" class="themed relative overflow-hidden border-y border-white/10 py-24 md:py-32">
+    <div class="themed-glow" aria-hidden="true"></div>
+    <div class="relative mx-auto max-w-7xl px-4 sm:px-6">
+      <p class="label reveal text-xs text-accent">The-Other-Kind.//</p>
+      <h2 id="themed-heading" class="display themed-title reveal mt-4 text-4xl md:text-6xl">Custom Themed PCs</h2>
+      <p class="reveal mt-6 max-w-prose text-base leading-relaxed text-paper/80">
+        The build as the centrepiece. Designed around something you actually care about, matched end to end,
+        and finished to be looked at as much as used.
+      </p>
+
+      <dl class="reveal mt-12 grid gap-8 md:grid-cols-3">
+        {themedNotes.map((n) => (
+          <div class="themed-item border-l-2 border-accent pl-4">
+            <dt class="label text-sm text-paper">{n.heading}</dt>
+            <dd class="mt-2 text-sm leading-relaxed text-paper/70">{n.body}</dd>
+          </div>
+        ))}
+      </dl>
+
+      <div class="reveal mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {builds.map((b) => (
+          <figure class="themed-item themed-shot aspect-[4/5] overflow-hidden rounded-sm border border-white/10">
+            <img src={b.src} alt={b.alt} loading="lazy" class="h-full w-full object-cover" />
+          </figure>
+        ))}
+      </div>
+
+      <div class="reveal mt-14 flex flex-wrap gap-4">
+        <a href="/contact" class="label rounded-sm bg-accent px-6 py-3 text-sm font-medium text-ink transition-colors hover:bg-paper focus-visible:outline-2 focus-visible:outline-paper active:translate-y-px">
+          Talk-Themes-With-Us
+        </a>
+      </div>
     </div>
   </section>
 </Base>
