@@ -2,16 +2,17 @@
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 
-// Bench work. No prices here except the one already published on /level-up -
-// add them to this list when they are set.
+// Bench work. A basic service is $50 flat; the +More list below is quoted.
 const services = [
   { name: 'CPU-Repaste', body: 'Old paste comes off, the cooler is cleaned and reseated with fresh compound. The usual fix for a chip running hotter and louder than it used to.' },
-  { name: 'GPU-Swap', body: 'Out with the old card, in with the new. We check the supply and clearances first, fit it, and test the machine before it goes back to you.', note: '$50' },
   { name: 'PC-Clean', body: 'Dust out of the filters, fans, radiator and heatsinks, cables tidied on the way through. Airflow back to what it was on day one.' },
-  { name: 'Upgrades', body: 'Memory, storage, cooling, a bigger supply. We check the new part suits the board and the case before anything is ordered.' },
+  { name: 'Upgrades', body: 'A new card, more memory, more storage, better cooling, a bigger supply. We check the new part suits the board and the case before anything is ordered.' },
   { name: 'Diagnostics', body: 'It will not boot, it crashes, it throttles, it is louder than it should be. We find out why and tell you what it will cost to fix.' },
   { name: 'Repairs', body: 'Faulty parts identified, replaced and tested. If it is under a manufacturer warranty we will tell you rather than charge you for it.' },
 ];
+
+// Bigger jobs. These take longer than a basic service and are quoted on the day.
+const more = ['Extra cable management', 'Extreme PC clean', 'Advanced diagnostics', 'Custom loops and re-routing', 'Multi-part rebuilds'];
 
 const promises = [
   { heading: 'We-Quote-First', body: 'We assess the machine and tell you the price before anything is touched. If we open it up and the job turns out bigger than quoted, we stop and come back to you.' },
@@ -21,7 +22,7 @@ const promises = [
 ---
 <Base
   title="Services | The PC Project"
-  description="Repastes, GPU swaps, cleaning, upgrades, diagnostics and repairs in Northbridge. We assess and quote before any work starts."
+  description="Repastes, cleaning, upgrades, diagnostics and repairs in Northbridge from $50. We assess and quote before any work starts."
 >
   <PageHero label="On-The-Bench.//" heading="Services">
     <p>Repastes, part swaps, cleaning, upgrades and repairs - on any machine, not just the ones we built. We assess it and quote before anything is touched.</p>
@@ -30,7 +31,10 @@ const promises = [
   <article class="mx-auto max-w-7xl px-4 pb-24 sm:px-6">
     <section aria-labelledby="what">
       <p class="label reveal text-xs text-accent">What-We-Do.//</p>
-      <h2 id="what" class="display grad reveal mt-4 text-3xl md:text-5xl">On The Bench</h2>
+      <h2 id="what" class="display grad reveal mt-4 text-3xl md:text-5xl">$50 For All Services</h2>
+      <p class="reveal mt-4 max-w-prose text-base leading-relaxed text-paper/80">
+        Starting at $50 for basic services. Bigger jobs take longer and are quoted once we have looked at the machine.
+      </p>
       <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {services.map((s) => (
           <div class="reveal rounded-sm border border-white/10 p-6 transition-colors hover:border-accent">
@@ -41,6 +45,20 @@ const promises = [
             <p class="mt-3 text-sm leading-relaxed text-paper/70">{s.body}</p>
           </div>
         ))}
+        <div class="reveal rounded-sm border border-accent/50 bg-white/[0.02] p-6">
+          <div class="flex items-baseline justify-between gap-3">
+            <h3 class="label text-sm text-paper">+More</h3>
+            <span class="label text-xs text-accent">Quoted</span>
+          </div>
+          <p class="mt-3 text-sm leading-relaxed text-paper/70">Jobs that run past a basic service, priced on the day:</p>
+          <ul class="mt-3 space-y-1">
+            {more.map((m) => (
+              <li class="flex gap-2 text-sm leading-relaxed text-paper/70">
+                <span class="text-accent" aria-hidden="true">&#47;&#47;</span><span>{m}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
       <p class="reveal mt-8 max-w-prose text-sm leading-relaxed text-paper/70">
         Not listed? Bring it in anyway. If it is something we cannot do, we will say so and point you somewhere that can.
