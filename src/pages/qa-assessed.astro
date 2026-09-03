@@ -4,7 +4,7 @@ import Base from '../layouts/Base.astro';
 // Scroll journey: follow one part through the 4-stage QA process.
 const stages = [
   {
-    num: '01', id: 'stage-01', label: 'Pick-Up.//', heading: 'Procurement',
+    num: '01', id: 'stage-01', label: 'Sourcing.//', heading: 'Procurement',
     body: 'Every part starts as a question mark. A trade-in, a bulk lot, a card someone swears "ran fine". It gets logged into inventory with its source and identifying information - traceable from day one.',
     tags: ['Source-Logged', 'Serial-Recorded', 'Inventory-ID'],
   },
@@ -64,13 +64,13 @@ const items = [
   <!-- the journey: one stage per viewport, ghost numeral behind -->
   <div id="journey">
     {stages.map((s, i) => (
-      <section id={s.id} class="relative flex min-h-svh scroll-mt-20 items-center overflow-hidden px-4 sm:px-6">
+      <section id={s.id} data-scene class="relative flex min-h-svh scroll-mt-20 items-center overflow-hidden px-4 sm:px-6">
         <span aria-hidden="true" class={`display pointer-events-none absolute top-1/2 -translate-y-1/2 text-[45vw] leading-none text-white/[0.04] select-none lg:text-[28vw] ${i % 2 ? 'left-0' : 'right-0'}`}>
           {s.num}
         </span>
         {i === 0 && (
           <!-- the pick-up: as this stage scrolls through, the van drives out and collects the part -->
-          <div aria-hidden="true" class="pickup pointer-events-none absolute inset-x-0 bottom-4 px-4 sm:bottom-8 sm:px-6">
+          <div aria-hidden="true" class="scene pickup pointer-events-none absolute inset-x-0 bottom-4 px-4 sm:bottom-8 sm:px-6">
             <svg class="mx-auto block w-full max-w-7xl" viewBox="0 0 1000 120">
               <line x1="0" y1="100" x2="1000" y2="100" />
               <line class="dashes" x1="0" y1="110" x2="1000" y2="110" />
@@ -88,6 +88,30 @@ const items = [
                 <g class="wheel"><circle class="tyre" cx="100" cy="90" r="10" /><path class="dim" d="M100 82v16M92 90h16" /></g>
                 <g class="box-aboard"><rect x="38" y="61" width="18" height="16" /></g>
               </g>
+            </svg>
+          </div>
+        )}
+        {i === 1 && (
+          <!-- the assessment: the part on the bench, a glass sweeping it, and the record filling in beside it -->
+          <div aria-hidden="true" class="scene assess pointer-events-none absolute inset-x-0 bottom-4 px-4 sm:bottom-8 sm:px-6">
+            <svg class="mx-auto block w-full max-w-7xl" viewBox="0 0 1000 120">
+              <line x1="0" y1="100" x2="1000" y2="100" />
+              <!-- the part: a card in profile -->
+              <rect class="body" x="110" y="52" width="10" height="44" rx="1" />
+              <path class="body" d="M130 58H430L440 68V88L430 96H130L120 88V68Z" />
+              <rect class="dim" x="250" y="66" width="80" height="24" />
+              <path class="dim" d="M258 70v16M266 70v16M274 70v16M282 70v16M290 70v16M298 70v16M306 70v16M314 70v16M322 70v16" />
+              <!-- what the glass finds, as it passes -->
+              <g class="mark accent f" style="--t:.2"><circle cx="202" cy="77" r="7" /><circle cx="202" cy="77" r="1.5" /></g>
+              <g class="mark accent f" style="--t:.55"><circle cx="293" cy="77" r="7" /><circle cx="293" cy="77" r="1.5" /></g>
+              <g class="mark accent f" style="--t:.85"><circle cx="371" cy="77" r="7" /><circle cx="371" cy="77" r="1.5" /></g>
+              <!-- the glass -->
+              <g class="glass"><circle class="lens" cx="150" cy="66" r="26" /><path d="M169 85L192 108" stroke-width="5" /></g>
+              <!-- the record, filling in line by line -->
+              <rect class="body" x="620" y="20" width="280" height="80" rx="2" />
+              <path class="dim" d="M636 34h120" />
+              <g class="rec"><path class="f" style="--t:.1" d="M636 50h200" /><path class="f" style="--t:.28" d="M636 62h150" /><path class="f" style="--t:.46" d="M636 74h220" /><path class="f" style="--t:.64" d="M636 86h130" /></g>
+              <g class="tick accent f" style="--t:.9"><path d="M862 36l8 8 16-16" /></g>
             </svg>
           </div>
         )}
@@ -163,33 +187,50 @@ const items = [
       .stamp { opacity: 1; transform: rotate(-3deg); transition: none; }
     }
 
-    /* the pick-up: --p is how far stage 01 has scrolled through the viewport (0 as its
-       top enters at the bottom, 1 as its bottom leaves at the top). The road, at the
-       stage's foot, is on screen from 0.5 until it slides under the header near 0.9,
-       so the van drives through that and the part comes aboard before then. */
-    #stage-01 { --p: 0; }
-    .pickup {
-      --drive: clamp(0, calc((var(--p) - 0.5) / 0.28), 1);
-      --pick: clamp(0, calc((var(--p) - 0.79) / 0.07), 1);
-      color: var(--color-paper);
-    }
-    .pickup svg { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-    .pickup .dim { stroke-opacity: 0.4; }
-    .pickup .dashes { stroke-opacity: 0.4; stroke-dasharray: 14 12; }
-    .pickup .body, .pickup .tyre { fill: var(--color-ink-2); }
-    .pickup .box-there, .pickup .box-aboard { color: var(--color-accent); }
-    .pickup .van, .pickup .wheel, .pickup .box-there, .pickup .box-aboard {
+    /* the scenes: --p is how far a stage has scrolled through the viewport (0 as its top
+       enters at the bottom, 1 as its bottom leaves at the top). Each scene runs along the
+       foot of its stage, on screen from 0.5 until it slides under the header near 0.9,
+       so everything happens inside that window. */
+    [data-scene] { --p: 0; }
+    .scene { color: var(--color-paper); }
+    .scene svg { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .scene .dim { stroke-opacity: 0.4; }
+    .scene .body { fill: var(--color-ink-2); }
+    .scene .accent { color: var(--color-accent); }
+    .pickup .van, .pickup .wheel, .pickup .box-there, .pickup .box-aboard,
+    .assess .glass, .assess .mark, .assess .rec .f, .assess .tick {
       transform-box: fill-box;
       transform-origin: center;
       transition: transform 0.15s linear, opacity 0.15s linear;
     }
+
+    /* 01, the pick-up: the van drives out, and the part comes aboard before the stage leaves */
+    .pickup {
+      --drive: clamp(0, calc((var(--p) - 0.5) / 0.28), 1);
+      --pick: clamp(0, calc((var(--p) - 0.79) / 0.07), 1);
+    }
+    .pickup .dashes { stroke-opacity: 0.4; stroke-dasharray: 14 12; }
+    .pickup .tyre { fill: var(--color-ink-2); }
+    .pickup .box-there, .pickup .box-aboard { color: var(--color-accent); }
     .pickup .van { transform: translateX(calc(var(--drive) * 700px)); }
     .pickup .wheel { transform: rotate(calc(var(--drive) * 1080deg)); }
     .pickup .box-there { opacity: calc(1 - var(--pick)); }
     .pickup .box-aboard { opacity: var(--pick); transform: translateY(calc(-16px * (1 - var(--pick)))); }
+
+    /* 02, the assessment: the glass sweeps the part; each find, each line of the record and
+       the tick have their own moment in the sweep, --t */
+    .assess { --sweep: clamp(0, calc((var(--p) - 0.5) / 0.3), 1); }
+    .assess .lens { fill: var(--color-paper); fill-opacity: 0.06; }
+    .assess .glass { transform: translateX(calc(var(--sweep) * 260px)); }
+    .assess .f { --t: 0; --f: clamp(0, calc((var(--sweep) - var(--t)) / 0.08), 1); }
+    .assess .mark { opacity: var(--f); transform: scale(calc(1.6 - 0.6 * var(--f))); }
+    .assess .rec .f { transform: scaleX(var(--f)); transform-origin: left center; }
+    .assess .tick { opacity: var(--f); transform: scale(calc(1.4 - 0.4 * var(--f))); }
+
     @media (prefers-reduced-motion: reduce) {
-      #stage-01 { --p: 1 !important; }
-      .pickup .van, .pickup .wheel, .pickup .box-there, .pickup .box-aboard { transition: none; }
+      [data-scene] { --p: 1 !important; }
+      .pickup .van, .pickup .wheel, .pickup .box-there, .pickup .box-aboard,
+      .assess .glass, .assess .mark, .assess .rec .f, .assess .tick { transition: none; }
     }
   </style>
 
@@ -198,15 +239,15 @@ const items = [
     const fill = document.getElementById('journey-fill');
     const journey = document.getElementById('journey');
     if (fill && journey) {
-      const stage = document.getElementById('stage-01');
+      const scenes = document.querySelectorAll<HTMLElement>('[data-scene]');
       const update = () => {
         const r = journey.getBoundingClientRect();
         const p = Math.min(1, Math.max(0, (innerHeight / 2 - r.top) / r.height));
         fill.style.transform = `scaleY(${p})`;
-        if (stage) {
-          const t = stage.getBoundingClientRect();
-          stage.style.setProperty('--p', Math.min(1, Math.max(0, (innerHeight - t.top) / (t.height + innerHeight))).toFixed(3));
-        }
+        scenes.forEach((s) => {
+          const t = s.getBoundingClientRect();
+          s.style.setProperty('--p', Math.min(1, Math.max(0, (innerHeight - t.top) / (t.height + innerHeight))).toFixed(3));
+        });
       };
       addEventListener('scroll', () => requestAnimationFrame(update), { passive: true });
       update();
