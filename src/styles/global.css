@@ -19,7 +19,7 @@
    it, and two soft blooms - one accent, one paper - so no page is ever a flat
    grey field. Fixed, so it holds still while the page scrolls over it. */
 html {
-  --grid-line: rgb(255 255 255 / 0.022);
+  --grid-line: rgb(255 255 255 / 0.011);
   background-color: var(--color-ink);
   background-image:
     radial-gradient(58rem 42rem at 10% -8%, color-mix(in srgb, var(--color-accent) 9%, transparent), transparent 68%),
@@ -27,7 +27,7 @@ html {
     radial-gradient(52rem 40rem at 45% 108%, color-mix(in srgb, var(--color-accent) 6%, transparent), transparent 70%),
     linear-gradient(var(--grid-line) 1px, transparent 1px),
     linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-  background-size: auto, auto, auto, 68px 68px, 68px 68px;
+  background-size: auto, auto, auto, 96px 96px, 96px 96px;
   background-attachment: fixed;
   color: var(--color-paper);
   scroll-behavior: smooth;
