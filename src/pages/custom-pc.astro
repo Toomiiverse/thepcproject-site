@@ -34,34 +34,42 @@ const rowB = [
 // lays them out according to how many there are.
 const cards = [
   { name: 'Project Asuka', shots: [
-      { src: '/images/p-asuka-1.jpg', alt: 'A red and black build with EVA-02 panel art and a figurine beside the graphics card' },
-      { src: '/images/p-asuka-3.jpg', alt: 'The same build from the front, red-lit through the glass' },
-      { src: '/images/p-asuka-2.jpg', alt: 'The build angled on the bench, its red frame and panel art catching the light' },
+      { src: '/images/p-asuka-1.jpg', alt: 'Project Asuka, a red and black build with EVA-02 panel art and figurines inside' },
+      { src: '/images/p-asuka-2.jpg', alt: 'Another view of Project Asuka' },
+      { src: '/images/p-asuka-3.jpg', alt: 'Another view of Project Asuka' },
   ] },
   { name: 'Project Frieren', shots: [
-      { src: '/images/p-frieren-2.jpg', alt: 'A white build with violet lighting, moss along the floor and a figurine beside the card' },
-      { src: '/images/p-frieren-3.jpg', alt: 'The same build closer in, flowered fans and the figurine' },
-      { src: '/images/p-frieren-1.jpg', alt: 'The build with its panel art lit, white flowered fans across the front' },
+      { src: '/images/p-frieren-1.jpg', alt: 'Project Frieren, a white build with violet lighting, flowered fans and moss along the floor' },
+      { src: '/images/p-frieren-2.jpg', alt: 'Another view of Project Frieren' },
+      { src: '/images/p-frieren-3.jpg', alt: 'Another view of Project Frieren' },
   ] },
   { name: 'Project NieR Automata', shots: [
-      { src: '/images/p-nier-1.jpg', alt: 'A white build framed in black filigree, a figurine seated beside a Radeon card' },
-      { src: '/images/p-nier-2.jpg', alt: 'The filigree case in full, white fans and the figurine on the shroud' },
+      { src: '/images/p-nier-1.jpg', alt: 'Project NieR Automata, a white build framed in black filigree, figurines on the shroud' },
+      { src: '/images/p-nier-2.jpg', alt: 'Another view of Project NieR Automata' },
+      { src: '/images/p-nier-3.jpg', alt: 'Another view of Project NieR Automata' },
+      { src: '/images/p-nier-4.jpg', alt: 'Another view of Project NieR Automata' },
   ] },
   { name: 'Project Sharingan', shots: [
-      { src: '/images/p-sharingan-1.jpg', alt: 'A black build with red-lit rings and themed panel art, figurines along the shroud' },
-      { src: '/images/p-sharingan-2.jpg', alt: 'Closer in on the red rings and the figurines inside the case' },
+      { src: '/images/p-sharingan-1.jpg', alt: 'Project Sharingan, a black build with red-lit rings and themed panel art' },
+      { src: '/images/p-sharingan-2.jpg', alt: 'Another view of Project Sharingan' },
+      { src: '/images/p-sharingan-3.jpg', alt: 'Another view of Project Sharingan' },
+      { src: '/images/p-sharingan-4.jpg', alt: 'Another view of Project Sharingan' },
+      { src: '/images/p-sharingan-5.jpg', alt: 'Another view of Project Sharingan' },
   ] },
   { name: 'Project Dark Matter', shots: [
-      { src: '/images/p-darkmatter-2.jpg', alt: 'A black build lit violet, its radiator ring glowing above the card' },
-      { src: '/images/p-darkmatter-1.jpg', alt: 'The same build wider, violet light across the glass and an EVGA card' },
+      { src: '/images/p-darkmatter-1.jpg', alt: 'Project Dark Matter, a black build lit violet around an EVGA card' },
+      { src: '/images/p-darkmatter-2.jpg', alt: 'Another view of Project Dark Matter' },
   ] },
   { name: 'Project Cinnamoroll', shots: [
-      { src: '/images/p-cinnamoroll-1.jpg', alt: 'A white and blue build, sleeved cabling and a figurine on the shroud' },
+      { src: '/images/p-cinnamoroll-1.jpg', alt: 'Project Cinnamoroll, a white and blue build with sleeved cabling and a figurine' },
+      { src: '/images/p-cinnamoroll-2.jpg', alt: 'Another view of Project Cinnamoroll' },
+      { src: '/images/p-cinnamoroll-3.jpg', alt: 'Another view of Project Cinnamoroll' },
   ] },
 ];
 
+
 // The themed intro, revealed a character at a time as the block scrolls through.
-const themedIntro = 'The build as the centrepiece. Designed around something you actually care about, matched end to end, and finished to be looked at as much as used.';
+const themedIntro = 'Designed around something you love, one-of-a-kind builds, and finished to be looked at as much as used.';
 ---
 <Base title="Custom PCs & Custom Themed PCs | The PC Project">
   <PageHero label="Handcrafted.//" heading="Custom PCs" video="/video/themed.mp4" poster="/video/themed-poster.jpg">
@@ -108,7 +116,9 @@ const themedIntro = 'The build as the centrepiece. Designed around something you
   <!-- ── 02 · custom themed PCs. Its own ground, its own entrance, and the
        builds arrive as cards that stack up and settle back as you pass. -->
   <section aria-labelledby="themed-heading" class="themed relative border-t border-white/10 py-24 md:py-32">
-    <div class="themed-glow" aria-hidden="true"></div>
+    <div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+      <div class="themed-glow"></div>
+    </div>
     <div class="relative mx-auto max-w-7xl px-4 sm:px-6">
       <p class="label reveal text-xs text-accent">Make it unique. Make it yours</p>
       <h2 id="themed-heading" class="display themed-title grad reveal mt-4 text-4xl md:text-6xl">Custom Themed PCs</h2>
@@ -162,6 +172,13 @@ const themedIntro = 'The build as the centrepiece. Designed around something you
                 <img src={c.shots[0].src} alt={c.shots[0].alt} loading="lazy" class="shot-solo w-full rounded-[28px] object-cover sm:rounded-[40px]" />
               </div>
             )}
+            {c.shots.length >= 4 && (
+              <div class="mt-5 grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-4">
+                {c.shots.map((sh) => (
+                  <img src={sh.src} alt={sh.alt} loading="lazy" class="shot-grid w-full rounded-[28px] object-cover sm:rounded-[40px]" />
+                ))}
+              </div>
+            )}
           </article>
         </div>
       ))}
@@ -169,7 +186,7 @@ const themedIntro = 'The build as the centrepiece. Designed around something you
 
     <div class="reveal mt-20 flex flex-wrap gap-4 px-4 sm:px-6">
       <a href="/contact" class="magnet label mx-auto rounded-sm bg-accent px-6 py-3 text-sm font-medium text-ink transition-colors hover:bg-paper focus-visible:outline-2 focus-visible:outline-paper">
-        Talk-Themes-With-Us
+        Book-Consult
       </a>
     </div>
   </section>
@@ -216,7 +233,9 @@ const themedIntro = 'The build as the centrepiece. Designed around something you
        read as a pile. A card shrinks once the next is climbing over it. */
     .card-wrap {
       --p: 0;
-      min-height: 74vh;
+      /* Sticky travel is the containing block's CONTENT box minus the card,
+         so this has to be real height - padding here would buy nothing. */
+      min-height: calc(100vh + 200px);
     }
     .card {
       position: sticky;
@@ -233,13 +252,14 @@ const themedIntro = 'The build as the centrepiece. Designed around something you
     .shot-tall { height: clamp(262px, 34.9vw, 536px); }
     .shot-pair { height: clamp(200px, 26vw, 420px); }
     .shot-solo { height: clamp(220px, 30vw, 480px); }
+    .shot-grid { height: clamp(150px, 17vw, 280px); }
 
     @media (prefers-reduced-motion: reduce) {
       .belt-a, .belt-b { transform: none; }
       .marquee { overflow-x: auto; }
       .ch { opacity: 1; transition: none; }
       .card { transform: none; transition: none; position: static; }
-      .card-wrap { min-height: 0; }
+      .card-wrap { min-height: 0; padding-bottom: 3rem; }
     }
   </style>
 
