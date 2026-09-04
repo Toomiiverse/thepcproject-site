@@ -76,6 +76,9 @@ halfway down the page.
 - /gaming-lounge — month's tournament (src/data/tournament.ts), photo, 3 facts, cafe memberships (four plans from the pricing poster)
 - /workshops — build-your-own workshop ($100, 2-3 h, with a Master PC Builder) + guided builds / tech support / events
 - /services — bench work (repaste, GPU swap, clean, upgrades, diagnostics,
+- /book — service & repair booking form; preferred-slot request via Web3Forms
+  (shop confirms the time), not live availability. Sanctioned upgrade from the
+  mailto-only contact flow.
   repairs) + the service terms that cover it
 - /level-up — Level-Up program: $100, three years, trade CPU/GPU/board/RAM
   back at market value, no service fee. Summarised on /warranty-and-returns.

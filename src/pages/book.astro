@@ -1,0 +1,202 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+
+// The bench work you can book. Mirrors the Services page.
+const serviceTypes = [
+  'CPU repaste',
+  'PC clean',
+  'Upgrade',
+  'Diagnostics',
+  'Repair',
+  'Not sure — advise me',
+  'Other',
+];
+
+// Web3Forms access key. This is a PUBLIC key by design (spam is caught by the
+// honeypot below). Create a free form at web3forms.com with the shop inbox and
+// paste the key here. Until it is a real key the form does not send — the
+// script falls back to "call or email us" so a booking is never dropped.
+const ACCESS_KEY = 'REPLACE_WITH_WEB3FORMS_ACCESS_KEY';
+---
+<Base
+  title="Book A Service | The PC Project"
+  description="Book a service or repair with The PC Project, Northbridge - repastes, cleans, upgrades, diagnostics and repairs. Tell us the machine and your preferred day; we confirm the time."
+>
+  <PageHero label="Book-It-In.//" heading="Book A Service">
+    <p>Tell us the machine, what it needs, and the day that suits you. This is a request - we will confirm your actual time by phone or email. Nothing is charged here.</p>
+  </PageHero>
+
+  <section class="mx-auto max-w-3xl px-4 pb-24 sm:px-6">
+    <form
+      id="book-form"
+      action="https://api.web3forms.com/submit"
+      method="POST"
+      class="reveal space-y-6"
+      novalidate
+    >
+      <input type="hidden" name="access_key" value={ACCESS_KEY} />
+      <input type="hidden" name="subject" value="Service / repair booking request" />
+      <input type="hidden" name="from_name" value="The PC Project booking form" />
+      <!-- honeypot: humans never see or fill this -->
+      <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" class="hidden" aria-hidden="true" />
+
+      <div class="grid gap-6 sm:grid-cols-2">
+        <label class="block">
+          <span class="label text-xs text-muted">Full name *</span>
+          <input class="field mt-2" type="text" name="name" required autocomplete="name" placeholder="First and last" />
+        </label>
+        <label class="block">
+          <span class="label text-xs text-muted">Phone *</span>
+          <input class="field mt-2" type="tel" name="phone" required autocomplete="tel" placeholder="04…" />
+        </label>
+        <label class="block sm:col-span-2">
+          <span class="label text-xs text-muted">Email *</span>
+          <input class="field mt-2" type="email" name="email" required autocomplete="email" placeholder="you@example.com" />
+        </label>
+      </div>
+
+      <div class="grid gap-6 sm:grid-cols-2">
+        <label class="block">
+          <span class="label text-xs text-muted">Service needed *</span>
+          <select class="field mt-2" name="service" required>
+            <option value="" selected disabled>Choose one…</option>
+            {serviceTypes.map((s) => <option value={s}>{s}</option>)}
+          </select>
+        </label>
+        <label class="block">
+          <span class="label text-xs text-muted">The machine</span>
+          <input class="field mt-2" type="text" name="machine" placeholder="Brand / specs, or a PC we built you" />
+        </label>
+      </div>
+
+      <label class="block">
+        <span class="label text-xs text-muted">What's happening, or what you need *</span>
+        <textarea class="field mt-2" name="details" rows="4" required placeholder="Tell us the fault, the symptoms, or the job."></textarea>
+      </label>
+
+      <div class="grid gap-6 sm:grid-cols-3">
+        <label class="block">
+          <span class="label text-xs text-muted">Preferred date *</span>
+          <input class="field mt-2" type="date" name="preferred_date" required />
+        </label>
+        <label class="block">
+          <span class="label text-xs text-muted">Preferred time</span>
+          <select class="field mt-2" name="preferred_time">
+            <option value="Either" selected>Either</option>
+            <option value="Morning (9–12)">Morning (9–12)</option>
+            <option value="Afternoon (12–5)">Afternoon (12–5)</option>
+          </select>
+        </label>
+        <label class="block">
+          <span class="label text-xs text-muted">Alternate date</span>
+          <input class="field mt-2" type="date" name="alternate_date" />
+        </label>
+      </div>
+      <p class="text-xs leading-relaxed text-muted">We are open Mon–Fri 9am–6pm and Sat 10am–5pm; closed Sunday. Pick the day that suits and we will confirm the time.</p>
+
+      <p id="book-error" hidden class="rounded-sm border border-accent/50 px-3 py-2 text-sm text-paper"></p>
+
+      <button
+        type="submit"
+        class="label inline-block rounded-sm bg-accent px-6 py-3 text-sm font-medium text-ink transition-colors hover:bg-paper focus-visible:outline-2 focus-visible:outline-paper active:translate-y-px"
+      >
+        Send-Booking-Request
+      </button>
+      <p class="text-xs leading-relaxed text-muted">This is a request, not a confirmed booking. Prefer to talk? Call in or email <a class="text-accent hover:text-paper" href="mailto:contact@thepcproject.com.au?subject=Service%20booking">contact@thepcproject.com.au</a>.</p>
+    </form>
+
+    <!-- shown after a successful send, in place of the form -->
+    <div id="book-done" hidden class="reveal rounded-sm border border-accent/40 bg-white/[0.02] p-6 sm:p-8">
+      <p class="label text-xs text-accent">Request-Received.//</p>
+      <h2 class="display mt-3 text-2xl md:text-3xl">We'll be in touch</h2>
+      <p class="mt-4 max-w-prose text-sm leading-relaxed text-paper/80">
+        Thanks - your request is with us. We will confirm your actual time by phone or email. Nothing is locked in until we reply.
+      </p>
+      <p class="mt-4 text-sm text-muted">
+        2/62 Fitzgerald Street, Northbridge &middot; <a class="text-accent hover:text-paper" href="mailto:contact@thepcproject.com.au">contact@thepcproject.com.au</a>
+      </p>
+    </div>
+  </section>
+
+  <style>
+    /* First form styles in the codebase - dark theme, accent focus. */
+    .field {
+      display: block;
+      width: 100%;
+      border-radius: 0.125rem;
+      border: 1px solid rgb(255 255 255 / 0.15);
+      background: var(--color-ink-2);
+      padding: 0.65rem 0.75rem;
+      font-size: 16px; /* 16px stops iOS zooming on focus */
+      color: var(--color-paper);
+      transition: border-color 0.2s ease-out;
+    }
+    .field::placeholder { color: var(--color-muted); }
+    .field:hover { border-color: rgb(255 255 255 / 0.3); }
+    .field:focus-visible {
+      outline: 2px solid var(--color-accent);
+      outline-offset: -1px;
+      border-color: var(--color-accent);
+    }
+    /* the native date/time controls are dark-themed */
+    .field[type='date'] { color-scheme: dark; }
+    select.field { appearance: none; }
+  </style>
+
+  <script>
+    const form = document.getElementById('book-form') as HTMLFormElement | null;
+    if (form) {
+      const dateInputs = form.querySelectorAll<HTMLInputElement>('input[type="date"]');
+      const today = new Date().toISOString().slice(0, 10);
+      dateInputs.forEach((d) => (d.min = today));
+
+      const err = document.getElementById('book-error') as HTMLElement;
+      const done = document.getElementById('book-done') as HTMLElement;
+      const key = (form.querySelector('input[name="access_key"]') as HTMLInputElement)?.value || '';
+      const configured = key.length > 20 && !key.startsWith('REPLACE_');
+
+      const showError = (msg: string) => {
+        err.textContent = msg;
+        err.hidden = false;
+      };
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        err.hidden = true;
+        if (!form.reportValidity()) return;
+
+        // Not wired up yet: never post to a dead endpoint, tell them how to reach us.
+        if (!configured) {
+          showError(
+            'Online booking is being set up. For now, please call in or email contact@thepcproject.com.au and we will book you in.',
+          );
+          return;
+        }
+
+        const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+        btn.disabled = true;
+        try {
+          const res = await fetch(form.action, {
+            method: 'POST',
+            headers: { Accept: 'application/json' },
+            body: new FormData(form),
+          });
+          const data = await res.json().catch(() => ({}));
+          if (res.ok && data.success !== false) {
+            form.hidden = true;
+            done.hidden = false;
+            done.classList.add('in');
+            done.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          } else {
+            showError('Something went wrong sending that. Please try again, or email contact@thepcproject.com.au.');
+            btn.disabled = false;
+          }
+        } catch {
+          showError('Could not reach the server. Please check your connection, or email contact@thepcproject.com.au.');
+          btn.disabled = false;
+        }
+      });
+    }
+  </script>
+</Base>
