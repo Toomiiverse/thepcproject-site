@@ -34,7 +34,8 @@ const nav = [
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 </head>
-<body class="text-paper">
+<body class="bg-ink text-paper">
+  {!embed && (
   <header class="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-ink/80 backdrop-blur-md">
     <div class="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6">
       <a href="/" class="label text-sm font-medium text-paper hover:text-accent focus-visible:outline-2 focus-visible:outline-accent">
@@ -66,6 +67,7 @@ const nav = [
       </div>
     </div>
   </header>
+  )}
 
   <slot />
 
@@ -80,6 +82,7 @@ const nav = [
           <p class="label flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted">
             <a href="/warranty-and-returns" class="hover:text-accent">Warranty</a>
             <a href="/terms-and-conditions" class="hover:text-accent">Terms</a>
+            <a href="/privacy" class="hover:text-accent">Privacy</a>
             <a href="https://www.instagram.com/thepcprojectau/" rel="noopener" class="hover:text-accent">Instagram</a>
             <a href="https://www.facebook.com/profile.php?id=61583668420452" rel="noopener" class="hover:text-accent">Facebook</a>
           </p>
