@@ -161,12 +161,20 @@ body {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(115deg, transparent 42%, rgb(255 255 255 / 0.07) 50%, transparent 58%);
-  transform: translateX(-120%);
-  transition: transform 0.9s ease-out;
+  background: linear-gradient(115deg, transparent 38%, rgb(255 255 255 / 0.18) 50%, transparent 62%);
+  transform: translateX(-160%);
   pointer-events: none;
 }
-.tier:hover::after { transform: translateX(120%); }
+/* A sweep that plays once on hover, rather than a transition that reverses on
+   leave. Re-entering the card replays it. */
+.tier:hover::after,
+.tier:focus-within::after {
+  animation: tier-sheen 0.85s ease-out;
+}
+@keyframes tier-sheen {
+  from { transform: translateX(-160%); }
+  to { transform: translateX(160%); }
+}
 
 /* The one to want: a glow that breathes. */
 .tier-featured {
@@ -279,6 +287,7 @@ body {
   .themed-shot img, .themed-shot:hover img { transform: none; transition: none; }
   .tier, .tier .price { opacity: 1; transform: none; transition: none; }
   .tier::after { display: none; }
+  .tier:hover::after, .tier:focus-within::after { animation: none; }
   .tier-featured { animation: none; }
   .reveal { opacity: 1; transform: none; transition: none; }
   .reveal.rl-panel { opacity: 1; transform: none; transition: none; }

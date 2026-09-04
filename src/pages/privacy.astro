@@ -2,31 +2,58 @@
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
 ---
-<Base title="Privacy | The PC Project" description="How The PC Project uses contact details, job data, and this website.">
-  <PageHero label="Your-Details.//" heading="Privacy">
-    <p>We use what you give us to quote, build, and support the job. This sits alongside the Australian Privacy Principles.</p>
-    <p class="mt-4 text-sm text-muted">Draft — waiting on owner sign-off before this is the public policy.</p>
+<Base
+  title="Privacy Policy | The PC Project"
+  description="How The PC Project collects, uses and protects your personal information, in line with the Australian Privacy Principles."
+>
+  <PageHero label="Your-Details.//" heading="Privacy Policy">
+    <p>What we collect, why, and what we do with it. We keep it to what the job needs and nothing more. This sits under the Privacy Act 1988 and the Australian Privacy Principles.</p>
   </PageHero>
 
   <article class="mx-auto max-w-3xl space-y-10 px-4 pb-24 text-sm leading-relaxed text-paper/80 sm:px-6">
     <section>
-      <h2 class="display text-2xl text-paper">What we collect</h2>
-      <p class="mt-4">Name, email, phone, and the spec you send us — in store, by email, or through the configurator. If you leave a machine with us, only the files the job needs stay on it.</p>
+      <h2 class="display text-2xl text-paper">Who we are</h2>
+      <p class="mt-4">The PC Project, 2/62 Fitzgerald Street, Northbridge WA 6003. When we say &ldquo;we&rdquo; or &ldquo;us&rdquo; below, that is who you are dealing with.</p>
     </section>
 
     <section>
-      <h2 class="display text-2xl text-paper">What we use it for</h2>
-      <p class="mt-4">Quotes, builds, warranty, and getting back to you. We do not sell your details. We do not keep your personal files unless the job requires it — back them up before you drop a machine in.</p>
+      <h2 class="display text-2xl text-paper">What we collect</h2>
+      <ul class="mt-4 list-disc space-y-2 pl-5">
+        <li><strong class="text-paper">Contact details</strong> - name, email, and phone number when you request a quote, book a build or a service, or get in touch.</li>
+        <li><strong class="text-paper">Build details</strong> - the answers and parts from a configurator quote, and what you tell us about how the machine will be used.</li>
+        <li><strong class="text-paper">Service details</strong> - the machine you bring in and the fault or work requested. We do not read or copy your files, and we ask you to back up your own data before a service.</li>
+        <li><strong class="text-paper">Payment</strong> - handled by our payment provider. We do not store full card numbers.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2 class="display text-2xl text-paper">Why we collect it</h2>
+      <p class="mt-4">To quote, build, service and support your order, to answer your enquiry, and to keep a record of the work for your warranty. We do not sell your information, and we do not use it for marketing unless you have asked us to.</p>
+    </section>
+
+    <section>
+      <h2 class="display text-2xl text-paper">Who we share it with</h2>
+      <p class="mt-4">Only where the job needs it - for example our payment provider to take payment, or a courier to deliver a machine. We do not disclose your information to anyone else unless you ask us to or the law requires it.</p>
     </section>
 
     <section>
       <h2 class="display text-2xl text-paper">This website</h2>
-      <p class="mt-4">The maps on this site are Google Maps embeds. Instagram and Facebook links go to those services. The configurator runs on our shop systems so we can turn a spec into a quote.</p>
+      <p class="mt-4">We do not run tracking or advertising cookies here. The maps on this site are Google Maps embeds, and the Instagram and Facebook links go to those services - each handles your data under its own policy. The configurator runs on our own shop systems so we can turn a spec into a quote.</p>
     </section>
 
     <section>
-      <h2 class="display text-2xl text-paper">Questions</h2>
-      <p class="mt-4"><a class="text-accent hover:text-paper" href="mailto:contact@thepcproject.com.au">contact@thepcproject.com.au</a> · 2/62 Fitzgerald Street, Northbridge WA 6003</p>
+      <h2 class="display text-2xl text-paper">How we store it</h2>
+      <p class="mt-4">We keep your information for as long as we need it for the job and for the records we are required to hold, then dispose of it securely. We take reasonable steps to protect it from loss, misuse and unauthorised access.</p>
+    </section>
+
+    <section>
+      <h2 class="display text-2xl text-paper">Your choices</h2>
+      <p class="mt-4">You can ask us what personal information we hold about you, ask us to correct it, or ask us to delete it where we are not required to keep it. Email us and we will sort it out.</p>
+    </section>
+
+    <section>
+      <h2 class="display text-2xl text-paper">Contact</h2>
+      <p class="mt-4"><a class="text-accent hover:text-paper" href="mailto:contact@thepcproject.com.au?subject=Privacy">contact@thepcproject.com.au</a> &middot; 2/62 Fitzgerald Street, Northbridge WA 6003. If you are not satisfied with how we handle a privacy matter, you can contact the Office of the Australian Information Commissioner.</p>
     </section>
   </article>
 </Base>
