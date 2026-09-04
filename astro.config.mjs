@@ -8,8 +8,7 @@ export default defineConfig({
     '/custom-pc-order': '/configurator',
     '/signature-builds': '/custom-pc',
     '/warranty': '/warranty-and-returns',
-    '/privacy': '/warranty-and-returns',
-    '/privacy-policy': '/warranty-and-returns',
+    '/privacy-policy': '/privacy',
     '/terms': '/terms-and-conditions',
   },
   vite: {

@@ -1,0 +1,32 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+---
+<Base title="Privacy | The PC Project" description="How The PC Project uses contact details, job data, and this website.">
+  <PageHero label="Your-Details.//" heading="Privacy">
+    <p>We use what you give us to quote, build, and support the job. This sits alongside the Australian Privacy Principles.</p>
+    <p class="mt-4 text-sm text-muted">Draft — waiting on owner sign-off before this is the public policy.</p>
+  </PageHero>
+
+  <article class="mx-auto max-w-3xl space-y-10 px-4 pb-24 text-sm leading-relaxed text-paper/80 sm:px-6">
+    <section>
+      <h2 class="display text-2xl text-paper">What we collect</h2>
+      <p class="mt-4">Name, email, phone, and the spec you send us — in store, by email, or through the configurator. If you leave a machine with us, only the files the job needs stay on it.</p>
+    </section>
+
+    <section>
+      <h2 class="display text-2xl text-paper">What we use it for</h2>
+      <p class="mt-4">Quotes, builds, warranty, and getting back to you. We do not sell your details. We do not keep your personal files unless the job requires it — back them up before you drop a machine in.</p>
+    </section>
+
+    <section>
+      <h2 class="display text-2xl text-paper">This website</h2>
+      <p class="mt-4">The maps on this site are Google Maps embeds. Instagram and Facebook links go to those services. The configurator runs on our shop systems so we can turn a spec into a quote.</p>
+    </section>
+
+    <section>
+      <h2 class="display text-2xl text-paper">Questions</h2>
+      <p class="mt-4"><a class="text-accent hover:text-paper" href="mailto:contact@thepcproject.com.au">contact@thepcproject.com.au</a> · 2/62 Fitzgerald Street, Northbridge WA 6003</p>
+    </section>
+  </article>
+</Base>

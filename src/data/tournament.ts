@@ -27,7 +27,7 @@ export interface Tournament {
   month: string;
   /** The game or format. "Rocket League 2v2". */
   title: string;
-  /** "Saturday 18 October, 6pm" */
+  /** "Sunday 18 October, 6pm" */
   when: string;
   /** "Double elimination, 16 teams" */
   format: string;
@@ -47,7 +47,7 @@ export const currentTournament: Tournament | null = null;
 // const example: Tournament = {
 //   month: "October 2026",
 //   title: "Rocket League 2v2",
-//   when: "Saturday 18 October, 6pm",
+//   when: "Sunday 18 October, 6pm",
 //   format: "Double elimination, 16 teams",
 //   entry: "$10 per player",
 //   blurb: "Turn up with a partner or find one on the night.",
