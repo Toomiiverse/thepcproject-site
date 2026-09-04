@@ -16,18 +16,10 @@ import Base from '../layouts/Base.astro';
     If the builder does not load, email contact@thepcproject.com.au or visit us at 2/62 Fitzgerald Street, Northbridge.
   </p>
   <script>
+    import { builderFrameSrc } from '../lib/builderFrame.ts';
     const el = document.getElementById('builder');
     if (el instanceof HTMLIFrameElement) {
-      const { protocol, hostname, port } = window.location;
-      // Shop preview serves the site on :8090 and the builder on :8091.
-      // Public (no port) uses /builder/ reverse-proxied on the same host.
-      // poster=1 selects the build-sheet configurator. The older step-by-step
-      // quote flow is still on the same deployment without it.
-      const q = '?embed=1&poster=1';
-      el.src =
-        port === '8090'
-          ? `${protocol}//${hostname}:8091/${q}`
-          : `${protocol}//${hostname}/builder/${q}`;
+      el.src = builderFrameSrc(window.location);
     }
   </script>
 </Base>
