@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import Section from '../components/Section.astro';
 import BuildJourney from '../components/BuildJourney.astro';
+import { mapsEmbedSrc, site } from '../data/site-config';
 
 const rail = [
   { num: '01', id: 'top' },
@@ -142,26 +143,26 @@ const testimonials = [
       <div class="space-y-6">
         <div>
           <h3 class="label text-xs text-muted">Address.</h3>
-          <p class="mt-1 text-lg">2/62 Fitzgerald Street, Northbridge 6003</p>
+          <p class="mt-1 text-lg">{site.address.short}</p>
         </div>
         <div>
           <h3 class="label text-xs text-muted">Email.</h3>
           <p class="mt-1 text-lg">
-            <a href="mailto:contact@thepcproject.com.au" class="hover:text-accent">contact@thepcproject.com.au</a>
+            <a href={`mailto:${site.email}`} class="hover:text-accent">{site.email}</a>
           </p>
         </div>
         <div>
           <h3 class="label text-xs text-muted">Hours.</h3>
           <dl class="mt-1 max-w-xs text-lg">
-            <div class="flex justify-between"><dt>Mon &ndash; Fri</dt><dd>9am &ndash; 6pm</dd></div>
-            <div class="flex justify-between"><dt>Sat</dt><dd>10am &ndash; 5pm</dd></div>
-            <div class="flex justify-between"><dt>Sun</dt><dd class="text-muted">Closed</dd></div>
+            {site.hours.map((h) => (
+              <div class="flex justify-between"><dt>{h.label}</dt><dd class={h.muted ? 'text-muted' : undefined}>{h.value}</dd></div>
+            ))}
           </dl>
         </div>
       </div>
       <iframe
-        title="Map: The PC Project, 2/62 Fitzgerald Street, Northbridge"
-        src="https://www.google.com/maps?q=2%2F62+Fitzgerald+Street,+Northbridge+WA+6003&output=embed"
+        title={`Map: ${site.name}, ${site.address.street}, ${site.address.suburb}`}
+        src={mapsEmbedSrc()}
         class="min-h-72 w-full rounded-sm border border-white/10"
         loading="lazy"
       ></iframe>

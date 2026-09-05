@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
+import { aud, site } from '../data/site-config';
 ---
 <Base title="Terms & Conditions | The PC Project" description="Orders, quotes, returns, and Australian Consumer Law for The PC Project.">
   <PageHero label="The-Fine-Print.//" heading="Terms & Conditions">
@@ -20,7 +21,7 @@ import PageHero from '../components/PageHero.astro';
         <li>Quotes are not valid until confirmed by you. Parts move constantly and hardware prices move with them, so a quote is a guide until we confirm it.</li>
         <li>A deposit may be required before we order parts or start a custom build.</li>
         <li>Full payment must clear before collection or delivery. We do not hand over a machine until then.</li>
-        <li>Building fee starts from $50; the fee for your build is confirmed on your quote.</li>
+        <li>Building fee starts from {aud(site.fees.build)}; the fee for your build is confirmed on your quote.</li>
       </ul>
     </section>
 
@@ -71,7 +72,7 @@ import PageHero from '../components/PageHero.astro';
 
     <section>
       <h2 class="display text-2xl text-paper">Questions</h2>
-      <p class="mt-4"><a class="text-accent hover:text-paper" href="mailto:contact@thepcproject.com.au">contact@thepcproject.com.au</a> · 2/62 Fitzgerald Street, Northbridge WA 6003</p>
+      <p class="mt-4"><a class="text-accent hover:text-paper" href={`mailto:${site.email}`}>{site.email}</a> · {site.address.line}</p>
     </section>
   </article>
 </Base>

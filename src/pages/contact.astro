@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
+import { mapsEmbedSrc, site } from '../data/site-config';
 ---
 <Base title="Contact | The PC Project">
   <PageHero label="See-Us-In-Store.//" heading="Contact">
@@ -12,24 +13,24 @@ import PageHero from '../components/PageHero.astro';
       <div class="space-y-6">
         <div>
           <h2 class="label text-xs text-muted">Address.</h2>
-          <p class="mt-1 text-lg">2/62 Fitzgerald Street, Northbridge 6003</p>
+          <p class="mt-1 text-lg">{site.address.short}</p>
         </div>
         <div>
           <h2 class="label text-xs text-muted">Email.</h2>
           <p class="mt-1 text-lg">
-            <a href="mailto:contact@thepcproject.com.au" class="hover:text-accent">contact@thepcproject.com.au</a>
+            <a href={`mailto:${site.email}`} class="hover:text-accent">{site.email}</a>
           </p>
         </div>
         <div>
           <h2 class="label text-xs text-muted">Hours.</h2>
           <dl class="mt-1 max-w-xs text-lg">
-            <div class="flex justify-between"><dt>Mon &ndash; Fri</dt><dd>9am &ndash; 6pm</dd></div>
-            <div class="flex justify-between"><dt>Sat</dt><dd>10am &ndash; 5pm</dd></div>
-            <div class="flex justify-between"><dt>Sun</dt><dd class="text-muted">Closed</dd></div>
+            {site.hours.map((h) => (
+              <div class="flex justify-between"><dt>{h.label}</dt><dd class={h.muted ? 'text-muted' : undefined}>{h.value}</dd></div>
+            ))}
           </dl>
         </div>
         <div class="flex flex-wrap gap-4">
-          <a href="mailto:contact@thepcproject.com.au?subject=Quote%20request" class="label inline-block rounded-sm bg-accent px-6 py-3 text-sm font-medium text-ink transition-colors hover:bg-paper focus-visible:outline-2 focus-visible:outline-paper active:translate-y-px">
+          <a href={`mailto:${site.email}?subject=Quote%20request`} class="label inline-block rounded-sm bg-accent px-6 py-3 text-sm font-medium text-ink transition-colors hover:bg-paper focus-visible:outline-2 focus-visible:outline-paper active:translate-y-px">
             Get-A-Quote
           </a>
           <a href="/book" class="label inline-block rounded-sm border border-white/20 px-6 py-3 text-sm text-paper transition-colors hover:border-accent hover:text-accent focus-visible:outline-2 focus-visible:outline-accent active:translate-y-px">
@@ -38,8 +39,8 @@ import PageHero from '../components/PageHero.astro';
         </div>
       </div>
       <iframe
-        title="Map: The PC Project, 2/62 Fitzgerald Street, Northbridge"
-        src="https://www.google.com/maps?q=2%2F62+Fitzgerald+Street,+Northbridge+WA+6003&output=embed"
+        title={`Map: ${site.name}, ${site.address.street}, ${site.address.suburb}`}
+        src={mapsEmbedSrc()}
         class="min-h-96 w-full rounded-sm border border-white/10"
         loading="lazy"
       ></iframe>

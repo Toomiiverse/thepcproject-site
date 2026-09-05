@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
+import { site } from '../data/site-config';
 
 // The bench work you can book. Mirrors the Services page.
 const serviceTypes = [
@@ -93,7 +94,7 @@ const ACCESS_KEY = '6f363f66-be05-4059-81c4-c3b991218386';
           <input class="field mt-2" type="date" name="alternate_date" />
         </label>
       </div>
-      <p class="text-xs leading-relaxed text-muted">We are open Mon–Fri 9am–6pm and Sat 10am–5pm; closed Sunday. Pick the day that suits and we will confirm the time.</p>
+      <p class="text-xs leading-relaxed text-muted">{site.hoursBlurb} Pick the day that suits and we will confirm the time.</p>
 
       <p id="book-error" hidden class="rounded-sm border border-accent/50 px-3 py-2 text-sm text-paper"></p>
 
@@ -103,7 +104,7 @@ const ACCESS_KEY = '6f363f66-be05-4059-81c4-c3b991218386';
       >
         Send-Booking-Request
       </button>
-      <p class="text-xs leading-relaxed text-muted">This is a request, not a confirmed booking. Prefer to talk? Call in or email <a class="text-accent hover:text-paper" href="mailto:contact@thepcproject.com.au?subject=Service%20booking">contact@thepcproject.com.au</a>.</p>
+      <p class="text-xs leading-relaxed text-muted">This is a request, not a confirmed booking. Prefer to talk? Call in or email <a class="text-accent hover:text-paper" href={`mailto:${site.email}?subject=Service%20booking`}>{site.email}</a>.</p>
     </form>
 
     <!-- shown after a successful send, in place of the form -->
@@ -114,7 +115,7 @@ const ACCESS_KEY = '6f363f66-be05-4059-81c4-c3b991218386';
         Thanks - your request is with us. We will confirm your actual time by phone or email. Nothing is locked in until we reply.
       </p>
       <p class="mt-4 text-sm text-muted">
-        2/62 Fitzgerald Street, Northbridge &middot; <a class="text-accent hover:text-paper" href="mailto:contact@thepcproject.com.au">contact@thepcproject.com.au</a>
+        {site.address.street}, {site.address.suburb} &middot; <a class="text-accent hover:text-paper" href={`mailto:${site.email}`}>{site.email}</a>
       </p>
     </div>
   </section>
@@ -144,7 +145,7 @@ const ACCESS_KEY = '6f363f66-be05-4059-81c4-c3b991218386';
     select.field { appearance: none; }
   </style>
 
-  <script>
+  <script define:vars={{ shopEmail: site.email }}>
     const form = document.getElementById('book-form') as HTMLFormElement | null;
     if (form) {
       const dateInputs = form.querySelectorAll<HTMLInputElement>('input[type="date"]');
@@ -169,7 +170,7 @@ const ACCESS_KEY = '6f363f66-be05-4059-81c4-c3b991218386';
         // Not wired up yet: never post to a dead endpoint, tell them how to reach us.
         if (!configured) {
           showError(
-            'Online booking is being set up. For now, please call in or email contact@thepcproject.com.au and we will book you in.',
+            `Online booking is being set up. For now, please call in or email ${shopEmail} and we will book you in.`,
           );
           return;
         }
@@ -189,11 +190,11 @@ const ACCESS_KEY = '6f363f66-be05-4059-81c4-c3b991218386';
             done.classList.add('in');
             done.scrollIntoView({ behavior: 'smooth', block: 'center' });
           } else {
-            showError('Something went wrong sending that. Please try again, or email contact@thepcproject.com.au.');
+            showError(`Something went wrong sending that. Please try again, or email ${shopEmail}.`);
             btn.disabled = false;
           }
         } catch {
-          showError('Could not reach the server. Please check your connection, or email contact@thepcproject.com.au.');
+          showError(`Could not reach the server. Please check your connection, or email ${shopEmail}.`);
           btn.disabled = false;
         }
       });

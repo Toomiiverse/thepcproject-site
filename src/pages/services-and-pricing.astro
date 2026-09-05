@@ -1,0 +1,103 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import { aud, site } from '../data/site-config';
+
+type Rate = {
+  code: string;
+  label: string;
+  amount: number | null;
+  per?: string;
+  from?: boolean;
+};
+
+const fallback: Rate[] = [
+  { code: 'labour_diag', label: 'Diagnostics', amount: site.services.diagnostics },
+  { code: 'labour_general', label: 'General labour', amount: site.services.labourHour, per: 'hour' },
+  { code: 'os_install', label: 'OS install', amount: site.services.osInstall },
+  { code: 'recovery', label: 'Data recovery', amount: site.services.recoveryFrom, from: true },
+  { code: 'fee_build', label: 'PC building fee', amount: site.fees.build, from: true },
+  { code: 'labour_cable_mgmt', label: 'Cable management', amount: site.fees.cable },
+  { code: 'labour_theme', label: 'Custom themed', amount: site.fees.themed },
+  { code: 'labour_theme_premium', label: 'Custom themed premium', amount: site.fees.themedPremium },
+];
+
+let rates = fallback;
+let fromShop = false;
+const origin = (import.meta.env.SHOP_OS_ORIGIN as string | undefined)?.replace(/\/$/, '');
+if (origin) {
+  try {
+    const r = await fetch(`${origin}/api/v1/pricing/services`, { signal: AbortSignal.timeout(2500) });
+    if (r.ok) {
+      const data = await r.json();
+      const items = Array.isArray(data?.items) ? data.items : Array.isArray(data) ? data : [];
+      const byCode = new Map(
+        items
+          .filter((it: { code?: string; price?: number }) => typeof it?.code === 'string')
+          .map((it: { code: string; price?: number }) => [it.code, it.price]),
+      );
+      rates = fallback.map((row) => {
+        const p = byCode.get(row.code);
+        return typeof p === 'number' && p > 0 ? { ...row, amount: p } : row;
+      });
+      fromShop = true;
+    }
+  } catch {
+    // Shop OS unreachable at build — keep interim §2.7. Never invent a number.
+  }
+}
+
+function priceLabel(row: Rate): string {
+  if (row.amount == null) return 'TBC';
+  const base = aud(row.amount);
+  if (row.from) return `from ${base}`;
+  if (row.per) return `${base} / ${row.per}`;
+  return base;
+}
+---
+<Base
+  title="Services & Pricing | The PC Project"
+  description="Bench rates for diagnostics, labour, OS install and recovery at The PC Project, Northbridge."
+>
+  <PageHero label="On-The-Bench.//" heading="Services & Pricing">
+    <p>What bench work costs, before we open the case. We still quote the job in front of you if it is bigger than the list.</p>
+  </PageHero>
+
+  <article class="mx-auto max-w-7xl px-4 pb-24 sm:px-6">
+    <aside class="reveal rounded-sm border border-accent/40 bg-white/[0.02] p-4 sm:p-5">
+      <p class="label text-xs text-accent">Owner-Review.//</p>
+      <p class="mt-2 max-w-prose text-sm leading-relaxed text-paper/80">
+        {fromShop
+          ? 'Rates below are from the shop list at build time.'
+          : 'Rates below are interim, flagged for owner review until finals are confirmed. In-store quote wins if they differ.'}
+      </p>
+    </aside>
+
+    <section aria-labelledby="rates" class="mt-12">
+      <p class="label reveal text-xs text-accent">The-List.//</p>
+      <h2 id="rates" class="display reveal mt-4 text-3xl md:text-5xl">Current rates</h2>
+      <div class="reveal mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        {rates.map((row) => (
+          <article class="rounded-sm border border-white/10 p-6">
+            <h3 class="label text-sm text-paper">{row.label}</h3>
+            <p class="display mt-4 text-4xl">{priceLabel(row)}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <p class="reveal mt-10 max-w-prose text-sm leading-relaxed text-paper/70">
+      Party packages are still to be confirmed — ask in store. How we work is on the
+      <a class="text-accent hover:underline" href="/services">Services</a> page.
+    </p>
+
+    <div class="reveal mt-12 flex flex-wrap gap-4">
+      <a href="/book" class="label rounded-sm bg-accent px-6 py-3 text-sm font-medium text-ink transition-colors hover:bg-paper focus-visible:outline-2 focus-visible:outline-paper active:translate-y-px">
+        Book-A-Service
+      </a>
+      <a href="/contact" class="label rounded-sm border border-white/20 px-6 py-3 text-sm text-paper transition-colors hover:border-accent hover:text-accent focus-visible:outline-2 focus-visible:outline-accent active:translate-y-px">
+        Ask-Us
+      </a>
+    </div>
+  </article>
+</Base>

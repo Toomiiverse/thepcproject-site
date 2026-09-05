@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
+import { aud, site } from '../data/site-config';
 ---
 <Base title="PC Workshops | The PC Project">
   <PageHero label="Learn-The-Craft.//" heading="Workshops" video="/video/workshop.mp4" poster="/video/workshop-poster.jpg">
@@ -20,7 +21,7 @@ import PageHero from '../components/PageHero.astro';
       <dl class="mt-8 grid gap-6 sm:grid-cols-3">
         <div class="border-l-2 border-accent pl-4">
           <dt class="label text-xs text-muted">Cost</dt>
-          <dd class="display mt-1 text-3xl">$100</dd>
+          <dd class="display mt-1 text-3xl">{aud(site.programs.workshop)}</dd>
         </div>
         <div class="border-l-2 border-accent pl-4">
           <dt class="label text-xs text-muted">Takes</dt>
