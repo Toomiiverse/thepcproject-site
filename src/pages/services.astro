@@ -1,8 +1,9 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
+import { aud, site } from '../data/site-config';
 
-// Bench work. A basic service is $50 flat; the +More list below is quoted.
+const basic = aud(site.programs.basicService);
 const services = [
   { name: 'CPU-Repaste', body: 'Old paste comes off, the cooler is cleaned and reseated with fresh compound. The usual fix for a chip running hotter and louder than it used to.' },
   { name: 'PC-Clean', body: 'Dust out of the filters, fans, radiator and heatsinks, cables tidied on the way through. Airflow back to what it was on day one.' },
@@ -22,7 +23,7 @@ const promises = [
 ---
 <Base
   title="Services | The PC Project"
-  description="Repastes, cleaning, upgrades, diagnostics and repairs in Northbridge from $50. We assess and quote before any work starts."
+  description={`Repastes, cleaning, upgrades, diagnostics and repairs in Northbridge from ${basic}. We assess and quote before any work starts.`}
 >
   <PageHero label="On-The-Bench.//" heading="Services">
     <p>Repastes, part swaps, cleaning, upgrades and repairs - on any machine, not just the ones we built. We assess it and quote before anything is touched.</p>
@@ -31,15 +32,19 @@ const promises = [
   <article class="mx-auto max-w-7xl px-4 pb-24 sm:px-6">
     <section aria-labelledby="what">
       <p class="label reveal text-xs text-accent">What-We-Do.//</p>
-      <h2 id="what" class="display grad reveal mt-4 text-3xl md:text-5xl">$50 For All Services</h2>
+      <h2 id="what" class="display grad reveal mt-4 text-3xl md:text-5xl">{basic} For All Services</h2>
       <p class="reveal mt-4 max-w-prose text-base leading-relaxed text-paper/80">
-        Starting at $50 for basic services. Bigger jobs take longer and are quoted once we have looked at the machine.
+        Starting at {basic} for basic services. Bigger jobs take longer and are quoted once we have looked at the machine.
       </p>
       <div class="reveal mt-8">
         <a href="/book" class="label inline-block rounded-sm bg-accent px-6 py-3 text-sm font-medium text-ink transition-colors hover:bg-paper focus-visible:outline-2 focus-visible:outline-paper active:translate-y-px">
           Book-A-Service
         </a>
       </div>
+      <p class="reveal mt-6 max-w-prose text-sm leading-relaxed text-paper/70">
+        Full rate list (diagnostics, labour, OS, recovery) is on
+        <a class="text-accent hover:underline" href="/services-and-pricing">Services &amp; Pricing</a>.
+      </p>
       <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {services.map((s) => (
           <div class="reveal rounded-sm border border-white/10 p-6 transition-colors hover:border-accent">

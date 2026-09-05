@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
+import { aud, site } from '../data/site-config';
 ---
 <Base title="Warranty & Returns | The PC Project" description="Zero-Failure Initiative warranty, QA component cover, and Australian Consumer Law for The PC Project.">
   <PageHero label="Zero-Failure.//" heading="Warranty & Returns">
@@ -19,11 +20,11 @@ import PageHero from '../components/PageHero.astro';
 
     <section>
       <h2 class="display text-2xl text-paper">Level-Up program</h2>
-      <p class="mt-4">An optional add-on: <strong class="text-paper">$100</strong> buys three years of upgrades with no service fees.</p>
+      <p class="mt-4">An optional add-on: <strong class="text-paper">{aud(site.programs.levelUp)}</strong> buys three years of upgrades with no service fees.</p>
       <ul class="mt-4 list-disc space-y-2 pl-5">
         <li>Trade in any new part that was in your build - CPU, GPU, motherboard or RAM.</li>
         <li>We value the part at market rate and put that toward the upgrade.</li>
-        <li>No service fee on the swap. A GPU swap would normally cost $50.</li>
+        <li>No service fee on the swap. A GPU swap would normally cost {aud(site.programs.gpuSwap)}.</li>
         <li>Runs for three years from purchase.</li>
       </ul>
       <p class="mt-4"><a class="text-accent hover:text-paper" href="/level-up">Full detail on the Level-Up page</a>.</p>

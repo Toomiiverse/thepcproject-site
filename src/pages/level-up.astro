@@ -1,15 +1,17 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
+import { aud, site } from '../data/site-config';
 
-// What can be traded back in. Only new parts from the original build.
 const parts = ['CPU', 'GPU', 'Motherboard', 'RAM'];
+const fee = aud(site.programs.levelUp);
+const swap = aud(site.programs.gpuSwap);
 
 const steps = [
-  { num: '01', label: 'Opt-In.//', heading: 'Add It To Your Build', body: 'A flat $100 on top of your build, taken at purchase. It runs for three years from that date.' },
+  { num: '01', label: 'Opt-In.//', heading: 'Add It To Your Build', body: `A flat ${fee} on top of your build, taken at purchase. It runs for three years from that date.` },
   { num: '02', label: 'Trade.//', heading: 'Bring The Part Back', body: 'Any new part that was in your build - CPU, GPU, motherboard or RAM. Bring it in whenever you are ready to move up.' },
   { num: '03', label: 'Value.//', heading: 'Priced At Market', body: 'We value the part at what it is actually worth on the day, and put that straight toward the upgrade.' },
-  { num: '04', label: 'Swap.//', heading: 'No Service Fee', body: 'We do the swap and test the machine, and you pay nothing for the labour. A GPU swap would normally cost $50.' },
+  { num: '04', label: 'Swap.//', heading: 'No Service Fee', body: `We do the swap and test the machine, and you pay nothing for the labour. A GPU swap would normally cost ${swap}.` },
 ];
 ---
 <Base
@@ -17,7 +19,7 @@ const steps = [
   description="Three years of upgrades with no service fees. Trade any new CPU, GPU, motherboard or RAM from your build back at market value."
 >
   <PageHero label="Trade-Up.//" heading="Level-Up Program">
-    <p>$100 once, and for three years you can trade the parts in your build back at market value and put it toward the next one - with no service fees.</p>
+    <p>{fee} once, and for three years you can trade the parts in your build back at market value and put it toward the next one - with no service fees.</p>
   </PageHero>
 
   <article class="mx-auto max-w-7xl px-4 pb-24 sm:px-6">
@@ -25,7 +27,7 @@ const steps = [
     <dl class="grid gap-6 sm:grid-cols-3">
       <div class="reveal border-l-2 border-accent pl-4">
         <dt class="label text-xs text-muted">Costs</dt>
-        <dd class="display mt-1 text-3xl">$100</dd>
+        <dd class="display mt-1 text-3xl">{fee}</dd>
       </div>
       <div class="reveal border-l-2 border-accent pl-4">
         <dt class="label text-xs text-muted">Runs For</dt>
