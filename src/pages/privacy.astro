@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/PageHero.astro';
+import { site } from '../data/site-config';
 ---
 <Base
   title="Privacy Policy | The PC Project"
@@ -10,10 +11,17 @@ import PageHero from '../components/PageHero.astro';
     <p>What we collect, why, and what we do with it. We keep it to what the job needs and nothing more. This sits under the Privacy Act 1988 and the Australian Privacy Principles.</p>
   </PageHero>
 
+  <aside class="mx-auto max-w-3xl px-4 sm:px-6">
+    <div class="rounded-sm border border-accent/40 bg-white/[0.02] p-4 sm:p-5">
+      <p class="label text-xs text-accent">Owner-Review.//</p>
+      <p class="mt-2 text-sm leading-relaxed text-paper/80">This page is published so /privacy is not a redirect. Copy is waiting on owner sign-off before it is the public policy.</p>
+    </div>
+  </aside>
+
   <article class="mx-auto max-w-3xl space-y-10 px-4 pb-24 text-sm leading-relaxed text-paper/80 sm:px-6">
     <section>
       <h2 class="display text-2xl text-paper">Who we are</h2>
-      <p class="mt-4">The PC Project, 2/62 Fitzgerald Street, Northbridge WA 6003. When we say &ldquo;we&rdquo; or &ldquo;us&rdquo; below, that is who you are dealing with.</p>
+      <p class="mt-4">{site.name}, {site.address.line}. When we say &ldquo;we&rdquo; or &ldquo;us&rdquo; below, that is who you are dealing with.</p>
     </section>
 
     <section>
@@ -38,7 +46,7 @@ import PageHero from '../components/PageHero.astro';
 
     <section>
       <h2 class="display text-2xl text-paper">This website</h2>
-      <p class="mt-4">We do not run tracking or advertising cookies here. The maps on this site are Google Maps embeds, and the Instagram and Facebook links go to those services - each handles your data under its own policy. The configurator runs on our own shop systems so we can turn a spec into a quote.</p>
+      <p class="mt-4">We do not run tracking or advertising cookies here. Cloudflare Web Analytics (cookieless, no banner) may run on this site. The maps on this site are Google Maps embeds, and the Instagram and Facebook links go to those services - each handles your data under its own policy. The configurator runs on our own shop systems so we can turn a spec into a quote.</p>
     </section>
 
     <section>
@@ -53,7 +61,7 @@ import PageHero from '../components/PageHero.astro';
 
     <section>
       <h2 class="display text-2xl text-paper">Contact</h2>
-      <p class="mt-4"><a class="text-accent hover:text-paper" href="mailto:contact@thepcproject.com.au?subject=Privacy">contact@thepcproject.com.au</a> &middot; 2/62 Fitzgerald Street, Northbridge WA 6003. If you are not satisfied with how we handle a privacy matter, you can contact the Office of the Australian Information Commissioner.</p>
+      <p class="mt-4"><a class="text-accent hover:text-paper" href={`mailto:${site.email}?subject=Privacy`}>{site.email}</a> &middot; {site.address.line}. If you are not satisfied with how we handle a privacy matter, you can contact the Office of the Australian Information Commissioner.</p>
     </section>
   </article>
 </Base>

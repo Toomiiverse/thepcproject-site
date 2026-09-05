@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import { site } from '../data/site-config';
 ---
 <Base
   title="Configurator | The PC Project"
@@ -13,7 +14,7 @@ import Base from '../layouts/Base.astro';
     src="about:blank"
   ></iframe>
   <p class="sr-only">
-    If the builder does not load, email contact@thepcproject.com.au or visit us at 2/62 Fitzgerald Street, Northbridge.
+    If the builder does not load, email {site.email} or visit us at {site.address.street}, {site.address.suburb}.
   </p>
   <script>
     import { builderFrameSrc } from '../lib/builderFrame.ts';

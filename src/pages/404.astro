@@ -1,11 +1,12 @@
 ---
 import Base from '../layouts/Base.astro';
+import { site } from '../data/site-config';
 ---
 <Base title="Not found | The PC Project" description="That page is not on The PC Project site.">
   <section class="mx-auto flex min-h-[70svh] max-w-7xl flex-col justify-center px-4 pt-16 sm:px-6">
     <p class="label text-xs text-accent">404.//</p>
     <h1 class="display mt-4 text-4xl sm:text-6xl">Page not found</h1>
-    <p class="mt-6 max-w-md text-lg text-paper/80">That URL is not on this site. The shop is still at 2/62 Fitzgerald Street, Northbridge.</p>
+    <p class="mt-6 max-w-md text-lg text-paper/80">That URL is not on this site. The shop is still at {site.address.street}, {site.address.suburb}.</p>
     <div class="mt-10 flex flex-wrap gap-4">
       <a href="/" class="label rounded-sm bg-accent px-6 py-3 text-sm font-medium text-ink hover:bg-paper">Home</a>
       <a href="/contact" class="label rounded-sm border border-white/20 px-6 py-3 text-sm text-paper hover:border-accent hover:text-accent">Contact</a>

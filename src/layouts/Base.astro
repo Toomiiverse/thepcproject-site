@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { localBusinessJsonLd, site } from '../data/site-config';
 
 interface Props {
   title: string;
@@ -8,9 +9,14 @@ interface Props {
 }
 const {
   title,
-  description = 'Custom PCs, repairs and gaming lounge in Northbridge, Perth.',
+  description = site.tagline,
   embed = false,
 } = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site ?? site.url).href;
+const ogImage = new URL(site.ogImage, Astro.site ?? site.url).href;
+const jsonLd = localBusinessJsonLd();
+const cfBeacon = (import.meta.env.PUBLIC_CF_BEACON_TOKEN as string | undefined)?.trim();
 
 const nav = [
   { href: '/custom-pc', label: 'Custom PCs' },
@@ -28,11 +34,25 @@ const nav = [
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{title}</title>
   <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  <meta property="og:site_name" content={site.name} />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="en_AU" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={ogImage} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImage} />
   <link rel="icon" href="/favicon.png" type="image/png" />
   <link rel="apple-touch-icon" href="/favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  <script is:inline defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon={JSON.stringify({ token: cfBeacon || '' })}></script>
 </head>
 <body class="text-paper">
   {!embed && (
@@ -74,17 +94,17 @@ const nav = [
   {!embed && (
     <footer class="border-t border-white/10 px-4 py-10 sm:px-6">
       <div class="mx-auto flex max-w-7xl flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
-        <p class="label text-xs text-muted">The-PC-Project.// Northbridge, Perth</p>
+        <p class="label text-xs text-muted">The-PC-Project.// {site.address.suburb}, Perth</p>
         <div class="flex flex-col gap-2 sm:items-end">
           <p class="label text-xs text-muted">
-            <a href="mailto:contact@thepcproject.com.au" class="hover:text-accent">contact@thepcproject.com.au</a>
+            <a href={`mailto:${site.email}`} class="hover:text-accent">{site.email}</a>
           </p>
           <p class="label flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted">
             <a href="/warranty-and-returns" class="hover:text-accent">Warranty</a>
             <a href="/terms-and-conditions" class="hover:text-accent">Terms</a>
             <a href="/privacy" class="hover:text-accent">Privacy</a>
-            <a href="https://www.instagram.com/thepcprojectau/" rel="noopener" class="hover:text-accent">Instagram</a>
-            <a href="https://www.facebook.com/profile.php?id=61583668420452" rel="noopener" class="hover:text-accent">Facebook</a>
+            <a href={site.socials.instagram} rel="noopener" class="hover:text-accent">Instagram</a>
+            <a href={site.socials.facebook} rel="noopener" class="hover:text-accent">Facebook</a>
           </p>
         </div>
       </div>
